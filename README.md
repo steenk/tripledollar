@@ -142,8 +142,10 @@ DOM objects are Javascript objects that can have any propery applied to it, so s
 There are normally not so many functions that you can call on a DOM object during the creation phase, so this an example where we first place a function with __set__ and then call it with __fun__.
 
 	var p = $$$('p','plato').set('f', function () { alert('f');} ).fun('f').css({color:'red'});
+	var fun1 = function (delim) {this.textContent = this.textContent.split('').join(delim);};
+	document.body.appendChild($$$('h2','trippledollar').set('dash',fun1).fun('dash', ['-']));
 
-The fun function will be a call within the chain of help functions, and that is the purpose of it.
+The fun function will be a call within the chain of help functions, and that is the purpose of it. Argument to the function are wrapped within an array.
 
 ## evt
 

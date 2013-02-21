@@ -64,15 +64,15 @@ More then one class name can be added:
 
 	var div = $$$('div.class1.class2'):
 
-And everthing together:
+And everything together:
 
 	var h1 = $$$('h1#h0001.large.blueish');
 
-This first attribute is the "identity" attribute, and it will always appear first in the $$$ function. The rest of the attributes have no order.
+This first parameter is the "identity" parameter, and it will always appear first in the $$$ function. The rest of the parameters have no order.
 
 ### Attributes
 
-Adding attributes to the DOM is done by an object attribute with parameter name and values that will end up as attributes in the DOM object. Easiest is to add this object as a litteral in the function call.
+Adding attributes to the DOM is done by an object attribute with parameter name and values that will end up as attributes in the DOM object. Easiest is to add this object as a literal in the function call.
 
 	var a = $$$('a', {href: 'http://www.google.com', target: '_blank'}, 'Google');
 
@@ -130,7 +130,7 @@ The CSS name is translated to camel case, and the dash is removed. Trippledollar
 
 ## set
 
-DOM objects are Javascript objects that can have any propery applied to it, so setting properties with arbitrary names is usefull for us. A property can be a string, an object, or a function.
+DOM objects are Javascript objects that can have any property applied to it, so setting properties with arbitrary names is useful for us. A property can be a string, an object, or a function.
 
 	var div = $$$('div')
 				.set('private', true)

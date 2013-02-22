@@ -13,6 +13,7 @@ window.$$$ = function () {
             };
             for (var i=1; i<arguments.length; i++) {
               var param = arguments[i];
+              alert(typeof param);
               if (param.nodeType) {
                 e.appendChild(param);
               } else if (typeof param === 'string') {
@@ -52,4 +53,4 @@ window.$$$ = function () {
 
 window.$$$.version = '0.1';
 
-
+if (! window.$ && window.querySelectorAll) {window.$ = function (sel) { return window.querySelectorAll(sel);}}

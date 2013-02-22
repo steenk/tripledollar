@@ -1,6 +1,7 @@
 # Trippledollar
 
-When you're gonna create a lot of DOM elements from Javascript, and you don't want to use a framework like jQuery (jQuery is a very good framework, but sometimes it's not your preferred toolbox), and you want a minimalistic approach; __trippledollar__ is it. It's not a framework, it's a small help library for creating DOM objects with Javascript, and no more. It is actually __under 1kB!__ So this tutorial is bigger than the library itself.
+When you're gonna create a lot of DOM elements from Javascript, and you don't want to use a framework like jQuery (jQuery is a very good framework, but sometimes it's not your preferred toolbox), and you want a minimalistic approach; __trippledollar__ is it. It's not a framework, it's a small help library for creating
+DOM elements with Javascript, and no more. It is actually __under 1kB!__ So this tutorial is bigger than the library itself.
 
 What you want to do is something like this (just a silly example):
 
@@ -44,9 +45,10 @@ Trippledollar adds a few three letters help functions to the DOM object, making 
 * fun - for calling a function within the DOM object
 * evt - for adding an event listener
 
-Together with the $$$ function, there is everything for creating DOM objects from Javascript.
+Together with the $$$ function, there is everything for creating
+DOM elements from Javascript.
 
-## Create a DOM object
+## Create a DOM element
 
 A simple div element is created like this:
 
@@ -72,7 +74,7 @@ This first parameter is the "identity" parameter, and it will always appear firs
 
 ### Attributes
 
-Adding attributes to the DOM is done by an object attribute with parameter name and values that will end up as attributes in the DOM object. Easiest is to add this object as a literal in the function call.
+Adding attributes to the DOM is done by an object parameter with property names and values that will end up as attributes in the DOM object. Easiest is to add this object as a literal in the function call.
 
 	var a = $$$('a', {href: 'http://www.google.com', target: '_blank'}, 'Google');
 
@@ -87,6 +89,8 @@ And it will result in this:
 
 	<a href="http://www.google.com" target="_blank">Google</a>
 
+To sum up, arguments to the $$$ function (except the first one) are either DOM elements themselves, or objects with properties, or plain values that will end up as text inside the DOM element.
+
 ### Text
 
 Adding text inside a DOM object is easy:
@@ -97,7 +101,8 @@ Since there are no direct limit on the number of parameters in the $$$ function,
 
 	var p = $$$('p', This is a text. ', 'This is another one.');
 
-### Nested DOM objects
+### Nested
+DOM elements
 
 If a parameter to the $$$ function is a DOM object, it will be appended to the DOM object that $$$ creates. By this, it's easy to create the structure that you want, but be sure to indent right, so you don't get lost.
 
@@ -130,7 +135,7 @@ The CSS name is translated to camel case, and the dash is removed. Trippledollar
 
 ## set
 
-DOM objects are Javascript objects that can have any property applied to it, so setting properties with arbitrary names is useful for us. A property can be a string, an object, or a function.
+DOM elements are Javascript objects that can have any property applied to it, so setting properties with arbitrary names is useful for us. A property can be a string, an object, or a function.
 
 	var div = $$$('div')
 				.set('private', true)
@@ -155,9 +160,74 @@ An event listener can be applied to the DOM object. The name of the event, and a
 	var butt = $$$('button', 'Version').evt('click', func);
 	document.body.appendChild(butt);
 
+## ins
 
+Sometimes you need to insert more things into an element that you created earlier. That can be done with the __ins__ function.
 
+	var div = $$$('div#d002');
+	div.ins($$$('label', 'Date:'));
+	div.ins($$$('span', Date().toString()));
 
+# But what is it good for?
+
+The philosophy behind __trippledollar__ is __DON'T WRITE HTML!__ By doing everything programmatically, you can avoid the tag mess, and create modularized, and reusable code instead. By using __trippledollar__ this can be done very compact. To convince you, here is a simple example. Consider a HTML page with a table in it. Like this:
+
+	<!doctype html>
+	<html lang="en">
+		<head>
+			<title>Example 1</title>
+			<meta charset="utf8" />
+		</head>
+		<body>
+			<table>
+				<tbody>
+					<tr>
+						<td>Apples</td>
+						<td>1.90</td>
+						<td>green</td>
+					</tr>
+					<tr>
+						<td>Oranges</td>
+						<td>2.95</td>
+						<td>sweet</td>
+					</tr>
+				</tbody>
+			</table>
+		</body>
+	</html>
+
+Compare it with this code, that does the same:
+
+	<!doctype html>
+	<html lang="en">
+		<head>
+			<title>Example 2</title>
+			<meta charset="utf8" />
+			<script src="trippledollar.min.js"></script>
+		</head>
+		<body>
+			<script>
+				var fruitData = [
+					['Apples', '1.90', 'green'],
+					['Oranges', 2.95, 'sweet']
+				];
+				function table (data) {
+					var tbody = $$$('tbody');
+					data.forEach(function (row) {
+						var tr = $$$('tr');
+						tbody.ins(tr);
+						row.forEach(function(val){
+							tr.ins($$$('td', val));
+						})
+					});
+					return $$$('table', tbody);
+				};
+				document.body.appendChild(table(fruitData));
+			</script>
+		</body>
+	</html>
+
+The second example may look a little more complicated, but it has several advantage over the first one. In the example made by pure HTML, data and layout is mixed together. It is also fixed in it's form. The second example is different. First it has the data separate, in the variable fruitData. Then the table is created with a table function that can handle every size, not just the two rows with three columns for this example. Finally the table will be added dynamically, by code, on the page. In this example everything is placed together on the same HTML page, but it is now possible to get the data from a web service instead, and to move the table function into a Javascript library with other reusable pieces of code, and it is also possible to wait for some kind of event before the table is actually placed on the page. In a more complex project, it will become clear that HTML is not the the best tool for the developer.
 
 
 

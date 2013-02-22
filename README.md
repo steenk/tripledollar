@@ -1,5 +1,7 @@
 # Trippledollar
 
+![](logo.png)
+
 When you're gonna create a lot of DOM elements from Javascript, and you don't want to use a framework like jQuery (jQuery is a very good framework, but sometimes it's not your preferred toolbox), and you want a minimalistic approach; __trippledollar__ is it. It's not a framework, it's a small help library for creating
 DOM elements with Javascript, and no more. It is actually __under 1kB!__ So this tutorial is bigger than the library itself.
 

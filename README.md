@@ -2,7 +2,7 @@
 
 ![](logo.png)
 
-When you're gonna create a lot of DOM elements from Javascript, and you want a minimalistic approach; __trippledollar__ is it. It's not a framework, it's a small help library for creating
+When you're going to create a lot of DOM elements from Javascript, and you want a minimalistic approach; __trippledollar__ is it. It's not a framework, it's a small help library for creating
 DOM elements with Javascript, and no more. It is actually __under 1kB!__ So this tutorial is bigger than the library itself.
 
 What you want to do is something like this (just a silly example):
@@ -40,7 +40,7 @@ With __trippledollar__ you can do the same thing more compact:
 
 ## Just a few help functions
 
-Trippledollar adds a few three letters help functions to the DOM object, making it easy to apply most things that you want to do to your DOM object. The functions can be chained together. These are:
+Trippledollar adds a few three letters help functions to the DOM element, making it easy to apply most things that you want to do to your DOM element. The functions can be chained together. These are:
 
 * css - for adding css
 * set - for setting parameters
@@ -77,7 +77,7 @@ This first parameter is the "identity" parameter, and it will always appear firs
 
 ### Attributes
 
-Adding attributes to the DOM is done by an object parameter with property names and values that will end up as attributes in the DOM object. Easiest is to add this object as a literal in the function call.
+Adding attributes to the DOM is done by an object parameter with property names and values that will end up as attributes in the DOM element. Easiest is to add this object as a literal in the function call.
 
 	var a = $$$('a', {href: 'http://www.google.com', target: '_blank'}, 'Google');
 
@@ -96,7 +96,7 @@ To sum up, arguments to the $$$ function (except the first one) are either DOM e
 
 ### Text
 
-Adding text inside a DOM object is easy:
+Adding text inside a DOM element is easy:
 
 	var p = $$$('p', 'This is the text.');
 
@@ -104,10 +104,9 @@ Since there are no direct limit on the number of parameters in the $$$ function,
 
 	var p = $$$('p', This is a text. ', 'This is another one.');
 
-### Nested
-DOM elements
+### Nested DOM elements
 
-If a parameter to the $$$ function is a DOM object, it will be appended to the DOM object that $$$ creates. By this, it's easy to create the structure that you want, but be sure to indent right, so you don't get lost.
+If a parameter to the $$$ function is a DOM element, it will be appended to the DOM element that $$$ creates. By this, it's easy to create the structure that you want, but be sure to indent right, so you don't get lost.
 
 	var tab = $$$('table',
 				$$$('tr',
@@ -124,11 +123,11 @@ If a parameter to the $$$ function is a DOM object, it will be appended to the D
 
 ## Using the help functions
 
-The help functions are used to apply more advanced features to the DOM object, in the same statement where you create it. This is done by making the functions chain to each other.
+The help functions are used to apply more advanced features to the DOM element, in the same statement where you create it. This is done by making the functions chain to each other.
 
 ## css
 
-CSS can be applied directly to the DOM object with Javascript. This is not always the preferred way, it's often better to put CSS in an CSS file, but sometimes it make sense to use one of the many features in CSS directly in Javascript. CSS code has its own syntax, and it's when used in Javascript some terms have to be translated into Javascript names. One thing you can't do is having property names like 'background-color', because the dash is not allowed in property names. So in Javascript the 'background-color' is used like this:
+CSS can be applied directly to the DOM element with Javascript. This is not always the preferred way, it's often better to put CSS in an CSS file, but sometimes it make sense to use one of the many features in CSS directly in Javascript. CSS code has its own syntax, and it's when used in Javascript some terms have to be translated into Javascript names. One thing you can't do is having property names like 'background-color', because the dash is not allowed in property names. So in Javascript the 'background-color' is used like this:
 
 	elem.style.backgroundColor = 'yellow';
 
@@ -206,7 +205,7 @@ Compare it with this code, that does the same:
 		<head>
 			<title>Example 2</title>
 			<meta charset="utf8" />
-			<script src="trippledollar.min.js"></script>
+			<script src="trippledollar.js"></script>
 		</head>
 		<body>
 			<script>

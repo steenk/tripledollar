@@ -23,13 +23,13 @@
  * The tripple dollar function creates a DOM object.
  */
   window.$$$ = function () {
-    var args = Array.prototype.slice.call(arguments);
-    var ident = args.shift();
-    var id = ident.split('#')[1];
-    var cl = (ident.split('#')[0]).split('.');
-    var type = cl.shift();
-    var clazz = cl.join(' ').trim();
-    var e = document.createElement(type);
+    var args = Array.prototype.slice.call(arguments)
+      , ident = args.shift()
+      , id = ident.split('#')[1]
+      , cl = (ident.split('#')[0]).split('.')
+      , type = cl.shift()
+      , clazz = cl.join(' ').trim()
+      , e = document.createElement(type);
     if (clazz) {
       e.className = clazz;
     };
@@ -74,7 +74,14 @@
       this[func].apply(this, args);
       return this;
     };
+    /*
+     * Add event listener
+     */
     e.evt = function (ev, func) {
+      if (arguments.length > 2) {
+        var args = Array.prototype.slice.call(arguments).slice(2);
+        this.addEventListener(ev, function () {func.apply(this,args)});
+      };
       this.addEventListener(ev, func);
       return this;
     };

@@ -1,3 +1,6 @@
+Title: Trippledollar
+Author: Steen Klingberg
+
 # Trippledollar
 
 ![](logo.png)
@@ -92,8 +95,6 @@ And it will result in this:
 
 	<a href="http://www.google.com" target="_blank">Google</a>
 
-To sum up, arguments to the $$$ function (except the first one) are either DOM elements themselves, or objects with properties, or plain values that will end up as text inside the DOM element.
-
 ### Text
 
 Adding text inside a DOM element is easy:
@@ -103,6 +104,8 @@ Adding text inside a DOM element is easy:
 Since there are no direct limit on the number of parameters in the $$$ function, it's possible to do this:
 
 	var p = $$$('p', This is a text. ', 'This is another one.');
+
+To sum up, arguments to the $$$ function (except the first one) are either DOM elements themselves, or objects with properties, or plain values that will end up as text inside the DOM element.
 
 ### Nested DOM elements
 

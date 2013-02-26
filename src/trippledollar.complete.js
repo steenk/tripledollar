@@ -91,6 +91,6 @@
   /*
    * In case a $ function is not initialized.
    */
-  if (! window.$ && window.querySelectorAll) {window.$ = function (sel) { return window.querySelectorAll(sel);}};
+  if (! window.$ && document.querySelectorAll) {window.$ = function (sel) { return document.querySelectorAll(sel);}};
 
 })();  

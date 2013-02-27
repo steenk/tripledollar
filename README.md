@@ -35,7 +35,7 @@ but you want to create it with Javascript, and with plain Javascript it can be l
 
 With __trippledollar__ you can do the same thing more compact:
 
-	var div = $$$('div#d001.simple',
+	var div = $$$('div.simple#d001',
 			$$$('strong', 'Trippledollar'),
 			$$$('button', {name: 'but001'}, 'OK').evt('click', function () {alert('hello')})
 		).css({display:'inline',backgroundColor:'blue'});

@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.2';
+  var VERSION = '0.3';
 /*
  * The tripple dollar function creates a DOM object.
  */
@@ -40,7 +40,7 @@
     function allArgs (args) {
       for (var i=0; i<args.length; i++) {
         var param = args[i];
-        if (param.nodeType) {
+        if (param && param.nodeType) {
           e.appendChild(param);
         } else if (typeof param === 'object') {
           for (var a in param) {

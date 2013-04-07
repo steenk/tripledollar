@@ -1,6 +1,3 @@
-Title: Trippledollar
-Author: Steen Klingberg
-
 # Trippledollar
 
 ![](logo.png)

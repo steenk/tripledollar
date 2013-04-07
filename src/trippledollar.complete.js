@@ -18,13 +18,20 @@
  *
  */
 (function () {
-  var VERSION = '0.3';
+  var VERSION = '0.4';
 /*
  * The tripple dollar function creates a DOM object.
  */
   window.$$$ = function () {
-    var args = Array.prototype.slice.call(arguments)
-      , ident = args.shift()
+    var args = Array.prototype.slice.call(arguments);
+    if (typeof args[0] !== 'string') {
+      if (Array.isArray(args[0])) {
+        return window.$$$.apply(this, args[0]);
+      } else {
+        return null;
+      }
+    }
+    var ident = args.shift()
       , id = ident.split('#')[1]
       , cl = (ident.split('#')[0]).split('.')
       , type = cl.shift()
@@ -43,12 +50,16 @@
         if (param && param.nodeType) {
           e.appendChild(param);
         } else if (typeof param === 'object') {
-          for (var a in param) {
-            if (a.match(/^data/)) {
-              var atr = a.substr(4).toLowerCase();
-              e.setAttribute('data-' + atr, param[a]);
-            } else {
-              e.setAttribute(a, param[a]);
+          if (Array.isArray(param)) {
+            e.appendChild(window.$$$.apply(this, param));
+          } else {
+            for (var a in param) {
+              if (a.match(/^data/)) {
+                var atr = a.substr(4).toLowerCase();
+                e.setAttribute('data-' + atr, param[a]);
+              } else {
+                e.setAttribute(a, param[a]);
+              }
             }
           }
         } else {

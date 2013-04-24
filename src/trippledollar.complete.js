@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.4';
+  var VERSION = '0.5';
 /*
  * The tripple dollar function creates a DOM object.
  */
@@ -54,7 +54,7 @@
             e.appendChild(window.$$$.apply(this, param));
           } else {
             for (var a in param) {
-              if (a.match(/^data/)) {
+              if (a.match(/^data./)) {
                 var atr = a.substr(4).toLowerCase();
                 e.setAttribute('data-' + atr, param[a]);
               } else {
@@ -105,6 +105,51 @@
   };
 
   window.$$$.version = VERSION;
+
+  /*
+   * Structify an element node
+   */
+  window.$$$.structify = function (elem) {
+    if (elem.nodeType === 1) {
+      function dig (c) {
+        var l = [];
+        var name = c.localName;
+        var cname = c.className.replace(' ', '.');
+        if (cname) {
+          name += '.'+cname;
+        };
+        if (c.id) {
+          name += '#'+c.id;
+        };
+        l.push(name);
+        if (c.hasAttributes()) {
+          var attrs = c.attributes;
+          var attr = {};
+          for (var i=0; i<attrs.length; i++) {
+            if (!attrs[i].name.match(/id|class|contenteditable/)) {
+              attr[attrs[i].name] = attrs[i].value;
+              l.push(attr);
+            }
+          }
+        }
+        c.normalize();
+        var ch = c.childNodes;
+        for (var i=0; i<ch.length; i++) {
+          if(ch[i].nodeType === 3) {
+            var s = ch[i].data.replace(/\s\s*/,' ');
+            if (s.length > 0) {
+              l.push(s);
+            }
+          } else if (ch[i].nodeType === 1) {
+            l.push(dig(ch[i]));
+          }
+        }
+        return l;
+      }
+    }
+    var td = dig(elem);
+    return td;
+  }
 
   /*
    * In case a $ function is not initialized.

@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.51';
+  var VERSION = '0.52';
 /*
  * The tripple dollar function creates a DOM object.
  */
@@ -91,7 +91,7 @@
     e.evt = function (ev, func) {
       if (arguments.length > 2) {
         var args = Array.prototype.slice.call(arguments, 2);
-        this.addEventListener(ev, function (e) {var a = [e, args]; func.apply(this, a)});
+        this.addEventListener(ev, function (e) {var a = [e].concat(args); func.apply(this, a)});
       } else {
         this.addEventListener(ev, func);
       }

@@ -277,6 +277,24 @@ A tdstruct can be generated backwards, from an element on a web page. This is do
 
 	alert(JSON.stringify(tdstruct));
 
+# Finally
+
+It was quite a bit of information for this rather small library. Here is a piece of code that you can use as a starting point, and try this for your self. Just copy it and save it as a HTML file.
+
+
+	<!doctype html>
+	<html lang="en">
+  		<head>
+    		<title>trippledollar</title>
+    		<meta charset="utf-8" />
+    		<script src="http://raw.github.com/steenk/trippledollar/master/trippledollar.js"></script>
+  		</head>
+  		<body>
+    		<script>
+      			trippledollar(['div', {style:'color:pink;font-size:100pt'}, "Don't write HTML!"]);
+    		</script>
+  		</body>
+	</html>
 
 
 

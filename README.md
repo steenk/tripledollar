@@ -230,6 +230,22 @@ Compare it with this code, that does the same:
 
 The second example may look a little more complicated, but it has several advantage over the first one. In the example made by pure HTML, data and layout is mixed together. It is also fixed in it's form. The second example is different. First it has the data separate, in the variable fruitData. Then the table is created with a table function that can handle every size, not just the two rows with three columns for this example. Finally the table will be added dynamically, by code, on the page. In this example everything is placed together on the same HTML page, but it is now possible to get the data from a web service instead, and to move the table function into a Javascript library with other reusable pieces of code, and it is also possible to wait for some kind of event before the table is actually placed on the page. In a more complex project, it will become clear that HTML is not the the best tool for the developer.
 
+# Selector
+
+One thing that is nice to have when programming for the web, is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving build-in CSS searching. So as a little extra feature, trippledollar sets $() as an alias for `document.querySelectorAll()`, after a check that it is not already taken by another library. That makes the $() to work almost like in jQuery for selections (just selections, not the extra stuff you get with jQuery). Compared to prototype.js it is simular to its $$() function.
+
+	var body = $('body')[0];
+	body.appendChild($$$('div.a-class-name'));
+	// get it back
+	var div = $('.a-class-name')[0];
+
+The $() always gives back an array, so you have to take out the first item with [0], or loop through the array. A CSS selection can also be done from an element, `element.querySelectorAll`, instead of the whole document, searching just a portion of the page, so the $() can be used in this way also.
+
+	var div = $$$('div', $$$('div#d1'), $$$('div#d2'));
+	var d1 = div.$('#d1')[0];
+	var d2 = div.$('#d2')[0];
+
+
 
 
 

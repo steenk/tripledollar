@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.52';
+  var VERSION = '0.53';
 /*
  * The tripple dollar function creates a DOM object.
  */
@@ -101,6 +101,7 @@
       var args = Array.prototype.slice.call(arguments);
       allArgs(args);
     };
+    e.$ = e.querySelectorAll;
     e.prototype = e;
     return e;
   };

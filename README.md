@@ -148,7 +148,6 @@ DOM elements are Javascript objects that can have any property applied to it, so
 
 There are normally not so many functions that you can call on a DOM object during the creation phase, so this an example where we first place a function with __set__ and then call it with __fun__.
 
-	var p = $$$('p','plato').set('f', function () { alert('f');} ).fun('f').css({color:'red'});
 	var fun1 = function (delim) {this.textContent = this.textContent.split('').join(delim);};
 	document.body.appendChild($$$('h2','trippledollar').set('dash',fun1).fun('dash', ['-']));
 

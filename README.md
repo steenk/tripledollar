@@ -253,6 +253,29 @@ The $() always gives back an array, so you have to take out the first item with 
 	var d1 = div.$('#d1')[0];
 	var d2 = div.$('#d2')[0];
 
+# The tdstruct
+
+A tdstruct is a plain javascript structure, consisting of nested arrays in a way that follows the structure that can be created with trippledollar. Since it is just javascript, it can be transformed to JSON, and be stored in CouchDB or MongoDB, and easily be fed to the $$$(), for generating the DOM structure. There are some rules for a tdstruct. First it is always an array. The elements in the array can be other arrays, strings, numbers, booleans, and of course the two special trippledollar types, the tag describing string, and the attribute object. A tag describing string has to always be placed first in an array.
+
+	var tdstruct = ['table#t1', {border: 1},
+		['tbody',
+			['tr', ['td', 'one'], ['td', 'two'], ['td', 'three']]]];
+
+A tdstuct is not a DOM element, it is just the array it seems to be. To use it it has to be fed to the $$$() function.
+
+	var table = $$$(tdstruct);
+	document.body.appendChild(table);
+
+A tdstruct can be generated backwards, from an element on a web page. This is done with the $$$.structify() function.
+
+	var dom = $$$(['div#div1', ['h1'], ['p', 'It was a ', ['b', 'cloudy'], ' day.']]);
+	document.body.appendChild(dom);
+
+	// get the DOM element by id, and structify it
+	var div1 = $('#div1')[0];
+	var tdstruct = $$$.structify(div1);
+
+	alert(JSON.stringify(tdstruct));
 
 
 

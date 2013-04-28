@@ -161,6 +161,14 @@ An event listener can be applied to the DOM object. The name of the event, and a
 	var butt = $$$('button', 'Version').evt('click', func);
 	document.body.appendChild(butt);
 
+The function that recieves the event, always gets the event object as an argument. That can be used to find out which element the event came from. Sometimes you want to send more arguments with the event, and you can do that with the __evt__ function.
+
+	var func = function (evt, msg) {
+		alert('Got this messages from a ' + evt.target.tagName + ': ' + msg);
+	}
+	var butt = $$$('button', 'Click here').evt('click', func, 'You clicked at me!');
+	document.body.appendChild(butt);
+
 ## ins
 
 Sometimes you need to insert more things into an element that you created earlier. That can be done with the __ins__ function.

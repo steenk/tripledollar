@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.53';
+  var VERSION = '0.54';
 /*
  * The tripple dollar function creates a DOM object.
  */
@@ -97,10 +97,16 @@
       }
       return this;
     };
+    /*
+     * Insert more things to this element
+     */
     e.ins = function () {
       var args = Array.prototype.slice.call(arguments);
       allArgs(args);
     };
+    /*
+     * Add an alias for a CSS selector
+     */
     e.$ = e.querySelectorAll;
     e.prototype = e;
     return e;
@@ -151,6 +157,13 @@
     }
     var td = dig(elem);
     return td;
+  }
+
+  /* 
+   * A shortcut for placing the content on the web page.
+   */
+  window.trippledollar = function (a) {
+    document.body.appendChild($$$(a));
   }
 
   /*

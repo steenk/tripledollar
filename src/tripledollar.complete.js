@@ -20,7 +20,7 @@
 (function () {
   var VERSION = '0.55';
 /*
- * The tripple dollar function creates a DOM object.
+ * The triple dollar function creates a DOM object.
  */
   window.$$$ = function () {
     var args = Array.prototype.slice.call(arguments);

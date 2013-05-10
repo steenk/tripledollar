@@ -162,7 +162,7 @@
   /* 
    * A shortcut for placing the content on the web page.
    */
-  window.trippledollar = function (a) {
+  window.tripledollar = function (a) {
     document.body.appendChild($$$(a));
   }
 

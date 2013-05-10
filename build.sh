@@ -1,1 +1,1 @@
-uglifyjs src/trippledollar.complete.js -m -c -o trippledollar.js
+uglifyjs src/tripledollar.complete.js -m -c -o tripledollar.js

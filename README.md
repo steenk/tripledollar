@@ -1,14 +1,14 @@
-# Trippledollar
+# Tripledollar
 
 ![](logo.png)
 
-When you're going to create a lot of DOM elements from Javascript, and you want a minimalistic approach; __trippledollar__ is it. It's not a framework, it's a small help library for creating
+When you're going to create a lot of DOM elements from Javascript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating
 DOM elements with Javascript, and no more. It is actually __less then 2kB!__ So this tutorial is bigger than the library itself.
 
 What you want to do is something like this (just a silly example):
 
 	<div id="d001" class="simple" style="display:inline; background-color:blue;">
-		<strong class="bold">Trippledollar</strong>
+		<strong class="bold">Tripledollar</strong>
 		<button name="but001" onclick="alert('hello')">OK</button>
 	</div>
 
@@ -21,7 +21,7 @@ but you want to create it with Javascript, and with plain Javascript it can be l
 	div.style.backgroundColor = 'blue';
 	var strong = document.createElement('strong');
 	strong.className = 'bold';
-	strong.appendChild(document.createTextNode('Trippledollar'));
+	strong.appendChild(document.createTextNode('Tripledollar'));
 	div.appendChild(strong);
 	var button = document.createElement('button');
 	button.addEventListener('click', function () {alert('hello')});
@@ -30,17 +30,17 @@ but you want to create it with Javascript, and with plain Javascript it can be l
 	div.appendChild(button);
 	document.body.appendChild(div);
 
-With __trippledollar__ you can do the same thing more compact:
+With __tripledollar__ you can do the same thing more compact:
 
 	var div = $$$('div.simple#d001',
-			$$$('strong', 'Trippledollar'),
+			$$$('strong', 'Tripledollar'),
 			$$$('button', {name: 'but001'}, 'OK').evt('click', function () {alert('hello')})
 		).css({display:'inline',backgroundColor:'blue'});
 	document.body.appendChild(div);
 
 ## Just a few help functions
 
-Trippledollar adds a few three letters help functions to the DOM element, making it easy to apply most things that you want to do to your DOM element. The functions can be chained together. These are:
+Tripledollar adds a few three letters help functions to the DOM element, making it easy to apply most things that you want to do to your DOM element. The functions can be chained together. These are:
 
 * css - for adding css
 * set - for setting parameters
@@ -131,7 +131,7 @@ CSS can be applied directly to the DOM element with Javascript. This is not alwa
 
 	elem.style.backgroundColor = 'yellow';
 
-The CSS name is translated to camel case, and the dash is removed. Trippledollar is using this camel case names for CSS.
+The CSS name is translated to camel case, and the dash is removed. Tripledollar is using this camel case names for CSS.
 
 	var div = $$$('div').css({backgroundColor: 'red', fontSize: '16pt', border: 'solid black 2pt'});
 
@@ -149,7 +149,7 @@ DOM elements are Javascript objects that can have any property applied to it, so
 There are normally not so many functions that you can call on a DOM object during the creation phase, so this an example where we first place a function with __set__ and then call it with __fun__.
 
 	var fun1 = function (delim) {this.textContent = this.textContent.split('').join(delim);};
-	document.body.appendChild($$$('h2','trippledollar').set('dash',fun1).fun('dash', ['-']));
+	document.body.appendChild($$$('h2','tripledollar').set('dash',fun1).fun('dash', ['-']));
 
 The fun function will be a call within the chain of help functions, and that is the purpose of it. Argument to the function are wrapped within an array.
 
@@ -157,7 +157,7 @@ The fun function will be a call within the chain of help functions, and that is 
 
 An event listener can be applied to the DOM object. The name of the event, and a function to handle the event should be the parameters.
 
-	var func = function () { alert('Trippledollar, version ' + $$$.version);};
+	var func = function () { alert('Tripledollar, version ' + $$$.version);};
 	var butt = $$$('button', 'Version').evt('click', func);
 	document.body.appendChild(butt);
 
@@ -179,7 +179,7 @@ Sometimes you need to insert more things into an element that you created earlie
 
 # But what is it good for?
 
-The philosophy behind __trippledollar__ is __DON'T WRITE HTML!__ By doing everything programmatically, you can avoid the tag mess, and create modularized, and reusable code instead. By using __trippledollar__ this can be done very compact. To convince you, here is a simple example. Consider a HTML page with a table in it. Like this:
+The philosophy behind __tripledollar__ is __DON'T WRITE HTML!__ By doing everything programmatically, you can avoid the tag mess, and create modularized, and reusable code instead. By using __tripledollar__ this can be done very compact. To convince you, here is a simple example. Consider a HTML page with a table in it. Like this:
 
 	<!doctype html>
 	<html lang="en">
@@ -212,7 +212,7 @@ Compare it with this code, that does the same:
 		<head>
 			<title>Example 2</title>
 			<meta charset="utf8" />
-			<script src="trippledollar.js"></script>
+			<script src="tripledollar.js"></script>
 		</head>
 		<body>
 			<script>
@@ -240,7 +240,7 @@ The second example may look a little more complicated, but it has several advant
 
 # Selector
 
-One thing that is nice to have when programming for the web, is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving build-in CSS searching. So as a little extra feature, trippledollar sets $() as an alias for `document.querySelectorAll()`, after a check that it is not already taken by another library. That makes the $() to work almost like in jQuery for selections (just selections, not the extra stuff you get with jQuery). Compared to prototype.js it is simular to its $$() function.
+One thing that is nice to have when programming for the web, is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving build-in CSS searching. So as a little extra feature, tripledollar sets $() as an alias for `document.querySelectorAll()`, after a check that it is not already taken by another library. That makes the $() to work almost like in jQuery for selections (just selections, not the extra stuff you get with jQuery). Compared to prototype.js it is simular to its $$() function.
 
 	var body = $('body')[0];
 	body.appendChild($$$('div.a-class-name'));
@@ -255,7 +255,7 @@ The $() always gives back an array, so you have to take out the first item with 
 
 # The tdstruct
 
-A tdstruct is a plain javascript structure, consisting of nested arrays in a way that follows the structure that can be created with trippledollar. Since it is just javascript, it can be transformed to JSON, and be stored in CouchDB or MongoDB, and easily be fed to the $$$(), for generating the DOM structure. There are some rules for a tdstruct. First it is always an array. The elements in the array can be other arrays, strings, numbers, booleans, and of course the two special trippledollar types, the tag describing string, and the attribute object. A tag describing string has to always be placed first in an array.
+A tdstruct is a plain javascript structure, consisting of nested arrays in a way that follows the structure that can be created with tripledollar. Since it is just javascript, it can be transformed to JSON, and be stored in CouchDB or MongoDB, and easily be fed to the $$$(), for generating the DOM structure. There are some rules for a tdstruct. First it is always an array. The elements in the array can be other arrays, strings, numbers, booleans, and of course the two special tripledollar types, the tag describing string, and the attribute object. A tag describing string has to always be placed first in an array.
 
 	var tdstruct = ['table#t1', {border: 1},
 		['tbody',
@@ -285,13 +285,13 @@ It was quite a bit of information for this rather small library. Here is a piece
 	<!doctype html>
 	<html lang="en">
   		<head>
-    		<title>trippledollar</title>
+    		<title>tripledollar</title>
     		<meta charset="utf-8" />
-    		<script src="http://raw.github.com/steenk/trippledollar/master/trippledollar.js"></script>
+    		<script src="http://raw.github.com/steenk/tripledollar/master/tripledollar.js"></script>
   		</head>
   		<body>
     		<script>
-      			trippledollar(['div', {style:'color:pink;font-size:100pt'}, "Don't write HTML!"]);
+      			tripledollar(['div', {style:'color:pink;font-size:100pt'}, "Don't write HTML!"]);
     		</script>
   		</body>
 	</html>

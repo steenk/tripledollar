@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.55';
+  var VERSION = '0.56';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -162,8 +162,15 @@
   /* 
    * A shortcut for placing the content on the web page.
    */
-  window.tripledollar = function (a) {
-    document.body.appendChild($$$(a));
+  window.tripledollar = function () {
+    var args = Array.prototype.slice.call(arguments);
+    for (var i=0; i<args.length; i++) {
+      if (Array.isArray(args[i])) {
+        document.body.appendChild($$$(args[i]));
+      } else if (args[i] instanceof HTMLElement) {
+        document.body.appendChild(args[i]);
+      }
+    }
   }
 
   /*

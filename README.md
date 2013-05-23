@@ -277,6 +277,16 @@ A tdstruct can be generated backwards, from an element on a web page. This is do
 
 	alert(JSON.stringify(tdstruct));
 
+# The wrapper tripledollar()
+
+To place the elements on a page, there is a more convenient way, than use "document.body.appendChild()". There is a wrapper function called "tripledollar()" that can take many arguments, of both tdstruct and element, and place them on the page.
+
+	tripledollar(
+		$$$('h1', '$$$'),
+		['p', 'Using ', ['strong', 'tripledollar'], ' is a habit I can\'t get rid of.'],
+		document.createElement('hr')
+	)
+
 # Finally
 
 It was quite a bit of information for this rather small library. Here is a piece of code that you can use as a starting point, and try this for your self. Just copy it and save it as a HTML file.

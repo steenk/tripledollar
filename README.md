@@ -297,7 +297,7 @@ It was quite a bit of information for this rather small library. Here is a piece
   		<head>
     		<title>tripledollar</title>
     		<meta charset="utf-8" />
-    		<script src="http://raw.github.com/steenk/tripledollar/master/tripledollar.js"></script>
+    		<script src="http://steenk.github.io/tripledollar.js"></script>
   		</head>
   		<body>
     		<script>

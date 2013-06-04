@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.56';
+  var VERSION = '0.57';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -77,10 +77,16 @@
       };
       return this;
     };
+    /*
+     * Set a property.
+     */
     e.set = function (key, val) {
       this[key] = val;
       return this;
     };
+    /*
+     * Run a function.
+     */
     e.fun = function (func, args) {
       this[func].apply(this, args);
       return this;
@@ -120,9 +126,9 @@
   window.$$$.structify = function (elem) {
     if (elem.nodeType === 1) {
       function dig (c) {
-        var l = [];
-        var name = c.localName;
-        var cname = c.className.replace(' ', '.');
+        var l = []
+         ,  name = c.localName
+         ,  cname = c.className.replace(' ', '.');
         if (cname) {
           name += '.'+cname;
         };
@@ -131,14 +137,14 @@
         };
         l.push(name);
         if (c.hasAttributes()) {
-          var attrs = c.attributes;
-          var attr = {};
+          var attrs = c.attributes
+           ,  attr = {};
           for (var i=0; i<attrs.length; i++) {
             if (!attrs[i].name.match(/id|class|contenteditable/)) {
-              attr[attrs[i].name] = attrs[i].value;
-              l.push(attr);
+              attr[attrs[i].name] = attrs[i].value;              
             }
           }
+          l.push(attr);
         }
         c.normalize();
         var ch = c.childNodes;

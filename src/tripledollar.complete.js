@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.57';
+  var VERSION = '0.58';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -144,7 +144,9 @@
               attr[attrs[i].name] = attrs[i].value;              
             }
           }
-          l.push(attr);
+          if (Object.keys(attr).length > 0) {
+            l.push(attr);
+          }
         }
         c.normalize();
         var ch = c.childNodes;

@@ -289,7 +289,7 @@ To place the elements on a page, there is a more convenient way, than use "docum
 
 # Using $$$ as a module
 
-Building your code in a modular structure is most desirable, and Tripledollar is prepared to be uses as a module with the Require.js library.
+Building your code in a modular structure is most desirable, and Tripledollar is prepared to be used as a module with the Require.js library.
 
 	require(['http://steenk.github.io/tripledollar.js'], function ($$$) {
 		return $$$('div.my-module',

@@ -149,9 +149,9 @@ DOM elements are Javascript objects that can have any property applied to it, so
 There are normally not so many functions that you can call on a DOM object during the creation phase, so this an example where we first place a function with __set__ and then call it with __fun__.
 
 	var fun1 = function (delim) {this.textContent = this.textContent.split('').join(delim);};
-	document.body.appendChild($$$('h2','tripledollar').set('dash',fun1).fun('dash', ['-']));
+	document.body.appendChild($$$('h2','tripledollar').set('dash',fun1).fun('dash', '-'));
 
-The fun function will be a call within the chain of help functions, and that is the purpose of it. Argument to the function are wrapped within an array.
+The fun function will be a call within the chain of help functions, and that is the purpose of it. Arguments to the function can be added after the name of the function (from version 0.6.0).
 
 ## evt
 
@@ -286,6 +286,20 @@ To place the elements on a page, there is a more convenient way, than use "docum
 		['p', 'Using ', ['strong', 'tripledollar'], ' is a habit I can\'t get rid of.'],
 		document.createElement('hr')
 	)
+
+# Using $$$ as a module
+
+Building your code in a modular structure is most desirable, and Tripledollar is prepared to be uses as a module with the Require.js library.
+
+	require(['http://steenk.github.io/tripledollar.js'], function ($$$) {
+		return $$$('div.my-module',
+			['p', 'This is my module.']
+		)
+	})
+
+In this context there is no use for the "tripledollar()" wrapper described previously, but the same can be done with a build-in function appendToDoc.
+
+	$$$.appendToDoc(['h1', 'Tripledollar']);
 
 # Finally
 

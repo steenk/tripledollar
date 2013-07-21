@@ -18,15 +18,15 @@
  *
  */
 (function () {
-  var VERSION = '0.58';
+  var VERSION = '0.6.0';
 /*
  * The triple dollar function creates a DOM object.
  */
-  window.$$$ = function () {
+  var $$$ = function () {
     var args = Array.prototype.slice.call(arguments);
     if (typeof args[0] !== 'string') {
       if (Array.isArray(args[0])) {
-        return window.$$$.apply(this, args[0]);
+        return $$$.apply(this, args[0]);
       } else {
         return null;
       }
@@ -51,7 +51,7 @@
           e.appendChild(param);
         } else if (typeof param === 'object') {
           if (Array.isArray(param)) {
-            e.appendChild(window.$$$.apply(this, param));
+            e.appendChild($$$.apply(this, param));
           } else {
             for (var a in param) {
               if (a.match(/^data./)) {
@@ -87,7 +87,8 @@
     /*
      * Run a function.
      */
-    e.fun = function (func, args) {
+    e.fun = function (func) {
+      var args = Array.prototype.slice.call(arguments, 1);
       this[func].apply(this, args);
       return this;
     };
@@ -118,12 +119,12 @@
     return e;
   };
 
-  window.$$$.version = VERSION;
+  $$$.version = VERSION;
 
   /*
    * Structify an element node
    */
-  window.$$$.structify = function (elem) {
+  $$$.structify = function (elem) {
     if (elem.nodeType === 1) {
       function dig (c) {
         var l = []
@@ -170,7 +171,7 @@
   /* 
    * A shortcut for placing the content on the web page.
    */
-  window.tripledollar = function () {
+  $$$.appendToDoc = function () {
     var args = Array.prototype.slice.call(arguments);
     for (var i=0; i<args.length; i++) {
       if (Array.isArray(args[i])) {
@@ -179,6 +180,15 @@
         document.body.appendChild(args[i]);
       }
     }
+  }
+
+  if (typeof define === 'function') {
+    define(function (require) {
+      return $$$;
+    }) 
+  } else {
+    window.$$$ = $$$;
+    window.tripledollar = $$$.appendToDoc;
   }
 
   /*

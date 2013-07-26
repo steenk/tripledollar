@@ -43,7 +43,7 @@ With __tripledollar__ you can do the same thing more compact:
 Tripledollar adds a few three letters help functions to the DOM element, making it easy to apply most things that you want to do to your DOM element. The functions can be chained together. These are:
 
 * css - for adding css
-* set - for setting parameters
+* set - for setting properties
 * fun - for calling a function within the DOM element
 * evt - for adding an event listener
 * ins - for inserting things into the DOM element

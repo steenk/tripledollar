@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.6.1';
+  var VERSION = '0.6.2';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -28,7 +28,7 @@
       if (Array.isArray(args[0])) {
         return $$$.apply(this, args[0]);
       } else {
-        return null;
+        throw new Error("The input to tripledollar is not valid.");
       }
     }
 
@@ -39,6 +39,9 @@
      ,  n = ident.split(/[\.#]/)
      ,  t = ident.split(/\w+/)
      ,  e;
+    if (t[0] !== '' || n[0] === '') {
+      throw new Error("The identity paramameter didn't start with a tag name.");
+    }
     n.forEach(function (v, i) {
       if (t[i] === '.') {
         e.classList.add(v);
@@ -48,7 +51,7 @@
         e = document.createElement(v);
       }
     });
-            
+
     function allArgs (args) {
       for (var i=0; i<args.length; i++) {
         var param = args[i];
@@ -183,6 +186,8 @@
         document.body.appendChild($$$(args[i]));
       } else if (args[i] instanceof HTMLElement) {
         document.body.appendChild(args[i]);
+      } else {
+        throw Error("Undefined input to tripledollar.");
       }
     }
   }

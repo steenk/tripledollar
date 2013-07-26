@@ -37,7 +37,7 @@
      */
     var ident = args.shift()
      ,  n = ident.split(/[\.#]/)
-     ,  t = ident.split(/[\.#]+/)
+     ,  t = ident.split(/[^\.#]+/)
      ,  e;
     if (t[0] !== '' || n[0] === '') {
       throw new Error("The identity paramameter didn't start with a tag name.");

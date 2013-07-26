@@ -1,3 +1,7 @@
+**v0.6.3**:
+
+  - Fixed a regex bug.
+
 **v0.6.2**:
 
   - Some error handling.

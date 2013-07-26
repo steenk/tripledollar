@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.6.2';
+  var VERSION = '0.6.3';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -37,18 +37,20 @@
      */
     var ident = args.shift()
      ,  n = ident.split(/[\.#]/)
-     ,  t = ident.split(/\w+/)
+     ,  t = ident.split(/[\.#]+/)
      ,  e;
     if (t[0] !== '' || n[0] === '') {
       throw new Error("The identity paramameter didn't start with a tag name.");
     }
     n.forEach(function (v, i) {
-      if (t[i] === '.') {
-        e.classList.add(v);
-      } else if (t[i] === '#') {
-        e.setAttribute('id', v);
-      } else {
+      if (i === 0) {
         e = document.createElement(v);
+      } else {
+        if (t[i] === '.') {
+          e.classList.add(v);
+        } else if (t[i] === '#') {
+          e.setAttribute('id', v);
+        }
       }
     });
 

@@ -63,7 +63,7 @@ Adding an id to it will be:
 
 Adding one class name:
 
-	var div = $$$('div.simpleClass#d001');
+	var div = $$$('div#d001.simpleClass');
 
 More then one class name can be added:
 
@@ -73,7 +73,7 @@ And everything together:
 
 	var h1 = $$$('h1.large.blueish#h0001');
 
-This first parameter is the "identity" parameter, and it will always appear first in the $$$ function. The rest of the parameters have no order.
+This first parameter is the "identity" parameter, and it will always appear first in the $$$ function. It starts with the tag name of the element, and immediately followed by class names and id. The class names are preceeded with a '.' and the id is preceeded with a '#'. The rest of the parameters in the $$$ function have no order.
 
 ### Attributes
 

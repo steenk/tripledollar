@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.6.0';
+  var VERSION = '0.6.1';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -31,18 +31,23 @@
         return null;
       }
     }
+
+    /*
+     * Splitting up the ident parameter into element type, id, and class names. 
+     */
     var ident = args.shift()
-      , id = ident.split('#')[1]
-      , cl = (ident.split('#')[0]).split('.')
-      , type = cl.shift()
-      , clazz = cl.join(' ').trim()
-      , e = document.createElement(type);
-    if (clazz) {
-      e.className = clazz;
-    };
-    if (id) {
-      e.setAttribute('id', id);
-    };
+     ,  n = ident.split(/[\.#]/)
+     ,  t = ident.split(/\w+/)
+     ,  e;
+    n.forEach(function (v, i) {
+      if (t[i] === '.') {
+        e.classList.add(v);
+      } else if (t[i] === '#') {
+        e.setAttribute('id', v);
+      } else {
+        e = document.createElement(v);
+      }
+    });
             
     function allArgs (args) {
       for (var i=0; i<args.length; i++) {
@@ -182,6 +187,9 @@
     }
   }
 
+  /*
+   * Use AMD if a module loader is in place.
+   */
   if (typeof define === 'function') {
     define(function (require) {
       return $$$;

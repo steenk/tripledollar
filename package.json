@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
   "scripts": {

@@ -3,7 +3,7 @@
 ![](logo.png)
 
 When you're going to create a lot of DOM elements from Javascript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating
-DOM elements with Javascript, and no more. It is actually __around 2kB!__ So this tutorial is bigger than the library itself.
+DOM elements with Javascript, and no more. It is actually __less than 3kB!__ So this tutorial is bigger than the library itself.
 
 What you want to do is something like this (just a silly example):
 
@@ -37,6 +37,8 @@ With __tripledollar__ you can do the same thing more compact:
 			$$$('button', {name: 'but001'}, 'OK').evt('click', function () {alert('hello')})
 		).css({display:'inline',backgroundColor:'blue'});
 	document.body.appendChild(div);
+
+Tripledollar has been tested on the most common, modern web browsers, but it is made for javascript development, so web browsers with old javascript engines is not the target.
 
 ## Just a few help functions
 
@@ -277,15 +279,26 @@ A tdstruct can be generated backwards, from an element on a web page. This is do
 
 	alert(JSON.stringify(tdstruct));
 
-# The wrapper tripledollar()
+# Append To Doc
 
-To place the elements on a page, there is a more convenient way, than use "document.body.appendChild()". There is a wrapper function called "tripledollar()" that can take many arguments, of both tdstruct and element, and place them on the page.
+To place the elements on a page, there is a more convenient way, than use "document.body.appendChild()". There is a wrapper function called "$$$.appendToDoc()" that can take many arguments, of both tdstruct and element, and place them on the page.
 
-	tripledollar(
+	$$$.appendToDoc(
 		$$$('h1', '$$$'),
 		['p', 'Using ', ['strong', 'tripledollar'], ' is a habit I can\'t get rid of.'],
 		document.createElement('hr')
 	)
+
+The function appendToDoc waits for the DOM content to get loaded, before it adds any content. This is something that can be necessary for other pieces of code also, so there is a function for that also.
+
+	// a function to be used later
+	function start () {
+		$('#i01')[0].ins('h1', 'Started');
+	}
+	// placing things on the page
+	$$$.appendToDoc(['div"i01']);
+	// when ready call the "start" function
+	$$$.onReady(start);
 
 # Using $$$ as a module
 
@@ -296,10 +309,6 @@ Building your code in a modular structure is most desirable, and Tripledollar is
 			['p', 'This is my module.']
 		)
 	})
-
-In this context there is no use for the "tripledollar()" wrapper described previously, but the same can be done with a build-in function appendToDoc.
-
-	$$$.appendToDoc(['h1', 'Tripledollar']);
 
 # Finally
 

@@ -18,17 +18,15 @@
  *
  */
 (function () {
-  var VERSION = '0.6.3';
+  var VERSION = '0.6.4';
 /*
  * The triple dollar function creates a DOM object.
  */
   var $$$ = function () {
     var args = Array.prototype.slice.call(arguments);
     if (typeof args[0] !== 'string') {
-      if (Array.isArray(args[0])) {
+      if (Object.prototype.toString.call(args[0]) === '[object Array]') {
         return $$$.apply(this, args[0]);
-      } else {
-        throw new Error("The input to tripledollar is not valid.");
       }
     }
 
@@ -39,20 +37,20 @@
      ,  n = ident.split(/[\.#]/)
      ,  t = ident.split(/[^\.#]+/)
      ,  e;
-    if (t[0] !== '' || n[0] === '') {
-      throw new Error("The identity paramameter didn't start with a tag name.");
+    if (t[0] == '') {
+      t.shift();
     }
-    n.forEach(function (v, i) {
+    for (var i=0; i<n.length; i++) {
       if (i === 0) {
-        e = document.createElement(v);
+        e = document.createElement(n[i]);
       } else {
-        if (t[i] === '.') {
-          e.classList.add(v);
-        } else if (t[i] === '#') {
-          e.setAttribute('id', v);
+        if (t[i-1] === '.') {
+          e.classList.add(n[i]);
+        } else if (t[i-1] === '#') {
+          e.setAttribute('id', n[i]);
         }
       }
-    });
+    };
 
     function allArgs (args) {
       for (var i=0; i<args.length; i++) {
@@ -60,7 +58,7 @@
         if (param && param.nodeType) {
           e.appendChild(param);
         } else if (typeof param === 'object') {
-          if (Array.isArray(param)) {
+          if (Object.prototype.toString.call(param) === '[object Array]') {
             e.appendChild($$$.apply(this, param));
           } else {
             for (var a in param) {
@@ -108,9 +106,17 @@
     e.evt = function (ev, func) {
       if (arguments.length > 2) {
         var args = Array.prototype.slice.call(arguments, 2);
-        this.addEventListener(ev, function (e) {var a = [e].concat(args); func.apply(this, a)});
+        if (this.addEventListener) {
+          this.addEventListener(ev, function (e) {var a = [e].concat(args); func.apply(this, a)});
+        } else {
+          this.attachEvent('on'+ev, function (e) {var a = [e].concat(args); func.apply(this, a)});
+        }
       } else {
-        this.addEventListener(ev, func);
+        if (this.addEventListener) {
+          this.addEventListener(ev, func);
+        } else {
+          this.attachEvent('on'+ev, func);
+        }
       }
       return this;
     };
@@ -178,20 +184,34 @@
     return td;
   }
 
+  /*
+   * Check if DOM content is loaded.
+   */
+  $$$.onReady = function (func) {
+    if (document.readyState === 'complete') {
+      func();
+    } else
+    if (document.addEventListener) {
+      document.addEventListener('DOMContentLoaded', func);
+    } else {
+      document.attachEvent('onreadystatechange', func);
+    }
+  }
+
   /* 
    * A shortcut for placing the content on the web page.
    */
   $$$.appendToDoc = function () {
     var args = Array.prototype.slice.call(arguments);
-    for (var i=0; i<args.length; i++) {
-      if (Array.isArray(args[i])) {
-        document.body.appendChild($$$(args[i]));
-      } else if (args[i] instanceof HTMLElement) {
-        document.body.appendChild(args[i]);
-      } else {
-        throw Error("Undefined input to tripledollar.");
+    $$$.onReady(function () {
+      for (var i=0; i<args.length; i++) {
+        if (Object.prototype.toString.call(args[i]) === '[object Array]') {
+          document.body.appendChild($$$(args[i]));
+        } else if (args[i] instanceof HTMLElement) {
+          document.body.appendChild(args[i]);
+        }
       }
-    }
+    })
   }
 
   /*
@@ -211,4 +231,4 @@
    */
   if (! window.$ && document.querySelectorAll) {window.$ = function (sel) { return document.querySelectorAll(sel);}};
 
-})();  
+})();

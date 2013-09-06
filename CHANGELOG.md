@@ -1,3 +1,7 @@
+**v0.6.4**:
+
+  - Made it work in IE8.
+
 **v0.6.3**:
 
   - Fixed a regex bug.

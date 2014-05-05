@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "0.6.4",
+  "version": "0.7.0-2",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
   "scripts": {
@@ -13,4 +13,7 @@
   "author": "Steen Klingberg",
   "license": "MIT",
   "readmeFilename": "README.md",
+  "scripts": {  
+	"test": "node test/run_tests.js"
+  }
 }

@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="mocha.css" />
+  <link title="package" type="application/json" href="../package.json" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="mocha.js"></script>
+  <script>mocha.setup('bdd')</script>
+  <script src="../tripledollar.js"></script>
+  <script>
+  function assert(expr, msg) {
+    if (!expr) throw new Error(msg || 'failed');
+  }
+ </script>
+ <script src="test.core.js"></script>
+ <script src="test.tdstruct.js"></script>
+ <script src="test.func.js"></script>
+ <script>
+ mocha.checkLeaks();
+ mocha.run();
+ </script>
+</body>
+</html>

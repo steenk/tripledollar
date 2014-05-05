@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.6.4';
+  var VERSION = '0.7.0-2';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -141,11 +141,12 @@
    * Structify an element node
    */
   $$$.structify = function (elem) {
+    var td = null;
     if (elem.nodeType === 1) {
       function dig (c) {
         var l = []
          ,  name = c.localName
-         ,  cname = c.className.replace(' ', '.');
+         ,  cname = String(c.className).replace(' ', '.');
         if (cname) {
           name += '.'+cname;
         };
@@ -179,8 +180,8 @@
         }
         return l;
       }
+      td = dig(elem);
     }
-    var td = dig(elem);
     return td;
   }
 
@@ -198,20 +199,68 @@
     }
   }
 
+  /*
+   * setImmediate substitute
+   */
+  var doNext;
+  if (window.setImmediate) {
+     doNext = window.setImmediate;
+  } else {
+    var q = []
+    ,   id = 'doNext' + (Math.random()*67108864|0).toString(16)
+    ,   react = function (evt) {
+          if (evt.source === window &&
+            typeof event.data === "string" &&
+            evt.data.indexOf(id) === 0) {
+              var f = q.shift();
+              f && f();
+          }
+    }
+    if (window.postMessage) {
+      if (window.addEventListener) {
+        window.addEventListener('message', react);
+      } else {
+        window.attachEvent('message', react);
+      }
+    }
+    doNext = function (f) {
+      if (typeof f === 'function') {
+        q.push(f);
+        window.postMessage(id, '*');
+      }
+    }
+  } 
+  $$$.setImmediate = doNext;
+
   /* 
    * A shortcut for placing the content on the web page.
    */
   $$$.appendToDoc = function () {
-    var args = Array.prototype.slice.call(arguments);
+    var args = Array.prototype.slice.call(arguments)
+  , me = this;
+  me.follow = [];
+  me.emit = function () {
+    me.follow.forEach(function (f) {
+      doNext(f);
+    })
+  }
+  me.then = function (what) {
+    me.follow.push(what);
+    return me;
+  }
     $$$.onReady(function () {
       for (var i=0; i<args.length; i++) {
         if (Object.prototype.toString.call(args[i]) === '[object Array]') {
           document.body.appendChild($$$(args[i]));
         } else if (args[i] instanceof HTMLElement) {
           document.body.appendChild(args[i]);
+        } else if (typeof args[i] === 'function') {
+            args[i]();
         }
       }
     })
+  doNext(me.emit);
+  return me;
   }
 
   /*

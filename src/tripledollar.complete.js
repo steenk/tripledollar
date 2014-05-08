@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.7.0-5';
+  var VERSION = '0.7.0';
 /*
  * The triple dollar function creates a DOM object.
  */

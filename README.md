@@ -5,14 +5,16 @@
 When you're going to create a lot of DOM elements from JavaScript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating DOM elements with JavaScript, and no more. It is actually __less than 4kB!__ So this tutorial is bigger than the library itself.
 
 What you want to do is something like this (just a silly example):
-
+```html
 	<div id="d001" class="simple" style="display:inline; background-color:blue;">
 		<strong class="bold">Tripledollar</strong>
 		<button name="but001" onclick="alert('hello')">OK</button>
 	</div>
+```
 
 but you want to create it with JavaScript, and with plain JavaScript it can be like this:
 
+```javascript
 	var div = document.createElement('div');
 	div.id = 'd001';
 	div.className = 'simple';
@@ -28,6 +30,7 @@ but you want to create it with JavaScript, and with plain JavaScript it can be l
 	button.appendChild(document.createTextNode('OK'));
 	div.appendChild(button);
 	document.body.appendChild(div);
+```
 
 With __tripledollar__ you can do the same thing more compact:
 

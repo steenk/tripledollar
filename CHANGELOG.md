@@ -1,3 +1,9 @@
+**v0.7.0**:
+
+  - "when" method to execute things after "appenToDoc".
+  - $$$.setImmediate, a polyfill for placing callbacks on the event queue.
+  - Testing with mocha.
+
 **v0.6.4**:
 
   - Made it work in IE8.

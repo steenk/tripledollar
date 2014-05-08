@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "0.7.0-2",
+  "version": "0.7.0-5",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
   "scripts": {
@@ -14,6 +14,7 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "scripts": {  
-	"test": "node test/run_tests.js"
+	"test": "node test/run_tests.js",
+    "pretest": "./build.sh"
   }
 }

@@ -18,7 +18,7 @@
  *
  */
 (function () {
-  var VERSION = '0.7.0-2';
+  var VERSION = '0.7.0-5';
 /*
  * The triple dollar function creates a DOM object.
  */
@@ -126,11 +126,13 @@
     e.ins = function () {
       var args = Array.prototype.slice.call(arguments);
       allArgs(args);
+	  return this;
     };
     /*
-     * Add an alias for a CSS selector
+     * Add aliases for a CSS selectors
      */
-    e.$ = e.querySelectorAll;
+	e.query = e.querySelector;
+    e.queryAll = e.querySelectorAll;
     e.prototype = e;
     return e;
   };
@@ -191,8 +193,7 @@
   $$$.onReady = function (func) {
     if (document.readyState === 'complete') {
       func();
-    } else
-    if (document.addEventListener) {
+    } else if (document.addEventListener) {
       document.addEventListener('DOMContentLoaded', func);
     } else {
       document.attachEvent('onreadystatechange', func);
@@ -213,7 +214,7 @@
             typeof event.data === "string" &&
             evt.data.indexOf(id) === 0) {
               var f = q.shift();
-              f && f();
+              f.length > 0 && f[0].apply(null, f.splice(1));
           }
     }
     if (window.postMessage) {
@@ -223,9 +224,10 @@
         window.attachEvent('message', react);
       }
     }
-    doNext = function (f) {
-      if (typeof f === 'function') {
-        q.push(f);
+    doNext = function () {
+	   var args = Array.prototype.slice.call(arguments);
+      if (typeof args[0] === 'function') {
+        q.push(args);
         window.postMessage(id, '*');
       }
     }
@@ -245,7 +247,11 @@
     })
   }
   me.then = function (what) {
-    me.follow.push(what);
+    if (typeof what === 'function') {
+      me.follow.push(what);
+    } else {
+      console.log('$$$: Only functions can be passed to "then()"!');
+    }
     return me;
   }
     $$$.onReady(function () {
@@ -258,8 +264,8 @@
             args[i]();
         }
       }
+      doNext(me.emit);
     })
-  doNext(me.emit);
   return me;
   }
 
@@ -277,7 +283,9 @@
 
   /*
    * In case a $ function is not initialized.
+   * Using $ is DEPRECATED, adding shortcuts to $$$ instead.
    */
-  if (! window.$ && document.querySelectorAll) {window.$ = function (sel) { return document.querySelectorAll(sel);}};
+  $$$.query = function (sel) { return document.querySelector(sel);};
+  $$$.queryAll = function (sel) { return document.querySelectorAll(sel);};
 
 })();

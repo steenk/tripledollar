@@ -50,7 +50,7 @@ xhr.onload = function () {
 			assert(f.style.display === 'block', 'the style attribute is wrong');
 		});
 		it('should produce a text content', function () {
-			var g = $$$('div', 'Tripledollar');
+			var g = $$$('div', {style:'display:none'}, 'Tripledollar');
 			document.body.appendChild(g);
 			assert(g.textContent === 'Tripledollar', 'no text content');
 		});

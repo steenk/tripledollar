@@ -2,8 +2,7 @@
 
 ![](logo.png)
 
-When you're going to create a lot of DOM elements from Javascript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating
-DOM elements with Javascript, and no more. It is actually __less than 3kB!__ So this tutorial is bigger than the library itself.
+When you're going to create a lot of DOM elements from JavaScript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating DOM elements with JavaScript, and no more. It is actually __less than 4kB!__ So this tutorial is bigger than the library itself.
 
 What you want to do is something like this (just a silly example):
 
@@ -12,7 +11,7 @@ What you want to do is something like this (just a silly example):
 		<button name="but001" onclick="alert('hello')">OK</button>
 	</div>
 
-but you want to create it with Javascript, and with plain Javascript it can be like this:
+but you want to create it with JavaScript, and with plain JavaScript it can be like this:
 
 	var div = document.createElement('div');
 	div.id = 'd001';
@@ -34,11 +33,12 @@ With __tripledollar__ you can do the same thing more compact:
 
 	var div = $$$('div.simple#d001',
 			$$$('strong', 'Tripledollar'),
-			$$$('button', {name: 'but001'}, 'OK').evt('click', function () {alert('hello')})
+			$$$('button', {name: 'but001'}, 'OK')
+			.evt('click', function () {alert('hello')})
 		).css({display:'inline',backgroundColor:'blue'});
-	document.body.appendChild(div);
+	$$$.appendToDoc(div);
 
-Tripledollar has been tested on the most common, modern web browsers, but it is made for javascript development, so web browsers with old javascript engines is not the target.
+Tripledollar has been tested on the most common, modern web browsers, but it is made for JavaScript development, so web browsers with old JavaScript engines is not the target.
 
 ## Just a few help functions
 
@@ -50,8 +50,7 @@ Tripledollar adds a few three letters help functions to the DOM element, making 
 * evt - for adding an event listener
 * ins - for inserting things into the DOM element
 
-Together with the $$$ function, there is everything for creating
-DOM elements from Javascript.
+Together with the $$$ function, there is everything for creating DOM elements from JavaScript.
 
 ## Create a DOM element
 
@@ -75,7 +74,7 @@ And everything together:
 
 	var h1 = $$$('h1.large.blueish#h0001');
 
-This first parameter is the "identity" parameter, and it will always appear first in the $$$ function. It starts with the tag name of the element, and immediately followed by class names and id. The class names are preceeded with a '.' and the id is preceeded with a '#'. The rest of the parameters in the $$$ function have no order.
+This first parameter in the $$$ function is the "identity" parameter, and it will always appear as the first paramenter. It starts with the tag name of the element, and immediately followed by class names and id. The class names are preceeded with a '.' and the id is preceeded with a '#'. The rest of the parameters in the $$$ function have no special order, so they can appear randomly.
 
 ### Attributes
 
@@ -90,13 +89,13 @@ It is the same as doing this:
 	attr.target = '_blank';
 	var a = $$$('a', attr, 'Google');
 
-And it will result in this:
+And it is the same as this HTML notation:
 
 	<a href="http://www.google.com" target="_blank">Google</a>
 
 ### Text
 
-Adding text inside a DOM element is easy:
+Adding text inside a DOM element is just to add it as one of the parameters after the "identity" parameter:
 
 	var p = $$$('p', 'This is the text.');
 
@@ -108,7 +107,7 @@ To sum up, arguments to the $$$ function (except the first one) are either DOM e
 
 ### Nested DOM elements
 
-If a parameter to the $$$ function is a DOM element, it will be appended to the DOM element that $$$ creates. By this, it's easy to create the structure that you want, but be sure to indent right, so you don't get lost.
+If a parameter to the $$$ function is a DOM element, it will be appended to the DOM element that $$$ creates. By this, it's easy to create the structure that you want, but be sure to indent right, so you don't get lost in the structure.
 
 	var tab = $$$('table',
 				$$$('tr',
@@ -125,11 +124,11 @@ If a parameter to the $$$ function is a DOM element, it will be appended to the 
 
 ## Using the help functions
 
-The help functions are used to apply more advanced features to the DOM element, in the same statement where you create it. This is done by making the functions chain to each other.
+The help functions are used to apply more advanced features to the DOM element, in the same statement where you create it. This is done by chaining the functions to each other.
 
 ## css
 
-CSS can be applied directly to the DOM element with Javascript. This is not always the preferred way, it's often better to put CSS in an CSS file, but sometimes it make sense to use one of the many features in CSS directly in Javascript. CSS code has its own syntax, and it's when used in Javascript some terms have to be translated into Javascript names. One thing you can't do is having property names like 'background-color', because the dash is not allowed in property names. So in Javascript the 'background-color' is used like this:
+CSS can be applied directly to the DOM element with JavaScript. This is not always the preferred way, it's often better to put CSS in an CSS file, but sometimes it make sense to use one of the many features in CSS directly in JavaScript. CSS code has its own syntax, and it's when used in JavaScript some terms have to be translated into JavaScript names. One thing you can't do is having property names like 'background-color', because the dash is not allowed in property names. So in JavaScript the 'background-color' is used like this:
 
 	elem.style.backgroundColor = 'yellow';
 
@@ -139,7 +138,7 @@ The CSS name is translated to camel case, and the dash is removed. Tripledollar 
 
 ## set
 
-DOM elements are Javascript objects that can have any property applied to it, so setting properties with arbitrary names is useful for us. A property can be a string, an object, or a function.
+DOM elements are JavaScript objects that can have any property applied to it, so setting properties with arbitrary names is useful for us. A property can be a string, an object, or a function.
 
 	var div = $$$('div')
 				.set('private', true)
@@ -151,9 +150,9 @@ DOM elements are Javascript objects that can have any property applied to it, so
 There are normally not so many functions that you can call on a DOM object during the creation phase, so this an example where we first place a function with __set__ and then call it with __fun__.
 
 	var fun1 = function (delim) {this.textContent = this.textContent.split('').join(delim);};
-	document.body.appendChild($$$('h2','tripledollar').set('dash',fun1).fun('dash', '-'));
+	document.body.appendChild($$$('h2','tripledollar').set('dash',fun1).fun('dash', '-').css({color:'red'}));
 
-The fun function will be a call within the chain of help functions, and that is the purpose of it. Arguments to the function can be added after the name of the function (from version 0.6.0).
+The fun function will be a function call within the chain of help functions, and that is the purpose of it. Arguments to the function can be added after the name of the function (from version 0.6.0).
 
 ## evt
 
@@ -238,26 +237,26 @@ Compare it with this code, that does the same:
 		</body>
 	</html>
 
-The second example may look a little more complicated, but it has several advantage over the first one. In the example made by pure HTML, data and layout is mixed together. It is also fixed in it's form. The second example is different. First it has the data separate, in the variable fruitData. Then the table is created with a table function that can handle every size, not just the two rows with three columns for this example. Finally the table will be added dynamically, by code, on the page. In this example everything is placed together on the same HTML page, but it is now possible to get the data from a web service instead, and to move the table function into a Javascript library with other reusable pieces of code, and it is also possible to wait for some kind of event before the table is actually placed on the page. In a more complex project, it will become clear that HTML is not the the best tool for the developer.
+The second example may look a little more complicated, but it has several advantage over the first one. In the example made by pure HTML, data and layout is mixed together. It is also fixed in it's form. The second example is different. First it has the data separate, in the variable fruitData. Then the table is created with a table function that can handle every size, not just the two rows with three columns for this example. Finally the table will be added dynamically, by code, on the page. In this example everything is placed together on the same HTML page, but it is now possible to get the data from a web service instead, and to move the table function into a JavaScript library with other reusable pieces of code, and it is also possible to wait for some kind of event before the table is actually placed on the page. In a more complex project, it will become clear that HTML is not the the best tool for the developer.
 
 # Selector
 
-One thing that is nice to have when programming for the web, is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving build-in CSS searching. So as a little extra feature, tripledollar sets $() as an alias for `document.querySelectorAll()`, after a check that it is not already taken by another library. That makes the $() to work almost like in jQuery for selections (just selections, not the extra stuff you get with jQuery). Compared to prototype.js it is simular to its $$() function.
+One thing that is nice to have when programming for the web, is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving build-in CSS searching. So as a little extra feature, tripledollar sets $$$.query() as an alias for `document.querySelector()`, and $$$.queryAll() as an alias for `document.querySelectorAll()`. (Earlier versions of tripledollar, < 0.7, used $ as an alias for querySelectorAll, but we want to stay away from what is used by other common libraries.)
 
 	var body = $('body')[0];
 	body.appendChild($$$('div.a-class-name'));
 	// get it back
-	var div = $('.a-class-name')[0];
+	var div = $$$.queryAll('.a-class-name')[0];
 
-The $() always gives back an array, so you have to take out the first item with [0], or loop through the array. A CSS selection can also be done from an element, `element.querySelectorAll`, instead of the whole document, searching just a portion of the page, so the $() can be used in this way also.
+A CSS selection can also be done from an element, `element.querySelectorAll`, instead of searching the whole document, searching just a portion of the page, so the shortcuts `query` and `queryAll` can be used in this way also.
 
 	var div = $$$('div', $$$('div#d1'), $$$('div#d2'));
-	var d1 = div.$('#d1')[0];
-	var d2 = div.$('#d2')[0];
+	var d1 = div.query('#d1');
+	var d2 = div.query('#d2');
 
 # The tdstruct
 
-A tdstruct is a plain javascript structure, consisting of nested arrays in a way that follows the structure that can be created with tripledollar. Since it is just javascript, it can be transformed to JSON, and be stored in CouchDB or MongoDB, and easily be fed to the $$$(), for generating the DOM structure. There are some rules for a tdstruct. First it is always an array. The elements in the array can be other arrays, strings, numbers, booleans, and of course the two special tripledollar types, the tag describing string, and the attribute object. A tag describing string has to always be placed first in an array.
+A tdstruct is a plain JavaScript structure, consisting of nested arrays in a way that follows the structure that can be created with tripledollar. Since it is just JavaScript, it can be transformed to JSON, and be stored in CouchDB or MongoDB, and easily be fed to the $$$(), for generating the DOM structure. There are some rules for a tdstruct. First it is always an array. The elements in the array can be other arrays, strings, numbers, booleans, and of course the two special tripledollar types, the tag describing string "identity", and the object with attributes. The "identity" string has to always be placed first in an array.
 
 	var tdstruct = ['table#t1', {border: 1},
 		['tbody',
@@ -274,14 +273,14 @@ A tdstruct can be generated backwards, from an element on a web page. This is do
 	document.body.appendChild(dom);
 
 	// get the DOM element by id, and structify it
-	var div1 = $('#div1')[0];
+	var div1 = $$$.query('#div1')[0];
 	var tdstruct = $$$.structify(div1);
 
 	alert(JSON.stringify(tdstruct));
 
 # Append To Doc
 
-To place the elements on a page, there is a more convenient way, than use "document.body.appendChild()". There is a wrapper function called "$$$.appendToDoc()" that can take many arguments, of both tdstruct and element, and place them on the page.
+To place the elements on a page, there is a more convenient way, than to use "document.body.appendChild()". There is a wrapper function called "$$$.appendToDoc()" that can take many arguments, of both tdstruct and element, and place them on the page.
 
 	$$$.appendToDoc(
 		$$$('h1', '$$$'),
@@ -309,6 +308,21 @@ Building your code in a modular structure is most desirable, and Tripledollar is
 			['p', 'This is my module.']
 		)
 	})
+
+# The right order of events
+
+When creating modules, and using an asychronous module loader as Require.js, then you have to start thinking about when things happen. What if you place something on the page, and want some other things to happen after that is completed? Like this:
+
+    $$$.appendToDoc(['div'], ['div'])
+    .then(function () {
+    	var n = $$$.queryAll('div');
+    	alert('I found ' + n + ' divs!')
+    });
+
+The "then" method on "appendToDoc" takes a function and executes it after it's done. Several "then" can be chained together to make a sequence of things to happen. If you have some experience of programming in Node.js, you know that it is all about managing asynchronous events, and use callbacks to place what should happen in the right order. This is a similar case. The function we pass to "then" is a callback, and it is not executed immediately, but later on.
+
+To implement the "then" method, we needed something that is commonly used in Node.js, but doesn't exists in most browsers today, the "setImmediate" function. This is a function that breaks sequential thread holding code, and places a callback in the event queue, to be executed immediately when the thread gets free. So now we have it in Tripledollar, "$$$.setImmediate", that takes a function and maybe some arguments, to be executed asynchronously. It is used internally by Tripledollar, and if you like, you can use it for your code also.
+
 
 # Finally
 

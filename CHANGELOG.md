@@ -1,3 +1,7 @@
+**v0.7.1**:
+
+  - Small adjustments for old browsers.
+
 **v0.7.0**:
 
   - "when" method to execute things after "appenToDoc".

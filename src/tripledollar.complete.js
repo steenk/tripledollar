@@ -18,8 +18,11 @@
  *
  */
 (function () {
-  var VERSION = '0.7.0';
-/*
+  /**
+   * @version
+   */
+  var VERSION = '0.7.1';
+/**
  * The triple dollar function creates a DOM object.
  */
   var $$$ = function () {
@@ -30,7 +33,7 @@
       }
     }
 
-    /*
+    /**
      * Splitting up the ident parameter into element type, id, and class names. 
      */
     var ident = args.shift()
@@ -76,7 +79,7 @@
       }
     };
     allArgs(args);
-    /*
+    /**
      * Add CSS to the element.
      */
     e.css = function (obj) {
@@ -85,14 +88,14 @@
       };
       return this;
     };
-    /*
+    /**
      * Set a property.
      */
     e.set = function (key, val) {
       this[key] = val;
       return this;
     };
-    /*
+    /**
      * Run a function.
      */
     e.fun = function (func) {
@@ -100,27 +103,27 @@
       this[func].apply(this, args);
       return this;
     };
-    /*
+    /**
      * Add event listener
      */
     e.evt = function (ev, func) {
       if (arguments.length > 2) {
         var args = Array.prototype.slice.call(arguments, 2);
         if (this.addEventListener) {
-          this.addEventListener(ev, function (e) {var a = [e].concat(args); func.apply(this, a)});
+          this.addEventListener(ev, function (e) {var a = [e].concat(args); func.apply(this, a)}, false);
         } else {
           this.attachEvent('on'+ev, function (e) {var a = [e].concat(args); func.apply(this, a)});
         }
       } else {
         if (this.addEventListener) {
-          this.addEventListener(ev, func);
+          this.addEventListener(ev, func, false);
         } else {
           this.attachEvent('on'+ev, func);
         }
       }
       return this;
     };
-    /*
+    /**
      * Insert more things to this element
      */
     e.ins = function () {
@@ -128,7 +131,7 @@
       allArgs(args);
 	  return this;
     };
-    /*
+    /**
      * Add aliases for a CSS selectors
      */
 	e.query = e.querySelector;
@@ -139,7 +142,7 @@
 
   $$$.version = VERSION;
 
-  /*
+  /**
    * Structify an element node
    */
   $$$.structify = function (elem) {
@@ -172,7 +175,7 @@
         var ch = c.childNodes;
         for (var i=0; i<ch.length; i++) {
           if(ch[i].nodeType === 3) {
-            var s = ch[i].data.replace(/\s\s*/,' ');
+            var s = ch[i].data.replace(/\s\s*/,' ').trim();
             if (s.length > 0) {
               l.push(s);
             }
@@ -187,20 +190,20 @@
     return td;
   }
 
-  /*
+  /**
    * Check if DOM content is loaded.
    */
   $$$.onReady = function (func) {
     if (document.readyState === 'complete') {
       func();
     } else if (document.addEventListener) {
-      document.addEventListener('DOMContentLoaded', func);
+      document.addEventListener('DOMContentLoaded', func, false);
     } else {
       document.attachEvent('onreadystatechange', func);
     }
   }
 
-  /*
+  /**
    * setImmediate substitute
    */
   var doNext;
@@ -211,7 +214,7 @@
     ,   id = 'doNext' + (Math.random()*67108864|0).toString(16)
     ,   react = function (evt) {
           if (evt.source === window &&
-            typeof event.data === "string" &&
+            typeof evt.data === "string" &&
             evt.data.indexOf(id) === 0) {
               var f = q.shift();
               f.length > 0 && f[0].apply(null, f.splice(1));
@@ -219,7 +222,7 @@
     }
     if (window.postMessage) {
       if (window.addEventListener) {
-        window.addEventListener('message', react);
+        window.addEventListener('message', react, false);
       } else {
         window.attachEvent('message', react);
       }
@@ -234,7 +237,7 @@
   } 
   $$$.setImmediate = doNext;
 
-  /* 
+  /**
    * A shortcut for placing the content on the web page.
    */
   $$$.appendToDoc = function () {
@@ -269,7 +272,7 @@
   return me;
   }
 
-  /*
+  /**
    * Use AMD if a module loader is in place.
    */
   if (typeof define === 'function') {
@@ -281,7 +284,7 @@
     window.tripledollar = $$$.appendToDoc;
   }
 
-  /*
+  /**
    * In case a $ function is not initialized.
    * Using $ is DEPRECATED, adding shortcuts to $$$ instead.
    */

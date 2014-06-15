@@ -21,7 +21,16 @@
   /**
    * @version
    */
-  var VERSION = '0.7.1';
+  var VERSION = '0.7.2';
+
+  /**
+   * Namespaces
+   */
+   var ns = {
+    svg: 'http://www.w3.org/2000/svg',
+    xlink: 'http://www.w3.org/1999/xlink',
+    xhtml: 'http://www.w3.org/1999/xhtml'
+   }
 /**
  * The triple dollar function creates a DOM object.
  */
@@ -45,7 +54,13 @@
     }
     for (var i=0; i<n.length; i++) {
       if (i === 0) {
-        e = document.createElement(n[i]);
+        var m = n[0].split(':');
+        if (Object.keys(ns).indexOf(m[0]) > -1) {
+          var s = m[1] || m[0];
+		      e = document.createElementNS(ns[m[0]], s);
+		    } else {
+          e = document.createElement(m[1] || m[0]);
+		    }
       } else {
         if (t[i-1] === '.') {
           e.classList.add(n[i]);
@@ -69,7 +84,7 @@
                 var atr = a.substr(4).toLowerCase();
                 e.setAttribute('data-' + atr, param[a]);
               } else {
-                e.setAttribute(a, param[a]);
+				e.setAttribute(a, param[a]);
               }
             }
           }
@@ -261,7 +276,7 @@
       for (var i=0; i<args.length; i++) {
         if (Object.prototype.toString.call(args[i]) === '[object Array]') {
           document.body.appendChild($$$(args[i]));
-        } else if (args[i] instanceof HTMLElement) {
+        } else if (args[i] instanceof HTMLElement || args[i] instanceof SVGSVGElement) {
           document.body.appendChild(args[i]);
         } else if (typeof args[i] === 'function') {
             args[i]();

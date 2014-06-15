@@ -1,3 +1,7 @@
+**v0.7.2**:
+
+  - SVG elements.
+
 **v0.7.1**:
 
   - Small adjustments for old browsers.

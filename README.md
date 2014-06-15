@@ -384,6 +384,37 @@ The "then" method on "appendToDoc" takes a function and executes it after it's d
 
 To implement the "then" method, we needed something that is commonly used in Node.js, but doesn't exists in most browsers today, the "setImmediate" function. This is a function that breaks sequential thread holding code, and places a callback in the event queue, to be executed immediately when the thread gets free. So now we have it in Tripledollar, "$$$.setImmediate", that takes a function and maybe some arguments, to be executed asynchronously. It is used internally by Tripledollar, and if you like, you can use it for your code also.
 
+# SVG
+
+SVG elements has their own namespace, so to to create embedded SVG all SVG elements have to be written "svg:element", where "element" here is one of the allowed SVG elements, like "rect", "circle", "g", and so on. SVG has a lot of attributes, and they will be written with an object of properties, as usual.
+
+```javascript
+    var svg = $$$('svg', {width:300, height:250},
+      ['svg:text', {
+          x:110,
+          y: 120,
+          'font-size': 60,
+          fill: 'gold',
+          stroke: 'black',
+          'stroke-width': 1
+        },
+        '$$$',
+        ['svg:animateTransform', {
+          attributeName: 'transform',
+          begin: '0s',
+          dur: '10s',
+          type: 'rotate',
+          from: '0 120 120',
+          to: '360 120 120',
+          repeatCount: 'indefinite'
+        }]
+      ]
+    );
+
+    $$$.appendToDoc (
+      ['h1', 'SVG Lab'], svg
+    )
+```
 
 # Finally
 

@@ -1,3 +1,7 @@
+**v0.7.3**:
+
+  - Namespace attributes.
+
 **v0.7.2**:
 
   - SVG elements.

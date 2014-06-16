@@ -21,7 +21,7 @@
   /**
    * @version
    */
-  var VERSION = '0.7.2';
+  var VERSION = '0.7.3';
 
   /**
    * Namespaces
@@ -56,11 +56,10 @@
       if (i === 0) {
         var m = n[0].split(':');
         if (Object.keys(ns).indexOf(m[0]) > -1) {
-          var s = m[1] || m[0];
-		      e = document.createElementNS(ns[m[0]], s);
-		    } else {
+		   e = document.createElementNS(ns[m[0]], m[1] || m[0]);
+		} else {
           e = document.createElement(m[1] || m[0]);
-		    }
+		}
       } else {
         if (t[i-1] === '.') {
           e.classList.add(n[i]);
@@ -84,7 +83,12 @@
                 var atr = a.substr(4).toLowerCase();
                 e.setAttribute('data-' + atr, param[a]);
               } else {
-				e.setAttribute(a, param[a]);
+				var m = a.split(':');
+				if (m.length === 2 && Object.keys(ns).indexOf(m[0]) > -1) {
+                  e.setAttributeNS(ns[m[0]], m[1], param[a]);
+				} else {
+				  e.setAttribute(a, param[a]);
+				}
               }
             }
           }

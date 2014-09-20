@@ -1,3 +1,7 @@
+**v0.7.4**:
+
+  - readyState can be "interactive".
+
 **v0.7.3**:
 
   - Namespace attributes.

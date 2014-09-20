@@ -21,7 +21,7 @@
   /**
    * @version
    */
-  var VERSION = '0.7.3';
+  var VERSION = '0.7.4';
 
   /**
    * Namespaces
@@ -213,7 +213,7 @@
    * Check if DOM content is loaded.
    */
   $$$.onReady = function (func) {
-    if (document.readyState === 'complete') {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
       func();
     } else if (document.addEventListener) {
       document.addEventListener('DOMContentLoaded', func, false);

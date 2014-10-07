@@ -325,7 +325,7 @@ A tdstruct can be generated backwards, from an element on a web page. This is do
 	document.body.appendChild(dom);
 
 	// get the DOM element by id, and structify it
-	var div1 = $$$.query('#div1')[0];
+	var div1 = $$$.query('#div1');
 	var tdstruct = $$$.structify(div1);
 
 	alert(JSON.stringify(tdstruct));

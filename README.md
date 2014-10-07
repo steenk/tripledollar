@@ -348,7 +348,7 @@ The function appendToDoc waits for the DOM content to get loaded, before it adds
 ```javascript
 	// a function to be used later
 	function start () {
-		$('#i01')[0].ins('h1', 'Started');
+		$$$.query('#i01').ins('h1', 'Started');
 	}
 	// placing things on the page
 	$$$.appendToDoc(['div"i01']);
@@ -376,7 +376,7 @@ When creating modules, and using an asychronous module loader as Require.js, the
     $$$.appendToDoc(['div'], ['div'])
     .then(function () {
     	var n = $$$.queryAll('div');
-    	alert('I found ' + n + ' divs!')
+    	alert('I found ' + n.length + ' divs!')
     });
 ```
 

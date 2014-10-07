@@ -386,7 +386,7 @@ To implement the "then" method, we needed something that is commonly used in Nod
 
 # SVG
 
-SVG elements has their own namespace, so to to create embedded SVG all SVG elements have to be written "svg:element", where "element" here is one of the allowed SVG elements, like "rect", "circle", "g", and so on. SVG has a lot of attributes, and they will be written with an object of properties, as usual. Some of these attributes need another namespace than SVG, like the "href" attribute in the "a" element. That is handled by using the attribute name "xlink:href" in quotes. 
+SVG elements has their own namespace, so to create embedded SVG all SVG elements have to be written "svg:element", where "element" here is one of the allowed SVG elements, like "rect", "circle", "g", and so on. SVG has a lot of attributes, and they will be written with an object of properties, as usual. Some of these attributes need another namespace than SVG, like the "href" attribute in the "a" element. That is handled by using the attribute name "xlink:href" in quotes. 
 
 ```javascript
     var svg = $$$('svg', {width:300, height:250},

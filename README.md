@@ -178,7 +178,7 @@ DOM elements are JavaScript objects that can have any property applied to it, so
 
 ## fun
 
-There are normally not so many functions that you can call on a DOM object during the creation phase, so this an example where we first place a function with __set__ and then call it with __fun__.
+There are normally not so many functions that you can call on a DOM object during the creation phase, so this is an example where we first place a function with __set__ and then call it with __fun__.
 
 ```javascript
 	var fun1 = function (delim) {this.textContent = this.textContent.split('').join(delim);};

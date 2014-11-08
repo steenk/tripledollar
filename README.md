@@ -287,7 +287,7 @@ The second example may look a little more complicated, but it has several advant
 One thing that is nice to have when programming for the web, is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving build-in CSS searching. So as a little extra feature, tripledollar sets $$$.query() as an alias for `document.querySelector()`, and $$$.queryAll() as an alias for `document.querySelectorAll()`. (Earlier versions of tripledollar, < 0.7, used $ as an alias for querySelectorAll, but we want to stay away from what is used by other common libraries.)
 
 ```javascript
-	var body = $('body')[0];
+	var body = $$$.query('body');
 	body.appendChild($$$('div.a-class-name'));
 	// get it back
 	var div = $$$.queryAll('.a-class-name')[0];

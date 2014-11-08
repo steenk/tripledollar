@@ -1,3 +1,7 @@
+**v0.7.5**;
+
+  - check validity of "ident" parameter.
+
 **v0.7.4**:
 
   - readyState can be "interactive".

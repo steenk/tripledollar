@@ -1,11 +1,8 @@
 {
   "name": "tripledollar",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/steenk/tripledollar.git"

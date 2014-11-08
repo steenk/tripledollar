@@ -21,7 +21,7 @@
   /**
    * @version
    */
-  var VERSION = '0.7.4';
+  var VERSION = '0.7.5';
 
   /**
    * Namespaces
@@ -39,7 +39,9 @@
     if (typeof args[0] !== 'string') {
       if (Object.prototype.toString.call(args[0]) === '[object Array]') {
         return $$$.apply(this, args[0]);
-      }
+      } else {
+		  return;
+	  }
     }
 
     /**
@@ -53,6 +55,9 @@
       t.shift();
     }
     for (var i=0; i<n.length; i++) {
+	  if (n[i] && !n[i].match(/^[A-Za-z][A-Za-z0-9-_\.:#]*$/)) {
+		return;
+	  }
       if (i === 0) {
         var m = n[0].split(':');
         if (Object.keys(ns).indexOf(m[0]) > -1) {

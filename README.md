@@ -125,7 +125,7 @@ Adding text inside a DOM element is just to add it as one of the parameters afte
 Since there are no direct limit on the number of parameters in the $$$ function, it's possible to do this:
 
 ```javascript
-	var p = $$$('p', This is a text. ', 'This is another one.');
+	var p = $$$('p', 'This is a text. ', 'This is another one.');
 ```
 
 To sum up, arguments to the $$$ function (except the first one) are either DOM elements themselves, or objects with properties, or plain values that will end up as text inside the DOM element.

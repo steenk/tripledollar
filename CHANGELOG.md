@@ -1,3 +1,7 @@
+**v0.8.0**;
+
+  - adjusted to jslint.
+
 **v0.7.5**;
 
   - check validity of "ident" parameter.

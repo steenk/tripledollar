@@ -1,14 +1,18 @@
+**v0.8.1**;
+
+  - Optimazations.
+
 **v0.8.0**;
 
-  - adjusted to jslint.
+  - Adjusted to jslint.
 
 **v0.7.5**;
 
-  - check validity of "ident" parameter.
+  - Check validity of "ident" parameter.
 
 **v0.7.4**:
 
-  - readyState can be "interactive".
+  - ReadyState can be "interactive".
 
 **v0.7.3**:
 

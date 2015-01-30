@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
   "repository": {

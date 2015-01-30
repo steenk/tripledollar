@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.8.0',
+    var VERSION = '0.8.1',
 
         /**
          * Namespaces
@@ -45,7 +45,8 @@
                 t,
                 e,
                 i,
-                m;
+                m,
+                re = /^[A-Za-z][A-Za-z0-9-_\.:#]*$/;
             if (typeof args[0] !== 'string') {
                 if (Object.prototype.toString.call(args[0]) === '[object Array]') {
                     return $$$.apply(this, args[0]);
@@ -59,7 +60,7 @@
                 t.shift();
             }
             for (i = 0; i < n.length; i++) {
-                if (n[i] && !n[i].match(/^[A-Za-z][A-Za-z0-9-_\.:#]*$/)) {
+                if (n[i] && !n[i].match(re)) {
                     return;
                 }
                 if (i === 0) {
@@ -200,6 +201,7 @@
                     ch,
                     s,
                     i,
+                    re2 = /id|class|contenteditable/,
                     name = c.localName,
                     cname = String(c.className).replace(' ', '.');
                 if (cname) {
@@ -213,7 +215,7 @@
                     attrs = c.attributes;
                     attr = {};
                     for (i = 0; i < attrs.length; i++) {
-                        if (!attrs[i].name.match(/id|class|contenteditable/)) {
+                        if (!attrs[i].name.match(re2)) {
                             attr[attrs[i].name] = attrs[i].value;
                         }
                     }
@@ -245,7 +247,7 @@
      */
     $$$.onReady = function (func) {
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            func();
+            doNext(func);
         } else if (document.addEventListener) {
             document.addEventListener('DOMContentLoaded', func, false);
         } else {
@@ -292,12 +294,7 @@
     $$$.appendToDoc = function me() {
         var args = Array.prototype.slice.call(arguments),
             i,
-            follow = [],
-            emit = function () {
-                follow.forEach(function (f) {
-                    doNext(f);
-                });
-            };
+            follow = [];
         me.then = function (what) {
             if (typeof what === 'function') {
                 follow.push(what);
@@ -316,7 +313,9 @@
                     args[i]();
                 }
             }
-            doNext(emit);
+            follow.forEach(function (f) {
+                doNext(f);
+            });
         });
         return me;
     };
@@ -334,8 +333,7 @@
     }
 
     /**
-     * In case a $ function is not initialized.
-     * Using $ is DEPRECATED, adding shortcuts to $$$ instead.
+     * Aliases for built-in selector methods.
      */
     $$$.query = function (sel) { return document.querySelector(sel); };
     $$$.queryAll = function (sel) { return document.querySelectorAll(sel); };

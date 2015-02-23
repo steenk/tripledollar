@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Steen Klingberg
+ * Copyright (C) 2013-2015 Steen Klingberg
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -17,12 +17,12 @@
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-(function () {
+(function (window) {
     "use strict";
     /**
      * @version
      */
-    var VERSION = '0.8.1',
+    var VERSION = '0.9.0',
 
         /**
          * Namespaces
@@ -34,6 +34,7 @@
         },
         /**
          * The triple dollar function creates a DOM object.
+         * @method $$$ the DOM constructor
          */
         $$$ = function () {
             /**
@@ -117,6 +118,8 @@
             allArgs(args);
             /**
              * Add CSS to the element.
+             * @method css
+             * @param {Object} obj A property object with CSS.
              */
             e.css = function (obj) {
                 var k;
@@ -264,11 +267,15 @@
         q = [];
         id = 'doNext' + ((Math.random() * 67108864) | 0).toString(16);
         react = function (evt) {
+            var r,t;
             if (evt.source === window &&
                     typeof evt.data === "string" &&
                     evt.data.indexOf(id) === 0) {
                 var f = q.shift();
-                if (f.length > 0) {f[0].apply(null, f.splice(1)); }
+                if (f.length > 0) {
+                    r = f[0].apply(undefined, f.splice(1), true);
+                    if (q[0] && q[0].length === 1) { q[0].push(r); }
+                }
             }
         };
         if (window.postMessage) {
@@ -290,35 +297,75 @@
 
     /**
      * A shortcut for placing the content on the web page.
+     * Returns a Promise if there is one, otherwise just a fake "then" method.
      */
     $$$.appendToDoc = function me() {
         var args = Array.prototype.slice.call(arguments),
             i,
             follow = [];
+        // "then" and "catch" is for environments without native Promise
         me.then = function (what) {
+			var p;
+            if (me === what) {
+                throw new TypeError('Circular reference.');
+            }
             if (typeof what === 'function') {
                 follow.push(what);
-            } else {
+			} else {
                 console.log('$$$: Only functions can be passed to "then()"!');
             }
             return me;
         };
-        $$$.onReady(function () {
-            for (i = 0; i < args.length; i++) {
-                if (Object.prototype.toString.call(args[i]) === '[object Array]') {
-                    document.body.appendChild($$$(args[i]));
-                } else if (args[i] instanceof window.HTMLElement || args[i] instanceof window.SVGSVGElement) {
-                    document.body.appendChild(args[i]);
-                } else if (typeof args[i] === 'function') {
-                    args[i]();
+		me.catch = function (reason) {
+			console.log('$$$: Error occured.', reason);
+			return me;
+		};
+        function append (resolve) {
+           $$$.onReady(function () {
+                for (i = 0; i < args.length; i++) {
+                    if (Object.prototype.toString.call(args[i]) === '[object Array]') {
+                        document.body.appendChild($$$(args[i]));
+                    } else if (args[i] instanceof window.HTMLElement || args[i] instanceof window.SVGSVGElement) {
+                        document.body.appendChild(args[i]);
+                    } else if (typeof args[i] === 'function') {
+                        args[i]();
+                    }
                 }
-            }
-            follow.forEach(function (f) {
-                doNext(f);
+                resolve();
+            });            
+        }
+        if (typeof Promise !== 'undefined') {
+            return new Promise (function (resolve, reject) {
+                try {
+                    append(resolve);
+                } catch (e) {
+                    reject(e);
+                }
             });
-        });
-        return me;
+        } else {
+            append(function () {
+                var x;
+                follow.forEach(function (f) {
+                    doNext(function () {
+                        if (x && x.then) {
+                            x.then(function (y) {
+                                f(y);
+                            })
+                        } else {
+                            x = f(x);
+                        }
+                    });
+                });
+            });
+            return me;
+        }
     };
+
+    /**
+     * Aliases for built-in selector methods.
+     */
+    $$$.query = function (sel) { return document.querySelector(sel); };
+    $$$.queryAll = function (sel) { return document.querySelectorAll(sel); };
 
     /**
      * Use AMD if a module loader is in place.
@@ -327,14 +374,11 @@
         window.define(function () {
             return $$$;
         });
+    } else if (typeof exports === 'object') {
+        exports = $$$;
     } else {
         window.$$$ = $$$;
         window.tripledollar = $$$.appendToDoc;
     }
 
-    /**
-     * Aliases for built-in selector methods.
-     */
-    $$$.query = function (sel) { return document.querySelector(sel); };
-    $$$.queryAll = function (sel) { return document.querySelectorAll(sel); };
-}());
+}(this));

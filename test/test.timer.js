@@ -20,13 +20,4 @@ describe('Timer', function () {
 		}
 		$$$.setImmediate(b, 1, 2);
 	});
-	it('should be a "then" method in "appendToDoc"', function (done) {
-		var e = $$$('div', {style:'display:none'}, 'first');
-		$$$.appendToDoc(e)
-			.then(function () {e.textContent = 'second'})
-			.then(function () {
-				assert(e.textContent === 'second', 'then is not working');
-				done();
-		});
-	});	
 });

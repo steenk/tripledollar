@@ -38,14 +38,13 @@ describe('Then', function () {
 				done();
 		});
 	});	
-	it('should be a "then" method in "appendToDoc when there is no Promise"', function (done) {
+	it('should be able to handle "thenables" even when there is no Promise"', function (done) {
 		var e = $$$('div', {style:'display:none'}, 'first');
 		$$$.appendToDoc(e)
 			.then(function () {
 				return p;
 			})
 			.then(function (value) {
-				console.log('value is', value);
 				assert(value === 'promised', 'value of a promise');
 				done();
 		});

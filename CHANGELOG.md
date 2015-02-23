@@ -1,3 +1,7 @@
+**v0.9.0**;
+
+  - Promise.
+
 **v0.8.1**;
 
   - Optimazations.

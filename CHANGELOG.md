@@ -1,3 +1,7 @@
+**v0.9.1**;
+
+  - Both AMD and CommonJS module.
+
 **v0.9.0**;
 
   - Promise.

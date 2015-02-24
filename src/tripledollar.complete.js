@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.9.0',
+    var VERSION = '0.9.1',
 
         /**
          * Namespaces
@@ -374,8 +374,8 @@
         window.define(function () {
             return $$$;
         });
-    } else if (typeof exports === 'object') {
-        exports = $$$;
+    } else if (typeof module === 'object') {
+        module.exports = $$$;
     } else {
         window.$$$ = $$$;
         window.tripledollar = $$$.appendToDoc;

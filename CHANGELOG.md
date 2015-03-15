@@ -1,3 +1,7 @@
+**v0.9.2**;
+
+  - Recursive css method with CSS Selector.
+
 **v0.9.1**;
 
   - Both AMD and CommonJS module.

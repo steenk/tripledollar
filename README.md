@@ -1,6 +1,6 @@
 # Tripledollar
 
-![](logo.png)
+![](images/logo.png)
 
 When you're going to create a lot of DOM elements from JavaScript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating DOM elements with JavaScript, and no more. It is actually __less than 4kB!__ So this tutorial is bigger than the library itself.
 
@@ -164,6 +164,41 @@ CSS can be applied directly to the DOM element with JavaScript. This is not alwa
 The CSS name is translated to camel case, and the dash is removed. Tripledollar is using this camel case names for CSS.
 
 	var div = $$$('div').css({backgroundColor: 'red', fontSize: '16pt', border: 'solid black 2pt'});
+
+From version 0.9.2 the __css__ method is recursive, meaning that you can style sub elements with the same property object. If a property is an object instead of a string, number, or boolean, then the __css__ method will use the property key as a CSS selector, and applies style to the sub elements it finds. To clarify, here is an example.
+
+```javascript
+var chess = $$$('div');
+var row;
+for (var r=0; r++ < 8;) {
+    row = $$$('div.row');
+    chess.ins(row);
+    for (var c=0; c++ < 8;) {
+        row.ins($$$('div.cell.' + ((r + c) % 2 === 0 ? 'white' : 'black')));
+    }
+}
+chess.css({
+    width: '200px',
+    height: '200px',
+    border: 'solid black 1px',
+    '.row': {
+        height: '25px'
+    },
+    '.cell': {
+        display: 'inline-block',
+        margin: 0,
+        width: '25px',
+        height: '25px',
+    },
+    '.black': {
+        backgroundColor: 'black'
+    }
+});
+$$$.appendToDoc (chess);
+```
+
+![](images/chess.png)
+
 
 ## set
 

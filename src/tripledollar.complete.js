@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.9.1',
+    var VERSION = '0.9.2',
 
         /**
          * Namespaces
@@ -121,15 +121,23 @@
              * @method css
              * @param {Object} obj A property object with CSS.
              */
-            e.css = function (obj) {
-                var k;
+            function css (obj) {
+                var k, o, i;
                 for (k in obj) {
                     if (obj.hasOwnProperty(k)) {
-                        this.style[k] = obj[k];
+                        if (typeof obj[k] !== 'object') {
+                            this.style[k] = obj[k];
+                        } else {
+                            o = this.querySelectorAll(k);
+                            for (i = 0; i < o.length; i++) {
+                                css.call(o[i], obj[k]);
+                            }
+                        }
                     }
                 }
                 return this;
             };
+            e.css = css;
             /**
              * Set a property.
              */

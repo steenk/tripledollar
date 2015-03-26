@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.9.3',
+    var VERSION = '0.9.4',
 
         /**
          * Namespaces
@@ -73,11 +73,11 @@
                         e = document.createElement(m[1] || m[0]);
                     }
                 } else {
-                    if (t[i - 1] === '.') {
-                        c = e.className.split(' ');
+                    if (e && t[i - 1] === '.') {
+                        c = e.className.toString().split(' ');
                         if (c.indexOf(n[i]) === -1) {
                             c.push(n[i]);
-                            e.className = c.join(' ');
+                            e.setAttribute('class', c.join(' '));
                         }
                     } else if (t[i - 1] === '#') {
                         e.setAttribute('id', n[i]);

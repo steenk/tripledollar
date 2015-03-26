@@ -1,3 +1,7 @@
+**v0.9.3**;
+
+  - Use className instead of classList for old browsers.
+
 **v0.9.2**;
 
   - Recursive css method with CSS Selector.

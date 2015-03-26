@@ -2,7 +2,7 @@
 
 ![](images/logo.png)
 
-When you're going to create a lot of DOM elements from JavaScript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating DOM elements with JavaScript, and no more. It is actually __less than 4kB!__ So this tutorial is bigger than the library itself.
+When you're going to create a lot of DOM elements from JavaScript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating DOM elements with JavaScript, and no more. It is actually __less than 5kB!__ So this tutorial is bigger than the library itself.
 
 What you want to do is something like this (just a silly example):
 ```html

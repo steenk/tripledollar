@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.9.4',
+    var VERSION = '0.9.5',
 
         /**
          * Namespaces
@@ -48,6 +48,7 @@
                 i,
                 m,
                 c,
+				a,
                 re = /^[A-Za-z][A-Za-z0-9-_\.:#]*$/;
             if (typeof args[0] !== 'string') {
                 if (Object.prototype.toString.call(args[0]) === '[object Array]') {
@@ -74,11 +75,12 @@
                     }
                 } else {
                     if (e && t[i - 1] === '.') {
-                        c = e.className.toString().split(' ');
-                        if (c.indexOf(n[i]) === -1) {
+                        a = e.getAttribute('class');
+						c = a ? a.split(' ') : [];
+                        if (n[i] && c.indexOf(n[i]) === -1) {
                             c.push(n[i]);
                             e.setAttribute('class', c.join(' '));
-                        }
+						}
                     } else if (t[i - 1] === '#') {
                         e.setAttribute('id', n[i]);
                     }

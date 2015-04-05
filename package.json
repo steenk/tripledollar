@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
   "repository": {
@@ -13,6 +13,11 @@
   "scripts": {  
 	"test": "node test/run_tests.js",
 	"lint": "jslint --regexp=true --browser=true --plusplus=true --bitwise=true src/tripledollar.complete.js",
-    "pretest": "./build.sh"
-  }
+    "pretest": "scripts/build.js"
+  },
+  "files": [
+    "tripledollar.js",
+	"test",
+	"images"
+  ]
 }

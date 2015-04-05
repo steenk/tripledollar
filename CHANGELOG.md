@@ -1,36 +1,40 @@
-**v0.9.5**;
+**v0.9.6**:
+
+  - Publish on npm.
+
+**v0.9.5**:
 
   - Fixed bug with classnames on SVG.
 
-**v0.9.4**;
+**v0.9.4**:
 
   - Fix for IE.
 
-**v0.9.3**;
+**v0.9.3**:
 
   - Use className instead of classList for old browsers.
 
-**v0.9.2**;
+**v0.9.2**:
 
   - Recursive css method with CSS Selector.
 
-**v0.9.1**;
+**v0.9.1**:
 
   - Both AMD and CommonJS module.
 
-**v0.9.0**;
+**v0.9.0**:
 
   - Promise.
 
-**v0.8.1**;
+**v0.8.1**:
 
   - Optimazations.
 
-**v0.8.0**;
+**v0.8.0**:
 
   - Adjusted to jslint.
 
-**v0.7.5**;
+**v0.7.5**:
 
   - Check validity of "ident" parameter.
 

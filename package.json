@@ -15,9 +15,27 @@
 	"lint": "jslint --regexp=true --browser=true --plusplus=true --bitwise=true src/tripledollar.complete.js",
     "pretest": "scripts/build.js"
   },
+  "dependencies": {
+	"nopt": ">=3.0.1",
+	"less": ">=2.5.0",
+	"requirejs": ">=2.1.17"
+  },
+  "devDependencies": {
+    "mocha": ">=2.2.0",
+    "uglifyjs": ">=2.4.0"
+  },
   "files": [
     "tripledollar.js",
 	"test",
-	"images"
-  ]
+	"images",
+	"src",
+	"bin"
+  ],
+  "keywords": [
+	"dom-scripting",
+	"browser"
+  ],
+  "bin": {
+	"td": "./bin/td.js"
+  }
 }

@@ -79,7 +79,7 @@ function copyFile (from, to) {
 
 function init (name) {
 	var occupied, td, req, dl;
-	var mdir = '/Users/steen/node_modules/';
+	var mdir = __dirname + '/../node_modules/';
 	fs.readdir('.', function (err, files) {
 		['index.html', 'lib', 'less', 'app']
 		.forEach(function (fname) {
@@ -90,7 +90,7 @@ function init (name) {
 		} else {
 			fs.mkdir('lib', function () {
 				fs.mkdir('less', function () {
-					copyFile(mdir + 'tripledollar/tripledollar.js', 'lib/tripledollar.js')
+					copyFile(__dirname + '/../tripledollar.js', 'lib/tripledollar.js')
 					copyFile(mdir + 'less/dist/less.min.js', 'lib/less.js')
 					copyFile(mdir + 'requirejs/require.js', 'lib/require.js')
 					indexFile(name, function (err) {

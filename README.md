@@ -45,6 +45,17 @@ With __tripledollar__ you can do the same thing more compact:
 
 Tripledollar has been tested on the most common, modern web browsers, but it is made for JavaScript development, so web browsers with old JavaScript engines is not the target.
 
+## Installation
+
+You can load tripledollar in your script from [steenk.github.io](http://steenk.github.io/tripledollar.js), or you can download the library from [tripledollar.net](http://tripledollar.net) and save it locally, but if you want a file structure to start with, you can use the simple command line tool __td__ that you get by installing with __npm__.
+
+```
+npm install tripledollar -g
+mkdir myproject
+cd myproject
+td --init
+```
+
 ## Just a few help functions
 
 Tripledollar adds a few three letters help functions to the DOM element, making it easy to apply most things that you want to do to your DOM element. The functions can be chained together. These are:

@@ -1,3 +1,7 @@
+**v0.9.7**:
+
+  - Command line tool.
+
 **v0.9.6**:
 
   - Publish on npm.

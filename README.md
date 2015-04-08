@@ -199,7 +199,7 @@ chess.css({
         display: 'inline-block',
         margin: 0,
         width: '25px',
-        height: '25px',
+        height: '25px'
     },
     '.black': {
         backgroundColor: 'black'

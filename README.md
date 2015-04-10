@@ -466,6 +466,21 @@ SVG elements has their own namespace, so to create embedded SVG all SVG elements
     )
 ```
 
+# Command Line Interface
+
+Installed with __npm__  tripledollar has a simple CLI. Tripledollar itself needs to run in a browser, but the Node.js environment can bring some convenience when developing. The __td__ command with option --init creates a structure where you directly can start develop in a modular fashion. Many client side libraries are published in __npm__, the module loader for Node.js, but adding a whole npm project to your web application is not what you want. In most cases it is enough with just one JavaScript file to add to your lib folder. The __td__ command has a --get option for doing this. From your lib folder you can type `td --get chart.js` and you get the chart.js file from the npm project chart.js. Convenient.
+
+```
+Tripledollar - a JavaScript library for DOM scripting.
+Usage: td [options]
+Options:
+  -i  --init	create initial structure
+  -n  --name	optional name of the project
+  -g  --get	get any client library from npm
+  -v  --version	version of tripledollar
+  -h  --help	this help text
+```
+
 # Finally
 
 It was quite a bit of information for this rather small library. Here is a piece of code that you can use as a starting point, and try this for your self. Just copy it and save it as a HTML file.
@@ -480,7 +495,7 @@ It was quite a bit of information for this rather small library. Here is a piece
   		</head>
   		<body>
     		<script>
-      			tripledollar(['div', {style:'color:pink;font-size:100pt'}, "Don't write HTML!"]);
+      			$$$.appendToDoc(['div', {style:'color:pink;font-size:100pt'}, "Don't write HTML!"]);
     		</script>
   		</body>
 	</html>

@@ -1,3 +1,8 @@
+**v0.9.8**:
+
+  - Depricated window.tripledollar. Use window.$$$.appendToDoc instead.
+  - Improvements on the CLI.
+
 **v0.9.7**:
 
   - Command line tool.

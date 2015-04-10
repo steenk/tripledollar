@@ -2,14 +2,27 @@
 
 var nopt = require('nopt'),
 	fs = require('fs'),
+	npm = require('npm'),
+	path = require('path'),
 	known = {
 		init: Boolean,
-		name: String
+		name: String,
+		get: String,
+		version: Boolean
 	},
 	shorts = {
 		i: '--init',
 		n: '--name',
+		g: '--get',
+		v: '--version',
 		h: '--help'
+	},
+	descr = {
+		i: 'create initial structure',
+		n: 'optional name of the project',
+		g: 'get any client library from npm',
+		v: 'version of tripledollar',
+		h: 'this help text'
 	};
 
 
@@ -106,14 +119,49 @@ function init (name) {
 	})
 }
 
+function install (name) {
+	var pack;
+	npm.load(null, function (err) {
+        dir = npm.dir + '/';
+        fs.exists(dir + name, function (exists) {
+            if (exists) {
+            	pack = require(dir + name + '/package.json');
+            	var fname = path.basename(name, '.js') + '.js';
+            	copyFile(dir + name + '/' + pack.main, './' + fname);
+            } else {
+            	npm.install(name, function (err, res) {
+            		if (!err) {
+
+            		}
+            	})
+            }
+        })
+    })
+}
+
+function getLib (names) {
+	names.forEach(function (name) {
+		install(name);
+	})
+}
+
+function getVersion () {
+	var pack = require(__dirname + '/../package.json');
+	console.log(pack.version);
+}
+
 if (opt.init) {
 	var name = opt.name || 'Tripledollar';
 	init(name);
+} else if (opt.get) {
+	getLib(opt.argv.remain.concat(opt.get));
+} else if (opt.version) {
+	getVersion();
 } else {
 	console.log("Tripledollar - a JavaScript library for DOM scripting.")
 	console.log('Usage: td [options]');
 	console.log('Options:');
 	for(var item in shorts) {
-		console.log('  -' + item + '  ' + shorts[item]);
+		console.log('  -' + item + '  ' + shorts[item] + '	' + descr[item]);
 	}
 }

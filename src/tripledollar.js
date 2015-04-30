@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.9.8',
+    var VERSION = '0.9.9',
 
         /**
          * Namespaces

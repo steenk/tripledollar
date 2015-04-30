@@ -4,6 +4,8 @@ var nopt = require('nopt'),
 	fs = require('fs'),
 	npm = require('npm'),
 	path = require('path'),
+	http = require('http')
+	child_process = require('child_process'),
 	known = {
 		init: Boolean,
 		name: String,
@@ -15,12 +17,18 @@ var nopt = require('nopt'),
 		n: '--name',
 		g: '--get',
 		v: '--version',
+		o: '--open',
+		s: '--start',
+		k: '--kill',
 		h: '--help'
 	},
 	descr = {
 		i: 'create initial structure',
 		n: 'optional name of the project',
 		g: 'get any client library from npm',
+		o: 'open browser',
+		s: 'start the server',
+		k: 'kill the server',
 		v: 'version of tripledollar',
 		h: 'this help text'
 	};
@@ -82,11 +90,13 @@ function lessFile (cb) {
 
 function copyFile (from, to) {
 	fs.readFile(from, function (err, data) {
-	    fs.writeFile(to, data, function (err) {
-	      	if (err) {
-	       		console.log("Can't create", to);
-	       	}
-	   });
+		if (!err) {
+	    	fs.writeFile(to, data, function (err) {
+	      		if (err) {
+	       			console.log("Can't create", to);
+	       		}
+	   		});
+		}
 	})
 }
 
@@ -127,11 +137,19 @@ function install (name) {
             if (exists) {
             	pack = require(dir + name + '/package.json');
             	var fname = path.basename(name, '.js') + '.js';
-            	copyFile(dir + name + '/' + pack.main, './' + fname);
+				console.log('checking', dir + name + '/dist/' + fname);
+				fs.exists(dir + name + '/dist/' + fname, function (exists) {
+					if (exists) {
+						copyFile(dir + name + '/dist/' + fname, './' + fname);
+					} else {
+						console.log(dir + name + '/' + pack.main, './' + fname);
+            			copyFile(dir + name + '/' + pack.main, './' + fname);
+					}
+				});
             } else {
             	npm.install(name, function (err, res) {
             		if (!err) {
-
+						console.log(res);
             		}
             	})
             }
@@ -150,6 +168,43 @@ function getVersion () {
 	console.log(pack.version);
 }
 
+function server (prop) {
+	var child = child_process.spawn(path.normalize(__dirname + '/../lib/server.js'), [], {
+		cwd: prop.cwd,
+		stdio: 'inherit' 
+	});
+	console.log(child.pid, child.status);
+    if (child.pid && opt.open) {
+        setTimeout(openBrowser, 300);
+	}
+	child.unref();
+}
+
+function killServer (cb) {
+	var opts = {
+		hostname: 'localhost',
+		port: 3000,
+		path: '/exit',
+		method: 'GET'
+	}
+	var req = http.request(opts, function () {
+		cb();
+	})
+	req.on('error', function () {
+		cb();
+	});
+	req.end();
+}
+
+function openBrowser () {
+	var browse = {darwin: 'open', linux: 'xdg-open', win32: 'start', win64: 'start'};
+	child_process.exec(browse[process.platform] + ' http://127.0.0.1:3000', function(err){
+        if(err) {
+			console.log('Error', err);
+		}
+	});
+}
+
 if (opt.init) {
 	var name = opt.name || 'Tripledollar';
 	init(name);
@@ -157,11 +212,23 @@ if (opt.init) {
 	getLib(opt.argv.remain.concat(opt.get));
 } else if (opt.version) {
 	getVersion();
+} else if (opt.start) {
+	killServer(function () {
+		server({cwd: process.cwd()});
+	});
+} else if (opt.open) {
+    openBrowser();
+} else if (opt.kill) {
+	killServer(function () {
+		console.log('Server is killed.');
+	});
 } else {
 	console.log("Tripledollar - a JavaScript library for DOM scripting.")
 	console.log('Usage: td [options]');
 	console.log('Options:');
 	for(var item in shorts) {
-		console.log('  -' + item + '  ' + shorts[item] + '	' + descr[item]);
+		if (item.indexOf('___') !== 0) {
+			console.log('  -' + item + '  ' + shorts[item] + '	' + descr[item]);
+		}
 	}
 }

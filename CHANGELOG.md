@@ -1,3 +1,7 @@
+**v0.9.9**:
+
+  - Start and stop a HTTP server with the td command.
+
 **v0.9.8**:
 
   - Depricated window.tripledollar. Use window.$$$.appendToDoc instead.

@@ -478,8 +478,12 @@ Options:
   -n  --name	optional name of the project
   -g  --get	get any client library from npm
   -v  --version	version of tripledollar
+  -o  --open	open browser
+  -s  --start	start the server
+  -k  --kill	kill the server
   -h  --help	this help text
 ```
+Some browsers don't like when you open files and scripts directly from the file system. There can be "security" reasons, and caching stops your code changes to get through. Starting a local web server is better, then you just have to reload the page in the browser to se the changes you have done. Tripledollar comes with a simple HTTP server that you can use during development. Go to the root of your project (if you just did a `td --init`, that is the place) and type the command `td --start --open`. The start command will restart the server if one is already started. Stop it with a `td --kill`.
 
 # Finally
 

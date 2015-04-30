@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
   "repository": {
@@ -23,7 +23,8 @@
     "connect-query": "^0.2.0",
     "connect": "^3.3.3",
     "morgan": "^1.5.0",
-    "serve-static": "^1.7.1"
+    "serve-static": "^1.7.1",
+	"npm": ">=2.7.0"
   },
   "devDependencies": {
     "mocha": ">=2.2.0",

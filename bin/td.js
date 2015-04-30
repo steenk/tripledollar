@@ -169,11 +169,12 @@ function getVersion () {
 }
 
 function server (prop) {
-	var child = child_process.spawn(path.normalize(__dirname + '/../lib/server.js'), [], {
+	var io = {darwin: 'inherit', linux: 'inherit', win32: 'ignore', win64: 'ignore', 'undefined': 'ignore'}[process.platform],
+		child = child_process.spawn(process.execPath, [path.normalize(__dirname + '/../lib/server.js')], {
 		cwd: prop.cwd,
-		stdio: 'inherit' 
+		detached: true,
+		stdio: io 
 	});
-	console.log(child.pid, child.status);
     if (child.pid && opt.open) {
         setTimeout(openBrowser, 300);
 	}

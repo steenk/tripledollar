@@ -1,3 +1,7 @@
+**v0.9.11**:
+
+  - Minor fix in package.json.
+
 **v0.9.10**:
 
   - Fixed spawn process on Windows.

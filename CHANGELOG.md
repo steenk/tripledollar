@@ -1,3 +1,7 @@
+**v0.9.10**:
+
+  - Fixed spawn process on Windows.
+
 **v0.9.9**:
 
   - Start and stop a HTTP server with the td command.

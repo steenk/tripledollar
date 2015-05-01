@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.9.11',
+    var VERSION = '0.10.0',
 
         /**
          * Namespaces
@@ -32,43 +32,64 @@
             xlink: 'http://www.w3.org/1999/xlink',
             xhtml: 'http://www.w3.org/1999/xhtml'
         },
+        keys_ns = 'svg xlink xhtml ',
+        /**
+         * Traverse the ident field
+         */
+        trav = function trav (s, m) {
+            var l = s.length,
+                a = [],
+                i = 0,
+                j = 0;
+            while (i < l) {
+                if (s[i] === '.' || s[i] === '#') {
+                    if (m) {
+                        a[j++] = s[i];
+                    } else {
+                        a.push(s.slice(j, i));
+                        j = i + 1;
+                    }
+                }
+                i++;
+                if (!m && i === l) {
+                    a.push(s.slice(j));
+                }
+            }
+            return a;
+        },
         /**
          * The triple dollar function creates a DOM object.
          * @method $$$ the DOM constructor
          */
-        $$$ = function () {
+        $$$ = function (ident) {
+            //console.log(1, performance.now());
             /**
              * Splitting up the ident parameter into element type, id, and class names. 
              */
-            var args = Array.prototype.slice.call(arguments),
-                ident,
+            var args = Array.prototype.slice.call(arguments, 1),
                 n,
                 t,
                 e,
                 i,
                 m,
                 c,
-				a,
+                a,
                 re = /^[A-Za-z][A-Za-z0-9-_\.:#]*$/;
-            if (typeof args[0] !== 'string') {
-                if (Object.prototype.toString.call(args[0]) === '[object Array]') {
-                    return $$$.apply(this, args[0]);
+            if (typeof ident !== 'string') {
+                if (Object.prototype.toString.call(ident) === '[object Array]') {
+                    return $$$.apply(this, ident);
                 }
                 return;
             }
-            ident = args.shift();
-            n = ident.split(/[\.#]/);
-            t = ident.split(/[^\.#]+/);
-            if (t[0] === '') {
-                t.shift();
-            }
+            n = trav(ident, false);
+            t = trav(ident, true);
             for (i = 0; i < n.length; i++) {
-                if (n[i] && !n[i].match(re)) {
+                if (n[i] && !re.test(n[i])) {
                     return;
                 }
                 if (i === 0) {
                     m = n[0].split(':');
-                    if (Object.keys(ns).indexOf(m[0]) > -1) {
+                    if (keys_ns.indexOf(m[0] + ' ') > -1) {
                         e = document.createElementNS(ns[m[0]], m[1] || m[0]);
                     } else {
                         e = document.createElement(m[1] || m[0]);
@@ -76,11 +97,11 @@
                 } else {
                     if (e && t[i - 1] === '.') {
                         a = e.getAttribute('class');
-						c = a ? a.split(' ') : [];
+                        c = a ? a.split(' ') : [];
                         if (n[i] && c.indexOf(n[i]) === -1) {
                             c.push(n[i]);
                             e.setAttribute('class', c.join(' '));
-						}
+                        }
                     } else if (t[i - 1] === '#') {
                         e.setAttribute('id', n[i]);
                     }
@@ -103,7 +124,7 @@
                         } else {
                             for (a in param) {
                                 if (param.hasOwnProperty(a)) {
-                                    if (a.match(/^data./)) {
+                                    if (/^data./.test(a)) {
                                         atr = a.substr(4).toLowerCase();
                                         e.setAttribute('data-' + atr, param[a]);
                                     } else {
@@ -143,7 +164,7 @@
                     }
                 }
                 return this;
-            };
+            }
             e.css = css;
             /**
              * Set a property.
@@ -233,7 +254,7 @@
                     attrs = c.attributes;
                     attr = {};
                     for (i = 0; i < attrs.length; i++) {
-                        if (!attrs[i].name.match(re2)) {
+                        if (!re2.test(attrs[i].name)) {
                             attr[attrs[i].name] = attrs[i].value;
                         }
                     }
@@ -282,11 +303,11 @@
         q = [];
         id = 'doNext' + ((Math.random() * 67108864) | 0).toString(16);
         react = function (evt) {
-            var r,t;
+            var r,f;
             if (evt.source === window &&
                     typeof evt.data === "string" &&
                     evt.data.indexOf(id) === 0) {
-                var f = q.shift();
+                f = q.shift();
                 if (f.length > 0) {
                     r = f[0].apply(undefined, f.splice(1), true);
                     if (q[0] && q[0].length === 1) { q[0].push(r); }
@@ -320,23 +341,22 @@
             follow = [];
         // "then" and "catch" is for environments without native Promise
         me.then = function (what) {
-			var p;
             if (me === what) {
                 throw new TypeError('Circular reference.');
             }
             if (typeof what === 'function') {
                 follow.push(what);
-			} else {
+            } else {
                 console.log('$$$: Only functions can be passed to "then()"!');
             }
             return me;
         };
-		me.catch = function (reason) {
-			console.log('$$$: Error occured.', reason);
-			return me;
-		};
+        me.catch = function (reason) {
+            console.log('$$$: Error occured.', reason);
+            return me;
+        };
         function append (resolve) {
-           $$$.onReady(function () {
+            $$$.onReady(function () {    
                 for (i = 0; i < args.length; i++) {
                     if (Object.prototype.toString.call(args[i]) === '[object Array]') {
                         document.body.appendChild($$$(args[i]));
@@ -349,7 +369,7 @@
                 resolve();
             });            
         }
-        if (typeof Promise !== 'undefined') {
+        if (Promise !== undefined) {
             return new Promise (function (resolve, reject) {
                 try {
                     append(resolve);

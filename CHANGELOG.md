@@ -1,3 +1,7 @@
+**v0.10.0**;
+
+  Code optimizations.
+
 **v0.9.11**:
 
   - Minor fix in package.json.

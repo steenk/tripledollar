@@ -2,9 +2,9 @@
 
 global.window = {};
 global.document = {querySelectionAll: function () {}};
-var td = require('../src/tripledollar')
- ,  fs = require('fs')
- ,  uglify = require('uglify-js');
+var td = require('../src/tripledollar'),
+  	fs = require('fs'),
+  	uglify = require('uglify-js');
 
 var comment = "/* tripledollar v." + td.version + 
   ", (c) " + (1900 + (new Date).getYear()) + " Steen Klingberg. License MIT. */\n";

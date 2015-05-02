@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.10.0',
+    var VERSION = '0.10.1',
 
         /**
          * Namespaces
@@ -369,7 +369,7 @@
                 resolve();
             });            
         }
-        if (Promise !== undefined) {
+        if (typeof Promise !== 'undefined') {
             return new Promise (function (resolve, reject) {
                 try {
                     append(resolve);

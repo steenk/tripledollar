@@ -1,4 +1,8 @@
-**v0.10.0**;
+**v0.10.1**:
+
+  - Reverted a change that didn't work with Internet Explorer.
+
+**v0.10.0**:
 
   Code optimizations.
 

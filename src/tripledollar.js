@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.10.1',
+    var VERSION = '0.10.2',
 
         /**
          * Namespaces
@@ -36,23 +36,24 @@
         /**
          * Traverse the ident field
          */
-        trav = function trav (s, m) {
+        trav = function (s, m) {
             var l = s.length,
-                a = [],
+                a = [''],
                 i = 0,
-                j = 0;
+                j = 0,
+                k = 0;
             while (i < l) {
                 if (s[i] === '.' || s[i] === '#') {
                     if (m) {
                         a[j++] = s[i];
                     } else {
-                        a.push(s.slice(j, i));
+                        a[k++] = s.slice(j, i);
                         j = i + 1;
                     }
                 }
                 i++;
                 if (!m && i === l) {
-                    a.push(s.slice(j));
+                    a[k++] = s.slice(j);
                 }
             }
             return a;
@@ -72,8 +73,8 @@
                 e,
                 i,
                 m,
-                c,
-                a,
+                c = [],
+                at,
                 re = /^[A-Za-z][A-Za-z0-9-_\.:#]*$/;
             if (typeof ident !== 'string') {
                 if (Object.prototype.toString.call(ident) === '[object Array]') {
@@ -96,15 +97,13 @@
                     }
                 } else {
                     if (e && t[i - 1] === '.') {
-                        a = e.getAttribute('class');
-                        c = a ? a.split(' ') : [];
-                        if (n[i] && c.indexOf(n[i]) === -1) {
-                            c.push(n[i]);
-                            e.setAttribute('class', c.join(' '));
-                        }
+                        c.push(n[i]);
                     } else if (t[i - 1] === '#') {
                         e.setAttribute('id', n[i]);
                     }
+                }
+                if (c.length > 0) {
+                    e.setAttribute('class', c.join(' '));
                 }
             }
 
@@ -150,15 +149,15 @@
              * @param {Object} obj A property object with CSS.
              */
             function css (obj) {
-                var k, o, i;
+                var k, o, j;
                 for (k in obj) {
                     if (obj.hasOwnProperty(k)) {
                         if (typeof obj[k] !== 'object') {
                             this.style[k] = obj[k];
                         } else {
                             o = this.querySelectorAll(k);
-                            for (i = 0; i < o.length; i++) {
-                                css.call(o[i], obj[k]);
+                            for (j = 0; j < o.length; j++) {
+                                css.call(o[j], obj[k]);
                             }
                         }
                     }

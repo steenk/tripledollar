@@ -10,7 +10,11 @@ var nopt = require('nopt'),
 		init: Boolean,
 		name: String,
 		get: String,
-		version: Boolean
+		version: Boolean,
+		status: Boolean,
+		start: Boolean,
+		kill: Boolean,
+		open: Boolean
 	},
 	shorts = {
 		i: '--init',
@@ -20,6 +24,7 @@ var nopt = require('nopt'),
 		o: '--open',
 		s: '--start',
 		k: '--kill',
+		r: '--status',
 		h: '--help'
 	},
 	descr = {
@@ -30,6 +35,7 @@ var nopt = require('nopt'),
 		s: 'start the server',
 		k: 'kill the server',
 		v: 'version of tripledollar',
+		r: 'check if server is running',
 		h: 'this help text'
 	};
 
@@ -129,27 +135,29 @@ function init (name) {
 	})
 }
 
+function checkAndCopy (name, dir) {
+	var pack = require(dir + name + '/package.json'),
+		fname = path.basename(name, '.js') + '.js';
+	fs.exists(dir + name + '/dist/' + fname, function (exists) {
+		if (exists) {
+			copyFile(dir + name + '/dist/' + fname, './' + fname);
+		} else {
+			copyFile(dir + name + '/' + pack.main, './' + fname);
+    	}
+	});
+}
+
 function install (name) {
 	var pack;
 	npm.load(null, function (err) {
         dir = npm.dir + '/';
         fs.exists(dir + name, function (exists) {
             if (exists) {
-            	pack = require(dir + name + '/package.json');
-            	var fname = path.basename(name, '.js') + '.js';
-				console.log('checking', dir + name + '/dist/' + fname);
-				fs.exists(dir + name + '/dist/' + fname, function (exists) {
-					if (exists) {
-						copyFile(dir + name + '/dist/' + fname, './' + fname);
-					} else {
-						console.log(dir + name + '/' + pack.main, './' + fname);
-            			copyFile(dir + name + '/' + pack.main, './' + fname);
-					}
-				});
+				checkAndCopy(name, dir);
             } else {
             	npm.install(name, function (err, res) {
             		if (!err) {
-						console.log(res);
+						checkAndCopy(name, dir);
             		}
             	})
             }
@@ -183,7 +191,7 @@ function server (prop) {
 
 function killServer (cb) {
 	var opts = {
-		hostname: 'localhost',
+		hostname: '127.0.0.1',
 		port: 3000,
 		path: '/exit',
 		method: 'GET'
@@ -193,6 +201,25 @@ function killServer (cb) {
 	})
 	req.on('error', function () {
 		cb();
+	});
+	req.end();
+}
+
+function getStatus () {
+    var opts = {
+        hostname: '127.0.0.1',
+        port: 3000,
+        path: '/status',
+        method: 'GET'
+    }
+    var req = http.request(opts, function (res) {
+		res.setEncoding('utf8');
+		res.on('data', function (data) {
+		   console.log('td:', data);
+		});
+	});
+	req.on('error', function () {
+		console.log('No server started.');
 	});
 	req.end();
 }
@@ -223,6 +250,8 @@ if (opt.init) {
 	killServer(function () {
 		console.log('Server is killed.');
 	});
+} else if (opt.status) {
+	getStatus();
 } else {
 	console.log("Tripledollar - a JavaScript library for DOM scripting.")
 	console.log('Usage: td [options]');

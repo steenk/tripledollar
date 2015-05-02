@@ -1,3 +1,9 @@
+**v0.10.2**:
+
+  - Further optimization of tripledollar.
+  - Status check in td tool.
+  - Download with npm in td --get.
+
 **v0.10.1**:
 
   - Reverted a change that didn't work with Internet Explorer.

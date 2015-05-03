@@ -1,3 +1,8 @@
+**v1.0.0-rc.1**:
+
+  - $$$.structify works for SVG.
+  - The server port is configurable.
+
 **v0.10.2**:
 
   - Further optimization of tripledollar.

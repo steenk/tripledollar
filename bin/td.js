@@ -13,6 +13,7 @@ var nopt = require('nopt'),
 		version: Boolean,
 		status: Boolean,
 		start: Boolean,
+		port: Number,
 		kill: Boolean,
 		open: Boolean
 	},
@@ -23,6 +24,7 @@ var nopt = require('nopt'),
 		v: '--version',
 		o: '--open',
 		s: '--start',
+		p: '--port',
 		k: '--kill',
 		r: '--status',
 		h: '--help'
@@ -33,11 +35,13 @@ var nopt = require('nopt'),
 		g: 'get any client library from npm',
 		o: 'open browser',
 		s: 'start the server',
-		k: 'kill the server',
+		p: 'port for server, default is 3000',
+		k: 'kill the server on the given port',
 		v: 'version of tripledollar',
 		r: 'check if server is running',
 		h: 'this help text'
-	};
+	},
+	port = process.env.TD_PORT || 3000;
 
 
 var opt = nopt(known, shorts);
@@ -99,7 +103,9 @@ function copyFile (from, to) {
 		if (!err) {
 	    	fs.writeFile(to, data, function (err) {
 	      		if (err) {
-	       			console.log("Can't create", to);
+	       			console.log("Can't create", to, '.');
+	       		} else {
+	       			console.log('Copied', path.normalize(to), 'to current directory.');
 	       		}
 	   		});
 		}
@@ -177,11 +183,14 @@ function getVersion () {
 }
 
 function server (prop) {
+	var env = process.env;
+	env.TD_PORT = port;
 	var io = {darwin: 'inherit', linux: 'inherit', win32: 'ignore', win64: 'ignore', 'undefined': 'ignore'}[process.platform],
 		child = child_process.spawn(process.execPath, [path.normalize(__dirname + '/../lib/server.js')], {
-		cwd: prop.cwd,
-		detached: true,
-		stdio: io 
+			cwd: prop.cwd,
+			detached: true,
+			stdio: io,
+			env: env
 	});
     if (child.pid && opt.open) {
         setTimeout(openBrowser, 300);
@@ -192,7 +201,7 @@ function server (prop) {
 function killServer (cb) {
 	var opts = {
 		hostname: '127.0.0.1',
-		port: 3000,
+		port: port,
 		path: '/exit',
 		method: 'GET'
 	}
@@ -208,7 +217,7 @@ function killServer (cb) {
 function getStatus () {
     var opts = {
         hostname: '127.0.0.1',
-        port: 3000,
+        port: port,
         path: '/status',
         method: 'GET'
     }
@@ -226,13 +235,16 @@ function getStatus () {
 
 function openBrowser () {
 	var browse = {darwin: 'open', linux: 'xdg-open', win32: 'start', win64: 'start'};
-	child_process.exec(browse[process.platform] + ' http://127.0.0.1:3000', function(err){
+	child_process.exec(browse[process.platform] + ' http://127.0.0.1:' + port, function(err){
         if(err) {
 			console.log('Error', err);
 		}
 	});
 }
 
+if (opt.port) {
+	port = parseInt(opt.port);
+}
 if (opt.init) {
 	var name = opt.name || 'Tripledollar';
 	init(name);

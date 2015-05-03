@@ -19,7 +19,7 @@ describe('Then', function () {
 				done();
 		});
 	});
-	it('when then returnd a promise, the next then will be given it\'s value when fulfilled', function (done) {
+	it('when then returned a promise, the next then will be given it\'s value when fulfilled', function (done) {
 		var e = $$$('div', {style:'display:none'});
 		$$$.appendToDoc(e)
 			.then(function () {return p;})

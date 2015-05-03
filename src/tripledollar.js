@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '0.10.2',
+    var VERSION = '1.0.0-rc.1',
 
         /**
          * Namespaces
@@ -241,7 +241,7 @@
                     i,
                     re2 = /id|class|contenteditable/,
                     name = c.localName,
-                    cname = String(c.className).replace(' ', '.');
+                    cname = String(c.getAttribute('class')||'').replace(' ', '.');
                 if (cname) {
                     name += '.' + cname;
                 }

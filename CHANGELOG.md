@@ -1,3 +1,7 @@
+**v1.0.0-rc.3**;
+
+  - Fixed a bug with data attributes.
+
 **v1.0.0-rc.2**:
 
   - Fixed bug in structify function where many classnames didn't parse.

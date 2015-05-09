@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.0-rc.2',
+    var VERSION = '1.0.0-rc.3',
 
         /**
          * Namespaces
@@ -133,7 +133,7 @@
                         } else {
                             for (a in param) {
                                 if (param.hasOwnProperty(a)) {
-                                    if (/^data./.test(a)) {
+                                    if (/^data[A-Z]/.test(a)) {
                                         atr = a.substr(4).toLowerCase();
                                         this.setAttribute('data-' + atr, param[a]);
                                     } else {

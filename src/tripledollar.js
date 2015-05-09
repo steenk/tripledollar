@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.0-rc.1',
+    var VERSION = '1.0.0-rc.2',
 
         /**
          * Namespaces
@@ -79,8 +79,18 @@
             if (typeof ident !== 'string') {
                 if (Object.prototype.toString.call(ident) === '[object Array]') {
                     return $$$.apply(this, ident);
-                }
-                return;
+                } else if (ident instanceof window.HTMLElement || ident instanceof window.SVGSVGElement) {
+					ident.evt = evt;
+					ident.set = set;
+					ident.fun = fun;
+					ident.ins = ins;
+					ident.css = css;
+					ident.query = ident.querySelector;
+					ident.queryAll = ident.querySelectorAll;
+					ident.prototype = ident;
+					return ident;
+				} else
+                	return;
             }
             n = trav(ident, false);
             t = trav(ident, true);
@@ -116,33 +126,33 @@
                 for (j = 0; j < args.length; j++) {
                     param = args[j];
                     if (param && param.nodeType) {
-                        e.appendChild(param);
+                        this.appendChild(param);
                     } else if (typeof param === 'object') {
                         if (Object.prototype.toString.call(param) === '[object Array]') {
-                            e.appendChild($$$.apply(this, param));
+                            this.appendChild($$$.apply(this, param));
                         } else {
                             for (a in param) {
                                 if (param.hasOwnProperty(a)) {
                                     if (/^data./.test(a)) {
                                         atr = a.substr(4).toLowerCase();
-                                        e.setAttribute('data-' + atr, param[a]);
+                                        this.setAttribute('data-' + atr, param[a]);
                                     } else {
                                         r = a.split(':');
                                         if (r.length === 2 && Object.keys(ns).indexOf(r[0]) > -1) {
-                                            e.setAttributeNS(ns[r[0]], r[1], param[a]);
+                                            this.setAttributeNS(ns[r[0]], r[1], param[a]);
                                         } else {
-                                            e.setAttribute(a, param[a]);
+                                            this.setAttribute(a, param[a]);
                                         }
                                     }
                                 }
                             }
                         }
                     } else {
-                        e.appendChild(document.createTextNode(String(param)));
+                        this.appendChild(document.createTextNode(String(param)));
                     }
                 }
             }
-            allArgs(args);
+            allArgs.call(e, args);
             /**
              * Add CSS to the element.
              * @method css
@@ -168,22 +178,24 @@
             /**
              * Set a property.
              */
-            e.set = function (key, val) {
+            function set (key, val) {
                 this[key] = val;
                 return this;
             };
+			e.set = set;
             /**
              * Run a function.
              */
-            e.fun = function (func) {
+            function fun (func) {
                 var args2 = Array.prototype.slice.call(arguments, 1);
                 this[func].apply(this, args2);
                 return this;
             };
+			e.fun = fun;
             /**
              * Add event listener
              */
-            e.evt = function (ev, func) {
+            function evt (ev, func) {
                 if (arguments.length > 2) {
                     var args3 = Array.prototype.slice.call(arguments, 2);
                     if (this.addEventListener) {
@@ -203,15 +215,17 @@
                 }
                 return this;
             };
+			e.evt = evt;
             /**
              * Insert more things to this element
              */
-            e.ins = function () {
-                allArgs(Array.prototype.slice.call(arguments));
+            function ins () {
+                allArgs.call(this, Array.prototype.slice.call(arguments));
                 return this;
             };
+			e.ins = ins;
             /**
-             * Add aliases for a CSS selectors
+             * Add aliases for a CSS selector
              */
             e.query = e.querySelector;
             e.queryAll = e.querySelectorAll;
@@ -241,7 +255,7 @@
                     i,
                     re2 = /id|class|contenteditable/,
                     name = c.localName,
-                    cname = String(c.getAttribute('class')||'').replace(' ', '.');
+                    cname = String(c.getAttribute('class')||'').replace(/\s/g, '.');
                 if (cname) {
                     name += '.' + cname;
                 }

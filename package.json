@@ -1,8 +1,9 @@
 {
   "name": "tripledollar",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
+  "homepage": "tripledollar.net",
   "repository": {
     "type": "git",
     "url": "git://github.com/steenk/tripledollar.git"

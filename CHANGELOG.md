@@ -1,3 +1,8 @@
+**v1.0.0-rc.2**:
+
+  - Fixed bug in structify function where many classnames didn't parse.
+  - $$$ works as a wrapper for elements not created by $$$. Adds helper functions.
+
 **v1.0.0-rc.1**:
 
   - $$$.structify works for SVG.

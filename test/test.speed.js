@@ -8,7 +8,6 @@ describe("Speed", function () {
 		$$$.appendToDoc($$$(a))
 		.then(function () {
 			f = performance.now();
-			console.log(f - s);
 			assert(f - s < 100, 'the time should not exceed 100 ms');
 			done();
 		});

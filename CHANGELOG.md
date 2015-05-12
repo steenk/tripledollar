@@ -1,3 +1,7 @@
+**v1.0.0-rc.5**;
+
+  - Don't use console.error, it's not supported everywhere.
+
 **v1.0.0-rc.4**;
 
   - Better error handling.

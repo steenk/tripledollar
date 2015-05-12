@@ -22,8 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.0-rc.4',
-
+    var VERSION = '1.0.0-rc.5',
         /**
          * Namespaces
          */
@@ -76,10 +75,6 @@
                 c = [],
                 at,
                 re = /^[A-Za-z][A-Za-z0-9-_\.:#]*$/;
-            if (ident && !re.test(ident)) {
-                console.error('$$$: not a valid ident parameter "' + ident + '".');
-                return;
-            }
             if (typeof ident !== 'string') {
                 if (Object.prototype.toString.call(ident) === '[object Array]') {
                     return $$$.apply(this, ident);
@@ -95,6 +90,10 @@
 					return ident;
 				} else
                 	return;
+            }
+            if (ident && !re.test(ident)) {
+                console.log('$$$: not a valid ident parameter "' + ident + '".');
+                return;
             }
             n = trav(ident, false);
             t = trav(ident, true);
@@ -364,12 +363,12 @@
             if (typeof what === 'function') {
                 follow.push(what);
             } else {
-                console.error('$$$: Only functions can be passed to "then()"!');
+                console.log('$$$: Only functions can be passed to "then()"!');
             }
             return me;
         };
         me.catch = function (reason) {
-            console.error('$$$: Error occured.', reason);
+            console.log('$$$: Error occured.', reason);
             return me;
         };
         function append (resolve) {

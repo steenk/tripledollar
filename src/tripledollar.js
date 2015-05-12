@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.0-rc.3',
+    var VERSION = '1.0.0-rc.4',
 
         /**
          * Namespaces
@@ -76,6 +76,10 @@
                 c = [],
                 at,
                 re = /^[A-Za-z][A-Za-z0-9-_\.:#]*$/;
+            if (ident && !re.test(ident)) {
+                console.error('$$$: not a valid ident parameter "' + ident + '".');
+                return;
+            }
             if (typeof ident !== 'string') {
                 if (Object.prototype.toString.call(ident) === '[object Array]') {
                     return $$$.apply(this, ident);
@@ -360,19 +364,23 @@
             if (typeof what === 'function') {
                 follow.push(what);
             } else {
-                console.log('$$$: Only functions can be passed to "then()"!');
+                console.error('$$$: Only functions can be passed to "then()"!');
             }
             return me;
         };
         me.catch = function (reason) {
-            console.log('$$$: Error occured.', reason);
+            console.error('$$$: Error occured.', reason);
             return me;
         };
         function append (resolve) {
+            var elem;
             $$$.onReady(function () {    
                 for (i = 0; i < args.length; i++) {
                     if (Object.prototype.toString.call(args[i]) === '[object Array]') {
-                        document.body.appendChild($$$(args[i]));
+                        elem = $$$.apply(this, args[i]);
+                        if (elem) {
+                            document.body.appendChild(elem);
+                        }
                     } else if (args[i] instanceof window.HTMLElement || args[i] instanceof window.SVGSVGElement) {
                         document.body.appendChild(args[i]);
                     } else if (typeof args[i] === 'function') {
@@ -414,6 +422,18 @@
      */
     $$$.query = function (sel) { return document.querySelector(sel); };
     $$$.queryAll = function (sel) { return document.querySelectorAll(sel); };
+
+    /**
+     * Wind off elements so they can  be taken care of by the garbage collector.
+     */
+    $$$.destroy = function destroy (div) {
+        if (div) {
+            while (div.hasChildNodes()) {
+                destroy(div.firstChild);
+                div.removeChild(div.firstChild);
+            }
+        }
+    }
 
     /**
      * Use AMD if a module loader is in place.

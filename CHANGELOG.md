@@ -1,3 +1,7 @@
+**v1.0.0-rc.4**;
+
+  - Better error handling.
+
 **v1.0.0-rc.3**;
 
   - Fixed a bug with data attributes.

@@ -397,7 +397,7 @@ The function appendToDoc waits for the DOM content to get loaded, before it adds
 		$$$.query('#i01').ins('h1', 'Started');
 	}
 	// placing things on the page
-	$$$.appendToDoc(['div"i01']);
+	$$$.appendToDoc(['div#i01']);
 	// when ready call the "start" function
 	$$$.onReady(start);
 ```

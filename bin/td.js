@@ -5,6 +5,7 @@ var nopt = require('nopt'),
 	npm = require('npm'),
 	path = require('path'),
 	http = require('http')
+	tdserv = require('td-server'),
 	child_process = require('child_process'),
 	known = {
 		init: Boolean,
@@ -186,16 +187,23 @@ function server (prop) {
 	var env = process.env;
 	env.TD_PORT = port;
 	var io = {darwin: 'inherit', linux: 'inherit', win32: 'ignore', win64: 'ignore', 'undefined': 'ignore'}[process.platform],
-		child = child_process.spawn(process.execPath, [path.normalize(__dirname + '/../lib/server.js')], {
+		//child = child_process.spawn(process.execPath, [path.normalize(__dirname + '/../lib/server.js')], {
+		child = tdserv.start({
 			cwd: prop.cwd,
 			detached: true,
 			stdio: io,
 			env: env
 	});
-    if (child.pid && opt.open) {
-        setTimeout(openBrowser, 300);
+    if (child.process.pid) {
+	   if (opt.open) {
+        	setTimeout(openBrowser, 300);
+		}
+		console.log();
+		console.log('HTTP server started with PID', child.process.pid, 'and port', child.port, 'and root', child.root);
+		console.log('Use command "td --kill" to stop it.');
+		console.log();
+		child.process.unref();
 	}
-	child.unref();
 }
 
 function killServer (cb) {

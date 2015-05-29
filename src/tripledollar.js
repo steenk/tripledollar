@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.0-rc.6',
+    var VERSION = '1.0.0',
         /**
          * Namespaces
          */
@@ -282,7 +282,7 @@
                 ch = c.childNodes;
                 for (i = 0; i < ch.length; i++) {
                     if (ch[i].nodeType === 3) {
-                        s = ch[i].data.replace(/\s\s*/, ' ').trim();
+						s = ch[i].data.replace(/(\s)\s*/, '$1');
                         if (s.length > 0) {
                             l.push(s);
                         }

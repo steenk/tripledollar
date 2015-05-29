@@ -1,3 +1,11 @@
+**v1.0.0**;
+
+  - Took away an unnecessary trim() in structify.
+
+**v1.0.0-rc.6**;
+
+  - Moved out the td server to it's own project.
+
 **v1.0.0-rc.5**;
 
   - Don't use console.error, it's not supported everywhere.

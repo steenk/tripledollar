@@ -1,20 +1,24 @@
-**v1.0.0**;
+**v1.0.1**:
+
+  - Added an optional trim parameter in structify method, $$$.structify(elem, trim), that takes away extra spaces.
+
+**v1.0.0**:
 
   - Took away an unnecessary trim() in structify.
 
-**v1.0.0-rc.6**;
+**v1.0.0-rc.6**:
 
   - Moved out the td server to it's own project.
 
-**v1.0.0-rc.5**;
+**v1.0.0-rc.5**:
 
   - Don't use console.error, it's not supported everywhere.
 
-**v1.0.0-rc.4**;
+**v1.0.0-rc.4**:
 
   - Better error handling.
 
-**v1.0.0-rc.3**;
+**v1.0.0-rc.3**:
 
   - Fixed a bug with data attributes.
 

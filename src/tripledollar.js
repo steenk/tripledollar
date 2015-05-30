@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.0',
+    var VERSION = '1.0.1',
         /**
          * Namespaces
          */
@@ -245,7 +245,7 @@
     /**
      * Structify an element node
      */
-    $$$.structify = function (elem) {
+    $$$.structify = function (elem, trim) {
         var td = null,
             dig;
         if (elem.nodeType === 1) {
@@ -282,7 +282,11 @@
                 ch = c.childNodes;
                 for (i = 0; i < ch.length; i++) {
                     if (ch[i].nodeType === 3) {
-						s = ch[i].data.replace(/(\s)\s*/, '$1');
+                        if (trim) {
+                            s=ch[i].data.replace(/\s\s*/," ").trim();
+                        } else {
+                            s=ch[i].data;
+                        }
                         if (s.length > 0) {
                             l.push(s);
                         }

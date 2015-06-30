@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.1',
+    var VERSION = '1.0.2',
         /**
          * Namespaces
          */
@@ -340,6 +340,12 @@
             } else {
                 window.attachEvent('message', react);
             }
+        } else {
+            window.postMessage = function (message) {
+                window.setTimeout(function () {
+                    react({source: global, data: message});
+                }, 0);
+            }
         }
         doNext = function () {
             var args = Array.prototype.slice.call(arguments);
@@ -382,10 +388,10 @@
                     if (Object.prototype.toString.call(args[i]) === '[object Array]') {
                         elem = $$$.apply(this, args[i]);
                         if (elem) {
-                            document.body.appendChild(elem);
+                            window.document.body.appendChild(elem);
                         }
                     } else if (args[i] instanceof window.HTMLElement || args[i] instanceof window.SVGSVGElement) {
-                        document.body.appendChild(args[i]);
+                        window.document.body.appendChild(args[i]);
                     } else if (typeof args[i] === 'function') {
                         args[i]();
                     }

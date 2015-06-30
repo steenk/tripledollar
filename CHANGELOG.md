@@ -1,3 +1,7 @@
+**v1.0.2**:
+
+  - Using "setTimeout" when "postMessage" is not implemented (jsdom).
+
 **v1.0.1**:
 
   - Added an optional trim parameter in structify method, $$$.structify(elem, trim), that takes away extra spaces.

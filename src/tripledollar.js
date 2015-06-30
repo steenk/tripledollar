@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.2',
+    var VERSION = '1.0.3',
         /**
          * Namespaces
          */
@@ -343,7 +343,7 @@
         } else {
             window.postMessage = function (message) {
                 window.setTimeout(function () {
-                    react({source: global, data: message});
+                    react({source: window, data: message});
                 }, 0);
             }
         }

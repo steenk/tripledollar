@@ -1,4 +1,4 @@
-**v1.0.2**:
+**v1.0.3**:
 
   - Using "setTimeout" when "postMessage" is not implemented (jsdom).
 

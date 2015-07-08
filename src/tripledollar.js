@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.3',
+    var VERSION = '1.0.4',
         /**
          * Namespaces
          */
@@ -104,9 +104,9 @@
                 if (i === 0) {
                     m = n[0].split(':');
                     if (keys_ns.indexOf(m[0] + ' ') > -1) {
-                        e = document.createElementNS(ns[m[0]], m[1] || m[0]);
+                        e = window.document.createElementNS(ns[m[0]], m[1] || m[0]);
                     } else {
-                        e = document.createElement(m[1] || m[0]);
+                        e = window.document.createElement(m[1] || m[0]);
                     }
                 } else {
                     if (e && t[i - 1] === '.') {
@@ -151,7 +151,7 @@
                             }
                         }
                     } else {
-                        this.appendChild(document.createTextNode(String(param)));
+                        this.appendChild(window.document.createTextNode(String(param)));
                     }
                 }
             }
@@ -305,12 +305,12 @@
      * Check if DOM content is loaded.
      */
     $$$.onReady = function (func) {
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        if (window.document.readyState === 'complete' || window.document.readyState === 'interactive') {
             doNext(func);
-        } else if (document.addEventListener) {
-            document.addEventListener('DOMContentLoaded', func, false);
+        } else if (window.document.addEventListener) {
+            window.document.addEventListener('DOMContentLoaded', func, false);
         } else {
-            document.attachEvent('onreadystatechange', func);
+            window.document.attachEvent('onreadystatechange', func);
         }
     };
 
@@ -429,8 +429,8 @@
     /**
      * Aliases for built-in selector methods.
      */
-    $$$.query = function (sel) { return document.querySelector(sel); };
-    $$$.queryAll = function (sel) { return document.querySelectorAll(sel); };
+    $$$.query = function (sel) { return window.document.querySelector(sel); };
+    $$$.queryAll = function (sel) { return window.document.querySelectorAll(sel); };
 
     /**
      * Wind off elements so they can  be taken care of by the garbage collector.

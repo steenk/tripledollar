@@ -1,3 +1,7 @@
+**v1.0.4**;
+
+  - Proper global reference and API doc.
+
 **v1.0.3**:
 
   - Using "setTimeout" when "postMessage" is not implemented (jsdom).

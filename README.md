@@ -56,6 +56,33 @@ cd myproject
 td --init
 ```
 
+## API  
+
+### Constuctor
+
+__Function__ $$$(identity, [attribute-object, content, DOM-Element, ...]) -> DOM-Element
+
+### Methods and Property
+
+__String__ $$$.version -> __String__  
+__Function__ $$$.structify(DOM-Element, [__Boolean__]) -> TDStruct  
+__Function__ $$$.onReady(__Function__) -> undefined  
+__Function__ $$$.setImmediate(__Function__) -> undefined  
+__Function__ $$$.appendToDoc(DOM-Element | TDStruct) -> self-reference  
+__Function__ $$$.appendToDoc().then(__Function__) -> __Promise__ | appendToDoc-reference  
+__Function__ $$$.appendToDoc().catch(__Function__) -> __Promise__ | appendToDoc-reference  
+__Function__ $$$.destroy(DOM-Element) -> undefined  
+
+### DOM-Element Extentions
+
+__Function__ element.ins(DOM-Element | TDStruct | attribute-object) -> element-reference  
+__Function__ element.set(__String__, __Function__) -> element-reference  
+__Function__ element.evt(__String__, __Function__) -> element-reference  
+__Function__ element.css(property-object) -> element-reference  
+__Function__ element.fun(__String__) -> element-reference  
+__Function__ element.query(__String__, [__String__, ...]) -> DOM-Element | undefined  
+__Function__ element.queryAll(__String__, [__String__, ...]) -> __Array__[DOM-Element]
+
 ## Just a few help functions
 
 Tripledollar adds a few three letters help functions to the DOM element, making it easy to apply most things that you want to do to your DOM element. The functions can be chained together. These are:

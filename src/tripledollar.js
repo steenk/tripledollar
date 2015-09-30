@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.0.4',
+    var VERSION = '1.1.0',
         /**
          * Namespaces
          */
@@ -31,7 +31,6 @@
             xlink: 'http://www.w3.org/1999/xlink',
             xhtml: 'http://www.w3.org/1999/xhtml'
         },
-        keys_ns = 'svg xlink xhtml ',
         /**
          * Traverse the ident field
          */
@@ -103,7 +102,7 @@
                 }
                 if (i === 0) {
                     m = n[0].split(':');
-                    if (keys_ns.indexOf(m[0] + ' ') > -1) {
+                    if (ns[m[0]]) {
                         e = window.document.createElementNS(ns[m[0]], m[1] || m[0]);
                     } else {
                         e = window.document.createElement(m[1] || m[0]);
@@ -390,7 +389,7 @@
                         if (elem) {
                             window.document.body.appendChild(elem);
                         }
-                    } else if (args[i] instanceof window.HTMLElement || args[i] instanceof window.SVGSVGElement) {
+                    } else if (args[i] instanceof window.Element) {
                         window.document.body.appendChild(args[i]);
                     } else if (typeof args[i] === 'function') {
                         args[i]();
@@ -443,6 +442,16 @@
             }
         }
     }
+
+    /**
+     * Read and add namespaces.
+     */
+     $$$.namespace = function (name, uri) {
+        if (uri) {
+            ns[name] = uri;
+        }
+        return ns[name];
+     }
 
     /**
      * Use AMD if a module loader is in place.

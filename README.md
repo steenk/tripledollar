@@ -493,6 +493,16 @@ SVG elements has their own namespace, so to create embedded SVG all SVG elements
     )
 ```
 
+# Namespaces
+
+The default namespace HTML, and the namespaces for SVG, and XLINK are built in, but there is also a way to add your own namespace. Use `$$$.namespace(name, [uri])` to handle namespaces. With just the name as parameter, the function returns the URI if the namespace exists. By passing both name and an URI a new namespace is added. Here is an example.
+
+```
+$$$.namespace('td', 'http://tripledollar.net');
+var td = $$$('td:box.td-box');
+$$$.appendToDoc(td);
+```
+
 # Command Line Interface
 
 Installed with __npm__  tripledollar has a simple CLI. Tripledollar itself needs to run in a browser, but the Node.js environment can bring some convenience when developing. The __td__ command with option --init creates a structure where you directly can start develop in a modular fashion. Many client side libraries are published in __npm__, the module loader for Node.js, but adding a whole npm project to your web application is not what you want. In most cases it is enough with just one JavaScript file to add to your lib folder. The __td__ command has a --get option for doing this. From your lib folder you can type `td --get chart.js` and you get the chart.js file from the npm project chart.js. Convenient.

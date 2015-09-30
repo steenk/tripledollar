@@ -1,8 +1,8 @@
-**v1.1.0**;
+**v1.1.0**:
 
   - Add your own namespace.
  
-**v1.0.4**;
+**v1.0.4**:
 
   - Proper global reference and API doc.
 

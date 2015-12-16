@@ -23,7 +23,7 @@ describe('Helper Functions', function () {
 		d.dispatchEvent(new Event('click'));
 	});
 	it('should have an ins helper method', function () {
-		var e = $$$('div').ins($$$('div')).ins(['ins']);
+		var e = $$$('div.ins-test').ins($$$('div.a')).ins(['div.b']);
 		document.body.appendChild(e);
 		assert(e.childElementCount === 2, 'no working ins method');
 	});

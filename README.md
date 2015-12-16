@@ -58,7 +58,7 @@ td --init
 
 ## API  
 
-### Constuctor
+### Constructor
 
 __Function__ $$$(identity, [attribute-object, content, DOM-Element, ...]) -> DOM-Element
 

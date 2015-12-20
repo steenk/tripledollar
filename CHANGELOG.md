@@ -1,3 +1,7 @@
+**v1.1.1**:
+
+  - Minor spelling correction.
+
 **v1.1.0**:
 
   - Add your own namespace.

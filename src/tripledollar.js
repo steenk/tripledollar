@@ -22,7 +22,7 @@
     /**
      * @version
      */
-    var VERSION = '1.1.0',
+    var VERSION = '1.1.1',
         /**
          * Namespaces
          */
@@ -77,7 +77,7 @@
             if (typeof ident !== 'string') {
                 if (Object.prototype.toString.call(ident) === '[object Array]') {
                     return $$$.apply(this, ident);
-                } else if (ident instanceof window.HTMLElement || ident instanceof window.SVGSVGElement) {
+                } else if (ident instanceof window.HTMLElement || ident instanceof window.SVGElement) {
 					ident.evt = evt;
 					ident.set = set;
 					ident.fun = fun;

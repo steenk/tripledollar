@@ -55,6 +55,30 @@ mkdir myproject
 cd myproject
 td --init
 ```
+The tripledollar library can also be used in Node.js if there is a DOM library present.
+
+```javascript
+// Node.js code
+var jsdom = require("jsdom");
+
+jsdom.env(
+    // an empty string to start with
+    '',
+    function (err, window) {
+        // a window object has to be passed as a parameter
+         var $$$ = require('tripledollar')(window);
+         $$$.appendToDoc(['div',
+           ['h2', 'Tripledollar']
+         ])
+         .then(function () {
+            var div = $$$.query('div');
+            div.ins(['p', 'Now even in ', ['b', 'Node'], '!']);
+            // see how it looks in a markup language
+            console.log(window.document.body.innerHTML);
+         });
+    }
+);
+```
 
 ## API  
 

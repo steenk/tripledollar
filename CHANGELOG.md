@@ -1,3 +1,7 @@
+**v1.2.0**:
+
+  - Modified for use in Node environments like Electron.
+
 **v1.1.1**:
 
   - Minor spelling correction.

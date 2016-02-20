@@ -36,7 +36,7 @@ With __tripledollar__ you can do the same thing more compact:
 
 ```javascript
 	var div = $$$('div.simple#d001',
-			$$$('strong', 'Tripledollar'),
+			$$$('strong.bold', 'Tripledollar'),
 			$$$('button', {name: 'but001'}, 'OK')
 			.evt('click', function () {alert('hello')})
 		).css({display:'inline',backgroundColor:'blue'});

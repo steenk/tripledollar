@@ -22,7 +22,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.2.0';
+    var VERSION = '1.3.0';
 
     var tripledollar = function (window) {
         "use strict";
@@ -35,31 +35,7 @@
                 xlink: 'http://www.w3.org/1999/xlink',
                 xhtml: 'http://www.w3.org/1999/xhtml'
             },
-            /**
-             * Traverse the ident field
-             */
-            trav = function (s, m) {
-                var l = s.length,
-                    a = [''],
-                    i = 0,
-                    j = 0,
-                    k = 0;
-                while (i < l) {
-                    if (s[i] === '.' || s[i] === '#') {
-                        if (m) {
-                            a[j++] = s[i];
-                        } else {
-                            a[k++] = s.slice(j, i);
-                            j = i + 1;
-                        }
-                    }
-                    i++;
-                    if (!m && i === l) {
-                        a[k++] = s.slice(j);
-                    }
-                }
-                return a;
-            },
+
             /**
              * The triple dollar function creates a DOM object.
              * @method $$$ the DOM constructor
@@ -70,7 +46,6 @@
                  * Splitting up the ident parameter into element type, id, and class names. 
                  */
                 var args = Array.prototype.slice.call(arguments, 1),
-                    n,
                     t,
                     e,
                     i,
@@ -98,14 +73,10 @@
                     console.log('$$$: not a valid ident parameter "' + ident + '".');
                     return;
                 }
-                n = trav(ident, false);
-                t = trav(ident, true);
-                for (i = 0; i < n.length; i++) {
-                    if (n[i] && !re.test(n[i])) {
-                        return;
-                    }
+                t = ident.split(/([\.#])/);
+                for (i = 0; i < t.length; i++) {
                     if (i === 0) {
-                        m = n[0].split(':');
+                        m = t[0].split(':');
                         if (ns[m[0]]) {
                             e = window.document.createElementNS(ns[m[0]], m[1] || m[0]);
                         } else {
@@ -113,9 +84,9 @@
                         }
                     } else {
                         if (e && t[i - 1] === '.') {
-                            c.push(n[i]);
+                            c.push(t[i]);
                         } else if (t[i - 1] === '#') {
-                            e.setAttribute('id', n[i]);
+                            e.setAttribute('id', t[i]);
                         }
                     }
                     if (c.length > 0) {
@@ -159,6 +130,7 @@
                     }
                 }
                 allArgs.call(e, args);
+
                 /**
                  * Add CSS to the element.
                  * @method css
@@ -181,6 +153,7 @@
                     return this;
                 }
                 e.css = css;
+
                 /**
                  * Set a property.
                  */
@@ -189,6 +162,7 @@
                     return this;
                 };
     			e.set = set;
+
                 /**
                  * Run a function.
                  */
@@ -198,6 +172,7 @@
                     return this;
                 };
     			e.fun = fun;
+
                 /**
                  * Add event listener
                  */
@@ -222,6 +197,7 @@
                     return this;
                 };
     			e.evt = evt;
+
                 /**
                  * Insert more things to this element
                  */
@@ -230,6 +206,7 @@
                     return this;
                 };
     			e.ins = ins;
+
                 /**
                  * Add aliases for a CSS selector
                  */

@@ -1,3 +1,7 @@
+**v1.3.0**:
+
+  - Internal optimization.
+
 **v1.2.0**:
 
   - Modified for use in Node environments like Electron.

@@ -1,3 +1,7 @@
+**v1.3.3**:
+
+  - Multiple setting of the same attributes corrected.
+
 **v1.3.0**:
 
   - Internal optimization.

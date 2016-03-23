@@ -22,13 +22,13 @@
     /**
      * @version
      */   
-    var VERSION = '1.3.1';
+    var VERSION = '1.3.3';
 
     var tripledollar = function (window) {
         "use strict";
 
         /**
-         * Namespaces
+         * Standard namespaces
          */
         var ns = {
                 svg: 'http://www.w3.org/2000/svg',
@@ -46,12 +46,11 @@
                  * Splitting up the ident parameter into element type, id, and class names. 
                  */
                 var args = Array.prototype.slice.call(arguments, 1),
-                    t,
-                    e,
+                    identparts,
+                    elem,
                     i,
-                    m,
-                    c = [],
-                    at,
+                    nsparts,
+                    classlist = [],
                     re = /^[A-Za-z][A-Za-z0-9-_\.:#]*$/;
                 if (typeof ident !== 'string') {
                     if (Object.prototype.toString.call(ident) === '[object Array]') {
@@ -73,25 +72,25 @@
                     console.log('$$$: not a valid ident parameter "' + ident + '".');
                     return;
                 }
-                t = ident.split(/([\.#])/);
-                for (i = 0; i < t.length; i++) {
+                identparts = ident.split(/([\.#])/);
+                for (i = 0; i < identparts.length; i++) {
                     if (i === 0) {
-                        m = t[0].split(':');
-                        if (ns[m[0]]) {
-                            e = window.document.createElementNS(ns[m[0]], m[1] || m[0]);
+                        nsparts = identparts[0].split(':');
+                        if (ns[nsparts[0]]) {
+                            elem = window.document.createElementNS(ns[nsparts[0]], nsparts[1] || nsparts[0]);
                         } else {
-                            e = window.document.createElement(m[1] || m[0]);
+                            elem = window.document.createElement(nsparts[1] || nsparts[0]);
                         }
                     } else {
-                        if (e && t[i - 1] === '.') {
-                            c.push(t[i]);
-                        } else if (t[i - 1] === '#') {
-                            e.setAttribute('id', t[i]);
+                        if (elem && identparts[i - 1] === '.') {
+                            classlist.push(identparts[i]);
+                        } else if (identparts[i - 1] === '#') {
+                            elem.setAttribute('id', identparts[i]);
                         }
                     }
-                    if (c.length > 0) {
-                        e.setAttribute('class', c.join(' '));
-                    }
+                }
+                if (classlist.length > 0) {
+                    elem.setAttribute('class', classlist.join(' '));
                 }
 
                 function allArgs(args) {
@@ -129,7 +128,7 @@
                         }
                     }
                 }
-                allArgs.call(e, args);
+                allArgs.call(elem, args);
 
                 /**
                  * Add CSS to the element.
@@ -152,7 +151,7 @@
                     }
                     return this;
                 }
-                e.css = css;
+                elem.css = css;
 
                 /**
                  * Set a property.
@@ -161,7 +160,7 @@
                     this[key] = val;
                     return this;
                 };
-    			e.set = set;
+    			elem.set = set;
 
                 /**
                  * Run a function.
@@ -171,7 +170,7 @@
                     this[func].apply(this, args2);
                     return this;
                 };
-    			e.fun = fun;
+    			elem.fun = fun;
 
                 /**
                  * Add event listener
@@ -196,7 +195,7 @@
                     }
                     return this;
                 };
-    			e.evt = evt;
+    			elem.evt = evt;
 
                 /**
                  * Insert more things to this element
@@ -205,15 +204,15 @@
                     allArgs.call(this, Array.prototype.slice.call(arguments));
                     return this;
                 };
-    			e.ins = ins;
+    			elem.ins = ins;
 
                 /**
                  * Add aliases for a CSS selector
                  */
-                e.query = e.querySelector;
-                e.queryAll = e.querySelectorAll;
-                e.prototype = e;
-                return e;
+                elem.query = elem.querySelector;
+                elem.queryAll = elem.querySelectorAll;
+                elem.prototype = elem;
+                return elem;
             },
             doNext,
             react,

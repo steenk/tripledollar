@@ -62,7 +62,7 @@ function html (elem, attr, cont) {
 }
 
 function indexFile (name, cb) {
-	var h = '<!doctype html>';
+	var h = '<!doctype html>\n';
 	h += html('html', {lang: 'en'}, '\n\t' +
 			html('head', '\n\t\t' +
 				html('title', name) + '\n\t\t' +
@@ -83,7 +83,7 @@ function mainJSFile (name, cb) {
     "	}\n" +
 	"});\n\n" +
 	"require(['tripledollar'], function ($$$) {\n" +
-	"	$$$.appendToDoc (\n" +
+	"	$$$.appendToDoc(\n" +
 	"		['h1', '" + name + "'],\n" +
 	"		['p', 'Just DOM scripting.']\n" +
 	"	)\n" +

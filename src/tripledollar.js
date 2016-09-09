@@ -18,14 +18,14 @@
  *
  */
 (function (global) {
+  'use strict';
 
     /**
      * @version
      */   
-    var VERSION = '1.3.3';
+    var VERSION = '1.3.4';
 
     var tripledollar = function (window) {
-        "use strict";
 
         /**
          * Standard namespaces
@@ -55,18 +55,19 @@
                 if (typeof ident !== 'string') {
                     if (Object.prototype.toString.call(ident) === '[object Array]') {
                         return $$$.apply(this, ident);
-                    } else if (ident instanceof window.HTMLElement || ident instanceof window.SVGElement) {
-    					ident.evt = evt;
-    					ident.set = set;
-    					ident.fun = fun;
-    					ident.ins = ins;
-    					ident.css = css;
-    					ident.query = ident.querySelector;
-    					ident.queryAll = ident.querySelectorAll;
-    					ident.prototype = ident;
-    					return ident;
-    				} else
-                    	return;
+                    }
+                    if (ident instanceof window.HTMLElement || ident instanceof window.SVGElement) {
+                        ident.evt = evt;
+                        ident.set = set;
+                        ident.fun = fun;
+                        ident.ins = ins;
+                        ident.css = css;
+                        ident.query = ident.querySelector;
+                        ident.queryAll = ident.querySelectorAll;
+                        ident.prototype = ident;
+                        return ident;
+                    }
+                    return;
                 }
                 if (ident && !re.test(ident)) {
                     console.log('$$$: not a valid ident parameter "' + ident + '".');
@@ -159,8 +160,8 @@
                 function set (key, val) {
                     this[key] = val;
                     return this;
-                };
-    			elem.set = set;
+                }
+                elem.set = set;
 
                 /**
                  * Run a function.
@@ -169,8 +170,8 @@
                     var args2 = Array.prototype.slice.call(arguments, 1);
                     this[func].apply(this, args2);
                     return this;
-                };
-    			elem.fun = fun;
+                }
+                elem.fun = fun;
 
                 /**
                  * Add event listener
@@ -194,8 +195,8 @@
                         }
                     }
                     return this;
-                };
-    			elem.evt = evt;
+                }
+                elem.evt = evt;
 
                 /**
                  * Insert more things to this element
@@ -203,8 +204,8 @@
                 function ins () {
                     allArgs.call(this, Array.prototype.slice.call(arguments));
                     return this;
-                };
-    			elem.ins = ins;
+                }
+                elem.ins = ins;
 
                 /**
                  * Add aliases for a CSS selector
@@ -278,7 +279,7 @@
                 td = dig(elem);
             }
             return td;
-        };
+        }
 
         /**
          * Check if DOM content is loaded.
@@ -291,7 +292,7 @@
             } else {
                 window.document.attachEvent('onreadystatechange', func);
             }
-        };
+        }
 
         /**
          * setImmediate substitute
@@ -314,7 +315,7 @@
                         if (q[0] && q[0].length === 1) { q[0].push(r); }
                     }
                 }
-            };
+            }
             if (window.postMessage) {
                 if (window.addEventListener) {
                     window.addEventListener('message', react, false);
@@ -405,7 +406,7 @@
                 });
                 return me;
             }
-        };
+        }
 
         /**
          * Aliases for built-in selector methods.
@@ -436,7 +437,7 @@
         }
 
         return $$$;
-    };
+    }
 
     tripledollar.version = VERSION;
 

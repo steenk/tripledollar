@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.3.4';
+    var VERSION = '1.4.0';
 
     var tripledollar = function (window) {
 
@@ -445,7 +445,7 @@
      * Use AMD if a module loader is in place.
      */
     if (global && typeof global.define === 'function') {
-        global.define(function () {
+        global.define('tripledollar', function () {
             return tripledollar(global);
         });
     } else if (typeof module === 'object') {

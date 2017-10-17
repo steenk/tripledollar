@@ -1,3 +1,7 @@
+**v1.4.0**:
+
+  - Adjustment for module loader. Updated dependencies.
+
 **v1.3.3**:
 
   - Multiple setting of the same attributes corrected.

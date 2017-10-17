@@ -10,9 +10,12 @@ var comment = "/* tripledollar v." + td.version +
   ", (c) " + (1900 + (new Date).getYear()) + " Steen Klingberg. License MIT. */\n";
 
 var code = fs.readFileSync('./src/tripledollar.js', 'utf8');
-var ast = uglify.parse(code);
-ast.figure_out_scope();
-ast.compute_char_frequency();
-ast.mangle_names();
-fs.writeFileSync('./tripledollar.js', comment + ast.print_to_string());
+
+var options = {
+  mangle: {
+     toplevel: true,
+  },
+  nameCache: {}
+}
+fs.writeFileSync('./tripledollar.js', comment + uglify.minify(code, options).code);
 

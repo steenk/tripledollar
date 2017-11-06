@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.4.0';
+    var VERSION = '1.4.1';
 
     var tripledollar = function (window) {
 
@@ -449,10 +449,10 @@
             return tripledollar(global);
         });
     } else if (typeof module === 'object') {
-        module.exports = tripledollar;
+        module.exports = tripledollar(global);
     } else {
         global.$$$ = tripledollar(global);
     }
 
 
-}(this));
+}(window));

@@ -16,7 +16,8 @@ var nopt = require('nopt'),
 		start: Boolean,
 		port: Number,
 		kill: Boolean,
-		open: Boolean
+    open: Boolean,
+		openpath: String
 	},
 	shorts = {
 		i: '--init',
@@ -24,6 +25,7 @@ var nopt = require('nopt'),
 		g: '--get',
 		v: '--version',
 		o: '--open',
+    O: '--openpath',
 		s: '--start',
 		p: '--port',
 		k: '--kill',
@@ -187,13 +189,12 @@ function server (prop) {
 	var env = process.env;
 	env.TD_PORT = port;
 	var io = {darwin: 'inherit', linux: 'inherit', win32: 'ignore', win64: 'ignore', 'undefined': 'ignore'}[process.platform],
-		//child = child_process.spawn(process.execPath, [path.normalize(__dirname + '/../lib/server.js')], {
 		child = tdserv.start({
 			cwd: prop.cwd,
 			detached: true,
 			stdio: io,
 			env: env
-	});
+  	});
     if (child.process.pid) {
 	   if (opt.open) {
         	setTimeout(openBrowser, 300);
@@ -241,9 +242,13 @@ function getStatus () {
 	req.end();
 }
 
-function openBrowser () {
-	var browse = {darwin: 'open', linux: 'xdg-open', win32: 'start', win64: 'start'};
-	child_process.exec(browse[process.platform] + ' http://127.0.0.1:' + port, function(err){
+function openBrowser (pathname) {
+  var pathname = pathname || '/',
+	    browse = {darwin: 'open', linux: 'xdg-open', win32: 'start', win64: 'start'};
+  if (pathname && !pathname.startsWith('/')) {
+    pathname = '/' + pathname;
+  }
+	child_process.exec(browse[process.platform] + ' http://127.0.0.1:' + port + pathname, function(err){
         if(err) {
 			console.log('Error', err);
 		}
@@ -264,8 +269,10 @@ if (opt.init) {
 	killServer(function () {
 		server({cwd: process.cwd()});
 	});
+} else if (opt.openpath) {
+    openBrowser(opt.openpath);
 } else if (opt.open) {
-    openBrowser();
+  openBrowser();
 } else if (opt.kill) {
 	killServer(function () {
 		console.log('Server is killed.');

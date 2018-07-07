@@ -4,18 +4,15 @@ global.window = {};
 global.document = {querySelectionAll: function () {}};
 var td = require('../src/tripledollar'),
   	fs = require('fs'),
-  	uglify = require('uglify-js');
+  	uglify = require('uglify-js-es6');
 
 var comment = "/* tripledollar v." + td.version + 
   ", (c) " + (1900 + (new Date).getYear()) + " Steen Klingberg. License MIT. */\n";
 
-var code = fs.readFileSync('./src/tripledollar.js', 'utf8');
+// AMD module
+var options = {}
 
-var options = {
-  mangle: {
-     toplevel: true,
-  },
-  nameCache: {}
-}
-fs.writeFileSync('./tripledollar.js', comment + uglify.minify(code, options).code);
+fs.writeFileSync('./tripledollar.js', comment + uglify.minify('./src/tripledollar.js', options).code);
 
+// ES6 module
+fs.writeFileSync('./tripledollar.mjs', comment + uglify.minify('./src/tripledollar.mjs', options).code);

@@ -16,8 +16,7 @@ var nopt = require('nopt'),
 		start: Boolean,
 		port: Number,
 		kill: Boolean,
-    open: Boolean,
-		openpath: String
+		open: Boolean
 	},
 	shorts = {
 		i: '--init',
@@ -25,7 +24,6 @@ var nopt = require('nopt'),
 		g: '--get',
 		v: '--version',
 		o: '--open',
-    O: '--openpath',
 		s: '--start',
 		p: '--port',
 		k: '--kill',
@@ -36,7 +34,7 @@ var nopt = require('nopt'),
 		i: 'create initial structure',
 		n: 'optional name of the project',
 		g: 'get any client library from npm',
-		o: 'open browser',
+		o: 'open browser [optionally provide a subpath]',
 		s: 'start the server',
 		p: 'port for server, default is 3000',
 		k: 'kill the server on the given port',
@@ -71,7 +69,7 @@ function indexFile (name, cb) {
 				html('meta', {charset: 'utf-8'}) + '\n\t\t' +
 				html('link', {rel: 'stylesheet/less', type: 'text/css', href: 'less/main.less'}) + '\n\t\t' +
 				html('script', {src: 'lib/less.js'}) +'\n\t\t' +
-				html('script', {src: 'lib/require.js', 'data-main': 'main.js'}) + '\n\t') + 
+				html('script', {src: 'main.js', type: 'module'}) + '\n\t') + 
 			'\n');
 	fs.writeFile('index.html', h, cb);
 }
@@ -91,6 +89,16 @@ function mainJSFile (name, cb) {
 	"	)\n" +
 	"})\n";
 	fs.writeFile('main.js', s, cb);
+}
+
+function mainJSFileES6 (name, cb) {
+	var s = 'import $$$ from  "./lib/tripledollar.mjs";\n\n' +
+	"$$$.appendToDoc(\n" +
+	"	['h1', {style: 'text-shadow: 2pt 2pt 4pt gray; color:gold;'}, 'Tripledollar'],\n" +
+	"	['p', 'Version ', $$$.version],\n" +
+	"	['h2', 'Just DOM scripting']\n" +
+	");\n";
+	fs.writeFile('main.js', s, cb);;
 }
 
 function lessFile (cb) {
@@ -128,12 +136,11 @@ function init (name) {
 		} else {
 			fs.mkdir('lib', function () {
 				fs.mkdir('less', function () {
-					copyFile(__dirname + '/../tripledollar.js', 'lib/tripledollar.js')
+					copyFile(__dirname + '/../tripledollar.mjs', 'lib/tripledollar.mjs')
 					copyFile(mdir + 'less/dist/less.min.js', 'lib/less.js')
-					copyFile(mdir + 'requirejs/require.js', 'lib/require.js')
 					indexFile(name, function (err) {
 						lessFile(function (err) {
-						 	mainJSFile(name, function (err) {
+						 	mainJSFileES6(name, function (err) {
 						         console.log('Basic structure is created for DOM scripting.');
 						    })
 				        })
@@ -197,7 +204,7 @@ function server (prop) {
   	});
     if (child.process.pid) {
 	   if (opt.open) {
-        	setTimeout(openBrowser, 300);
+        	setTimeout(openBrowser, 300, prop.path);
 		}
 		console.log();
 		console.log('HTTP server started with PID', child.process.pid, 'and port', child.port, 'and root', child.root);
@@ -267,12 +274,10 @@ if (opt.init) {
 	getVersion();
 } else if (opt.start) {
 	killServer(function () {
-		server({cwd: process.cwd()});
+		server({cwd: process.cwd(), path: opt.argv.remain[0]});
 	});
-} else if (opt.openpath) {
-    openBrowser(opt.openpath);
 } else if (opt.open) {
-  openBrowser();
+  openBrowser(opt.argv.remain[0]);
 } else if (opt.kill) {
 	killServer(function () {
 		console.log('Server is killed.');

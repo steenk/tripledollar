@@ -1,3 +1,7 @@
+**v1.5.0**:
+
+  - Changed module system to ES6 standard. The file "tripledollar.mjs" is for ES6 modules, while "tripledollar.js" still works for Require.js.
+
 **v1.4.0**:
 
   - Adjustment for module loader. Updated dependencies.

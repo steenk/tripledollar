@@ -1,8 +1,12 @@
 {
   "name": "tripledollar",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
+  "files": [
+    "tripledollar.js",
+    "tripledollar.mjs"
+  ],
   "homepage": "tripledollar.net",
   "repository": {
     "type": "git",

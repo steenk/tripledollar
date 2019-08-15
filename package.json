@@ -1,10 +1,11 @@
 {
   "name": "tripledollar",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "Compact DOM scripting",
   "main": "tripledollar.js",
   "files": [
     "tripledollar.js",
+    "tripledollar.mjs",
     "test",
     "images",
     "src",

@@ -1,11 +1,15 @@
 {
   "name": "tripledollar",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "description": "Compact DOM scripting",
-  "main": "tripledollar.mjs",
+  "main": "tripledollar.js",
   "files": [
     "tripledollar.js",
-    "tripledollar.mjs"
+    "test",
+    "images",
+    "src",
+    "bin",
+    "lib"
   ],
   "homepage": "tripledollar.net",
   "repository": {
@@ -27,6 +31,7 @@
     "less": ">=2.5.0",
     "morgan": "^1.9.1",
     "nopt": ">=3.0.1",
+    "npm": "^6.10.3",
     "serve-favicon": ">=2.2.0",
     "serve-static": ">=1.7.1",
     "td-server": ">=0.2.0"
@@ -35,14 +40,6 @@
     "mocha": "^4.0.1",
     "uglify-js-es6": ">=2.8.9"
   },
-  "files": [
-    "tripledollar.js",
-    "test",
-    "images",
-    "src",
-    "bin",
-    "lib"
-  ],
   "keywords": [
     "dom-scripting",
     "browser"

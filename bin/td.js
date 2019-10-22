@@ -2,7 +2,7 @@
 
 var nopt = require('nopt'),
 	fs = require('fs'),
-	npm = require('npm'),
+	//npm = require('npm'),
 	path = require('path'),
 	http = require('http')
 	tdserv = require('td-server'),
@@ -10,7 +10,7 @@ var nopt = require('nopt'),
 	known = {
 		init: Boolean,
 		name: String,
-		get: String,
+		//get: String,
 		version: Boolean,
 		status: Boolean,
 		start: Boolean,
@@ -21,7 +21,7 @@ var nopt = require('nopt'),
 	shorts = {
 		i: '--init',
 		n: '--name',
-		g: '--get',
+		//g: '--get',
 		v: '--version',
 		o: '--open',
 		s: '--start',
@@ -33,7 +33,7 @@ var nopt = require('nopt'),
 	descr = {
 		i: 'create initial structure',
 		n: 'optional name of the project',
-		g: 'get any client library from npm',
+		//g: 'get any client library from npm',
 		o: 'open browser [optionally provide a subpath]',
 		s: 'start the server',
 		p: 'port for server, default is 3000',
@@ -163,6 +163,7 @@ function checkAndCopy (name, dir) {
 	});
 }
 
+/*
 function install (name) {
 	var pack;
 	npm.load(null, function (err) {
@@ -180,6 +181,7 @@ function install (name) {
         })
     })
 }
+*/
 
 function getLib (names) {
 	names.forEach(function (name) {

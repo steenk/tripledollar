@@ -92,7 +92,7 @@ function mainJSFile (name, cb) {
 }
 
 function mainJSFileES6 (name, cb) {
-	var s = 'import $$$ from  "tripledollar";\n\n' +
+	var s = 'import $$$ from  "./lib/tripledollar.mjs";\n\n' +
 	"$$$.appendToDoc(\n" +
 	"	['h1', {style: 'text-shadow: 2pt 2pt 4pt gray; color:gold;'}, 'Tripledollar'],\n" +
 	"	['p', 'Version ', $$$.version],\n" +
@@ -136,7 +136,7 @@ function init (name) {
 		} else {
 			fs.mkdir('lib', function () {
 				fs.mkdir('less', function () {
-					copyFile(__dirname + '/../tripledollar.js', 'lib/tripledollar.js')
+					copyFile(__dirname + '/../tripledollar.mjs', 'lib/tripledollar.mjs')
 					copyFile(mdir + 'less/dist/less.min.js', 'lib/less.js')
 					indexFile(name, function (err) {
 						lessFile(function (err) {

@@ -1,3 +1,7 @@
+**v1.6.1**:
+
+  - Server can be started with the --public argument.
+
 **v1.5.8**:
 
   - Removed dependency to npm.

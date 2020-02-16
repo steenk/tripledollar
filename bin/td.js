@@ -14,6 +14,7 @@ var nopt = require('nopt'),
 		version: Boolean,
 		status: Boolean,
 		start: Boolean,
+		public: Boolean,
 		port: Number,
 		kill: Boolean,
 		open: Boolean
@@ -25,6 +26,7 @@ var nopt = require('nopt'),
 		v: '--version',
 		o: '--open',
 		s: '--start',
+    q: '--public',
 		p: '--port',
 		k: '--kill',
 		r: '--status',
@@ -36,6 +38,7 @@ var nopt = require('nopt'),
 		//g: 'get any client library from npm',
 		o: 'open browser [optionally provide a subpath]',
 		s: 'start the server',
+    q: 'use public ip addresses, not just the default 127.0.0.1',
 		p: 'port for server, default is 3000',
 		k: 'kill the server on the given port',
 		v: 'version of tripledollar',
@@ -202,6 +205,7 @@ function server (prop) {
 			cwd: prop.cwd,
 			detached: true,
 			stdio: io,
+			argv0: prop.public ? '0.0.0.0' : '',
 			env: env
   	});
     if (child.process.pid) {
@@ -276,7 +280,7 @@ if (opt.init) {
 	getVersion();
 } else if (opt.start) {
 	killServer(function () {
-		server({cwd: process.cwd(), path: opt.argv.remain[0]});
+		server({cwd: process.cwd(), path: opt.argv.remain[0], public: opt.public});
 	});
 } else if (opt.open) {
   openBrowser(opt.argv.remain[0]);

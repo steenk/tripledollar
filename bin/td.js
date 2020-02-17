@@ -112,6 +112,29 @@ function lessFile (cb) {
 	fs.writeFile('less/main.less', s, cb);
 }
 
+function packageFile (cb) {
+  let s = `{
+  "name": "web-project",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "rollup main.js --file dist/bundle.js --format iife ; lessc less/main.less dist/style.css ; node lib/build.js ; td -s -o dist"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "less": ">=3.11.1",
+    "rollup": ">=1.31.1",
+    "tripledollar": ">=1.6.1"
+  }
+}`;
+  fs.writeFile('package.json', s, cb);
+}
+
 function copyFile (from, to) {
 	fs.readFile(from, function (err, data) {
 		if (!err) {
@@ -130,7 +153,7 @@ function init (name) {
 	var occupied, td, req, dl;
 	var mdir = __dirname + '/../node_modules/';
 	fs.readdir('.', function (err, files) {
-		['index.html', 'lib', 'less', 'app']
+		['index.html', 'lib', 'less', 'app', 'package.json']
 		.forEach(function (fname) {
 			if (files.indexOf(fname) > -1) occupied = true;
 		});
@@ -141,12 +164,16 @@ function init (name) {
 				fs.mkdir('less', function () {
 					copyFile(__dirname + '/../tripledollar.mjs', 'lib/tripledollar.mjs')
 					copyFile(mdir + 'less/dist/less.min.js', 'lib/less.js')
+          copyFile(__dirname + '/../lib/build.js', 'lib/build.js')
 					indexFile(name, function (err) {
 						lessFile(function (err) {
 						 	mainJSFileES6(name, function (err) {
-						         console.log('Basic structure is created for DOM scripting.');
-						    })
-				        })
+                packageFile(function (err) {
+						       console.log('Basic structure is created for DOM scripting.');
+                   console.log('Run "td --start --open" to start a web server.\n');
+                })
+						  })
+				    })
 					})
 				})
 			})

@@ -1,3 +1,7 @@
+**v1.6.2**:
+
+  - Init for Nodejs, includes a sample package.json. Build script with rollup.
+
 **v1.6.1**:
 
   - Server can be started with the --public argument.

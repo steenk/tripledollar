@@ -95,7 +95,10 @@ function mainJSFile (name, cb) {
 }
 
 function mainJSFileES6 (name, cb) {
-	var s = 'import $$$ from  "./lib/tripledollar.mjs";\n\n' +
+	var s = 'import $$$ from  "./lib/tripledollar.mjs";\n' +
+  '/* Use this instead when building with rollup or webpack:\n' +
+  'import $$$ from "tripledollar";\n' +
+  '*/\n\n' +
 	"$$$.appendToDoc(\n" +
 	"	['h1', {style: 'text-shadow: 2pt 2pt 4pt gray; color:gold;'}, 'Tripledollar'],\n" +
 	"	['p', 'Version ', $$$.version],\n" +
@@ -122,14 +125,15 @@ function packageFile (cb) {
     "lib": "lib"
   },
   "scripts": {
-    "build": "rollup main.js --file dist/bundle.js --format iife ; lessc less/main.less dist/style.css ; node lib/build.js ; td -s -o dist"
+    "build": "rollup main.js --file dist/bundle.js --format iife -p @rollup/plugin-node-resolve ; lessc less/main.less dist/style.css ; node lib/build.js ; td -s -o dist"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "less": ">=3.11.1",
-    "rollup": ">=1.31.1",
-    "tripledollar": ">=1.6.1"
+    "rollup": ">=2.0.6",
+    "tripledollar": ">=1.6.3"
   }
 }`;
   fs.writeFile('package.json', s, cb);
@@ -171,6 +175,7 @@ function init (name) {
                 packageFile(function (err) {
 						       console.log('Basic structure is created for DOM scripting.');
                    console.log('Run "td --start --open" to start a web server.\n');
+                   console.log('Build with rollup is done after "npm i" with "npm run build".\n');
                 })
 						  })
 				    })

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2015 Steen Klingberg
+ * Copyright (C) 2013-2020 Steen Klingberg
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.6.2';
+    var VERSION = '1.6.3';
 
     var tripledollar = function (window) {
 

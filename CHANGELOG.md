@@ -1,3 +1,7 @@
+**v1.6.3**;
+
+  - Resolves modules in node\_modules for rollup builds.
+
 **v1.6.2**:
 
   - Init for Nodejs, includes a sample package.json. Build script with rollup.

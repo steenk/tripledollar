@@ -22,7 +22,7 @@
     /**
      * @version
      */   
-    let VERSION = '1.6.3';
+    let VERSION = '1.7.0';
 
 
 

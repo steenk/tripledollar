@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "1.6.3",
+  "version": "1.7.0",
   "description": "Compact DOM scripting",
   "main": "index.js",
   "files": [
@@ -11,7 +11,7 @@
     "images",
     "src",
     "bin",
-    "lib"
+    "components"
   ],
   "homepage": "tripledollar.net",
   "repository": {

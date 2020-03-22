@@ -1,3 +1,7 @@
+**v1.7.2**;
+
+  - Adjusted index.html.
+
 **v1.7.1**;
 
   - Method "ins" can take an array of elements. 

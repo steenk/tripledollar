@@ -106,7 +106,7 @@ function newIndexFile (name, cb) {
     <meta charset="utf-8"></meta>
     <link rel="stylesheet" type="text/css" href="main.css"></link>
     <script src="http://steenk.github.io/tripledollar.js"></script>
-    <script src="main.js" type="module">
+    <script>
       $$$.appendToDoc(
         ['h1', {style: 'text-shadow: 2pt 2pt 4pt gray; color:gold;'}, 'Tripledollar'],
         ['p', 'Version ', $$$.version],

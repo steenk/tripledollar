@@ -49,12 +49,21 @@ Tripledollar has been tested on the most common, modern web browsers, but it is 
 
 You can load tripledollar in your script from [steenk.github.io](http://steenk.github.io/tripledollar.js), or you can download the library from [tripledollar.net](http://tripledollar.net) and save it locally, but if you want a file structure to start with, you can use the simple command line tool __td__ that you get by installing with __npm__.
 
-```
+```sh
 npm install tripledollar -g
 mkdir myproject
 cd myproject
 td --init
 ```
+
+After installation you have to install all dependencies and build the project.
+
+```sh
+npm install
+npm run build
+npm run start
+```
+
 The tripledollar library can also be used in Node.js if there is a DOM library present.
 
 ```javascript

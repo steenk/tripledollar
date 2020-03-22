@@ -1,3 +1,11 @@
+**v1.7.1**;
+
+  - Method "ins" can take an array of elements. 
+
+**v1.7.0**;
+
+  - Rollup with postcss.
+
 **v1.6.3**;
 
   - Resolves modules in node\_modules for rollup builds.

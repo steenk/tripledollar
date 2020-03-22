@@ -16,3 +16,4 @@ fs.writeFileSync('./tripledollar.js', comment + uglify.minify('./src/tripledolla
 
 // ES6 module
 fs.writeFileSync('./tripledollar.mjs', comment + uglify.minify('./src/tripledollar.mjs', options).code);
+fs.writeFileSync('./index.js', comment + uglify.minify('./src/tripledollar.mjs', options).code);

@@ -98,6 +98,26 @@ function indexFile (name, cb) {
   fs.writeFile('index.html', h, cb);
 }
 
+function newIndexFile (name, cb) {
+  var h = `<!doctype html>
+<html lang="en">
+  <head>
+    <title>${name}</title>
+    <meta charset="utf-8"></meta>
+    <link rel="stylesheet" type="text/css" href="main.css"></link>
+    <script src="http://steenk.github.io/tripledollar.js"></script>
+    <script src="main.js" type="module">
+      $$$.appendToDoc(
+        ['h1', {style: 'text-shadow: 2pt 2pt 4pt gray; color:gold;'}, 'Tripledollar'],
+        ['p', 'Version ', $$$.version],
+        ['h2', 'Just DOM scripting']
+      );
+    </script>
+  </head>
+</html>`;
+  fs.writeFile('index.html', h, cb);
+} 
+
 function mainJSFile (name, cb) {
   var s = 'requirejs.config({\n' +
     " baseUrl: 'lib',\n" +
@@ -226,6 +246,7 @@ function copyFile (from, to) {
 function init (name) {
   var occupied, td, req, dl;
   var mdir = __dirname + '/../node_modules/';
+  console.log();
   fs.readdir('.', function (err, files) {
     ['index.html', 'main.js', 'main.css', 'rollup.config.js', 'package.json']
     .forEach(function (fname) {
@@ -238,14 +259,16 @@ function init (name) {
         copyFile(__dirname + '/../components/td-demo/index.js', 'components/td-demo/index.js');
         copyFile(__dirname + '/../components/td-demo/style.less', 'components/td-demo/style.less');
 
-        indexFile(name, function (err) {
+        newIndexFile(name, function (err) {
           cssFile(function (err) {
             mainJSFileES6(name, function (err) {
               packageFile(function (err) {
                   rollupConfig(function (err) {
                   console.log('Basic structure is created for DOM scripting.');
-                  console.log('Build with rollup is done after "npm i" with "npm run build".');
-                  console.log('Run "npm run start" to start a web server.\n');
+                  console.log('Install dependencies and build with rollup:\n');
+                  console.log('\tnpm install');
+                  console.log('\tnpm run build');
+                  console.log('\tnpm run start\n');
                 })
               })
             })

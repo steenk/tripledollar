@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.7.2';
+    var VERSION = '1.7.3';
 
     var tripledollar = function (window) {
 
@@ -202,10 +202,15 @@
                  * Insert more things to this element
                  */
                 function ins () {
-                    if (Object.prototype.toString.call(arguments[0])  === '[object Array]' &&
-                            Object.prototype.toString.call(arguments[0][0]) === '[object Array]') {
+                    if (Object.prototype.toString.call(arguments[0]) === '[object Array]' &&
+                            (Object.prototype.toString.call(arguments[0][0]) === '[object Array]') ||
+                                (arguments[0][0] && arguments[0][0].nodeType)) {
                         for (var part of arguments[0]) {
-                            this.appendChild($$$.apply(this, part));
+                            if (part.nodeType) {
+                                this.appendChild(part);
+                            } else {
+                                this.appendChild($$$.apply(this, part));
+                            }
                         }
                     } else {
                         allArgs.call(this, Array.prototype.slice.call(arguments));

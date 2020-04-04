@@ -319,8 +319,10 @@ Sometimes you need to insert more things into an element that you created earlie
 
 ```javascript
     var div = $$$('div#d002');
-    div.ins($$$('label', 'Date:'));
-    div.ins($$$('span', Date().toString()));
+    div.ins($$$('label', 'Date:')); // insert an element
+    div.ins($$$('span', Date().toString())); // insert a date string
+    div.ins(['p', 'A sentence.']); // insert a tdstruct
+    div.ins([['div', 'One'], ['div', 'Two'], $$$('div', 'Three')]); // insert a list of structs or elements
 ```
 
 # But what is it good for?

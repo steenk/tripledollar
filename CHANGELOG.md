@@ -1,3 +1,7 @@
+**v1.7.3**;
+
+  - Allow mixed content in "ins" array.
+
 **v1.7.2**;
 
   - Adjusted index.html.

@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.7.4';
+    var VERSION = '1.7.5';
 
     var tripledollar = function (window) {
 

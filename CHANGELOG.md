@@ -1,3 +1,7 @@
+**v1.7.5**:
+
+  - Corrected JSON.
+
 **v1.7.4**:
 
   - Run web server from "server.js" if it exists. Removed "index.html" from root and since build is done to "dist".
@@ -18,7 +22,7 @@
 
   - Rollup with postcss.
 
-**v1.6.3**_:
+**v1.6.3**:
 
   - Resolves modules in node\_modules for rollup builds.
 

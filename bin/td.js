@@ -203,7 +203,7 @@ function packageFile (cb) {
     "rollup-plugin-postcss": ">=2.5.0",
     "less": "^3.11.1",
     "tripledollar": ">=1.6.3"
-  }
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",

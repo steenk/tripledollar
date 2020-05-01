@@ -1,20 +1,24 @@
-**v1.7.3**;
+**v1.7.4**:
+
+  - Run web server from "server.js" if it exists. Removed "index.html" from root and since build is done to "dist".
+
+**v1.7.3**:
 
   - Allow mixed content in "ins" array.
 
-**v1.7.2**;
+**v1.7.2**_
 
   - Adjusted index.html.
 
-**v1.7.1**;
+**v1.7.1**:
 
   - Method "ins" can take an array of elements. 
 
-**v1.7.0**;
+**v1.7.0**:
 
   - Rollup with postcss.
 
-**v1.6.3**;
+**v1.6.3**_:
 
   - Resolves modules in node\_modules for rollup builds.
 

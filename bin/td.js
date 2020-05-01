@@ -27,7 +27,7 @@ var nopt = require('nopt'),
     v: '--version',
     o: '--open',
     s: '--start',
-      q: '--public',
+    q: '--public',
     p: '--port',
     k: '--kill',
     r: '--status',
@@ -193,7 +193,7 @@ function packageFile (cb) {
   "main": "dist/bundle.js",
   "scripts": {
     "build": "rollup -c", 
-    "start": "td -s -o dist"
+    "start": "td -s -o"
   },
   "author": "",
   "license": "MIT",
@@ -203,6 +203,14 @@ function packageFile (cb) {
     "rollup-plugin-postcss": ">=2.5.0",
     "less": "^3.11.1",
     "tripledollar": ">=1.6.3"
+  }
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect": "^3.7.0",
+    "connect-query": "^1.0.0",
+    "morgan": "^1.10.0",
+    "serve-static": "^1.14.1",
+    "url": "^0.11.0"
   }
 }`;
   fs.writeFile('package.json', s, cb);
@@ -227,6 +235,47 @@ export default {
   ]
 }`;
   fs.writeFile('rollup.config.js', s, cb);
+}
+
+function serverFile (cb) {
+  let s = `const connect = require('connect')
+,   http = require('http')
+,   bodyParser = require('body-parser')
+,   stat = require('serve-static')
+,   queries = require('connect-query')
+,   morgan = require('morgan');
+
+const PORT = '3000';
+
+function serve (port) {
+  port = port || '3000';
+
+  let app = connect()
+  .use(morgan(':date :method :url :status'))
+  .use(queries())
+  .use(bodyParser.urlencoded({extended: true}))
+  .use(bodyParser.json())
+
+  .use('/exit', function (req, res, next) {
+    res.end();
+    process.exit();
+  })
+  
+  .use('/status', function (req, res, next) {
+    res.write('Running on port ' + port + ' with root ' + __dirname + '/dist' + '\\n');
+    res.end();
+  })
+
+  // Serving static content from the dist folder
+  .use(stat(__dirname +'/dist'));
+
+  http.createServer(app).listen(port, "127.0.0.1");
+
+  console.log('\\nStarted', __filename.substring(__dirname.length + 1), 'in', process.cwd(), 'on port', port, '.\\n');
+
+}
+serve(PORT);`;
+  fs.writeFile('server.js', s, cb);
 }
 
 function copyFile (from, to) {
@@ -259,7 +308,7 @@ function init (name) {
         copyFile(__dirname + '/../components/td-demo/index.js', 'components/td-demo/index.js');
         copyFile(__dirname + '/../components/td-demo/style.less', 'components/td-demo/style.less');
 
-        newIndexFile(name, function (err) {
+        serverFile(function (err) {
           cssFile(function (err) {
             mainJSFileES6(name, function (err) {
               packageFile(function (err) {
@@ -305,23 +354,43 @@ function getVersion () {
 function server (prop) {
   var env = process.env;
   env.TD_PORT = port;
-  var io = {darwin: 'inherit', linux: 'inherit', win32: 'ignore', win64: 'ignore', 'undefined': 'ignore'}[process.platform],
-    child = tdserv.start({
-      cwd: prop.cwd,
-      detached: true,
-      stdio: io,
-      argv0: prop.public ? '0.0.0.0' : '',
-      env: env
+  let io = {darwin: 'inherit', linux: 'inherit', win32: 'ignore', win64: 'ignore', 'undefined': 'ignore'}[process.platform];
+  if (fs.existsSync(process.cwd() + '/server.js') && fs.existsSync(process.cwd() + '/dist/index.html')) {
+    if (!fs.existsSync(process.cwd() + '/dist/bundle.js')) {
+      console.log();
+      console.log('Run "npm run build" first, to generate "bundle.js".');
+      console.log();
+      process.exit();
+    }
+    let proc = child_process.spawn(process.execPath, [process.cwd() + '/server.js', 'dist'], {
+        cwd: process.cwd(),
+        detached: true,
+        stdio: io,
+        env: env
+    });
+    if (proc.pid) {
+       if (opt.open) {
+            setTimeout(openBrowser, 300, prop.path);
+      }
+      proc.unref();
+    }
+  } else {
+    let child = tdserv.start({
+        cwd: prop.cwd,
+        detached: true,
+        stdio: io,
+        argv0: prop.public ? '0.0.0.0' : '',
+        env: env
     });
     if (child.process.pid) {
-     if (opt.open) {
-          setTimeout(openBrowser, 300, prop.path);
+       if (opt.open) {
+            setTimeout(openBrowser, 300, prop.path);
+      }
+      console.log();
+      console.log('HTTP server started with PID', child.process.pid, 'and port', child.port, 'and root', child.root);
+      console.log('Use command "td --kill" to stop it.');
+      console.log();
     }
-    console.log();
-    console.log('HTTP server started with PID', child.process.pid, 'and port', child.port, 'and root', child.root);
-    console.log('Use command "td --kill" to stop it.');
-    console.log();
-    child.process.unref();
   }
 }
 

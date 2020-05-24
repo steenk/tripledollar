@@ -1,3 +1,7 @@
+**v1.7.6**:
+
+  - Version number sync.
+
 **v1.7.5**:
 
   - Corrected JSON.
@@ -10,7 +14,7 @@
 
   - Allow mixed content in "ins" array.
 
-**v1.7.2**_
+**v1.7.2**
 
   - Adjusted index.html.
 

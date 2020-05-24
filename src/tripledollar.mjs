@@ -21,7 +21,7 @@
     /**
      * @version
      */   
-    let VERSION = '1.7.5';
+    let VERSION = '1.7.6';
 
     /**
      * Standard namespaces

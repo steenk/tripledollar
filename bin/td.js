@@ -66,8 +66,7 @@ function html (elem, attr, cont) {
 }
 
 function prepareDist () {
-  let html = `
-<!doctype html>
+  let html = `<!doctype html>
 <html lang="en">
   <head>
     <title>Tripledollar</title>

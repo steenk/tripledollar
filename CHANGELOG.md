@@ -1,3 +1,7 @@
+**v1.7.7**:
+
+  - Fixed bug that appeared on some "select" elements.
+
 **v1.7.6**:
 
   - Version number sync.

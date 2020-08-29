@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.7.6';
+    var VERSION = '1.7.7';
 
     var tripledollar = function (window) {
 
@@ -203,8 +203,8 @@
                  */
                 function ins () {
                     if (Object.prototype.toString.call(arguments[0]) === '[object Array]' &&
-                            (Object.prototype.toString.call(arguments[0][0]) === '[object Array]') ||
-                                (arguments[0][0] && arguments[0][0].nodeType)) {
+                            (Object.prototype.toString.call(arguments[0][0]) === '[object Array]') /*||
+                                (arguments[0][0] && arguments[0][0].nodeType)*/) {
                         for (var part of arguments[0]) {
                             if (part.nodeType) {
                                 this.appendChild(part);

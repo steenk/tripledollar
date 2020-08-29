@@ -21,7 +21,7 @@
     /**
      * @version
      */   
-    let VERSION = '1.7.6';
+    let VERSION = '1.7.7';
 
     /**
      * Standard namespaces
@@ -198,9 +198,9 @@
          * Insert more things to this element
          */
         function ins () {
-            if (Object.prototype.toString.call(arguments[0]) === '[object Array]' &&
-                (Object.prototype.toString.call(arguments[0][0]) === '[object Array]') ||
-                    (arguments[0][0] && arguments[0][0].nodeType)) {
+            if (!arguments[0].tagName && Object.prototype.toString.call(arguments[0]) === '[object Array]' &&
+                (Object.prototype.toString.call(arguments[0][0]) === '[object Array]') /*||
+                    (arguments[0][0] && arguments[0][0].nodeType)*/) {
                 for (var part of arguments[0]) {
                     if (part.nodeType) {
                         this.appendChild(part);

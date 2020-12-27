@@ -197,11 +197,12 @@ function packageFile (cb) {
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "rollup": ">=2.0.6",
     "@rollup/plugin-node-resolve": "^7.1.1",
-    "rollup-plugin-postcss": ">=2.5.0",
     "less": "^3.11.1",
-    "tripledollar": ">=1.6.3"
+    "postcss": "^8.2.1",
+    "rollup": ">=2.0.6",
+    "rollup-plugin-postcss": ">=4.0.0",
+    "tripledollar": ">=1.7.7"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

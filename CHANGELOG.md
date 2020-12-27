@@ -1,3 +1,7 @@
+**v1.7.8**:
+
+  - Rollup issue with old postcss.
+
 **v1.7.7**:
 
   - Fixed bug that appeared on some "select" elements.

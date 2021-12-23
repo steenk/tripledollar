@@ -172,9 +172,8 @@ body {
   width: 850px;
 }
 .tripledollar {
-  text-shadow: 2pt 2pt 4pt white;
-  color: gold;
-  margin: auto;
+  text-shadow: 1pt 1pt 5pt darkslategrey;
+  color: darkgoldenrod;
 }
 .version {
   margin-top: 4px;
@@ -188,6 +187,7 @@ function packageFile (cb) {
   let s = `{
   "name": "web-project",
   "version": "0.1.0",
+  "type": "module",
   "description": "",
   "main": "dist/bundle.js",
   "scripts": {
@@ -197,20 +197,20 @@ function packageFile (cb) {
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^7.1.1",
-    "less": "^3.11.1",
-    "postcss": "^8.2.1",
+    "@rollup/plugin-node-resolve": ">=7.1.1",
+    "less": ">=4.1.2",
+    "postcss": ">=8.4.5",
     "rollup": ">=2.0.6",
-    "rollup-plugin-postcss": ">=4.0.0",
+    "rollup-plugin-postcss": ">=4.0.2",
     "tripledollar": ">=1.7.7"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "connect": "^3.7.0",
+    "body-parser": ">=1.19.1",
+    "connect": ">=3.7.0",
     "connect-query": "^1.0.0",
-    "morgan": "^1.10.0",
-    "serve-static": "^1.14.1",
-    "url": "^0.11.0"
+    "morgan": ">=1.10.0",
+    "serve-static": ">=1.14.2",
+    "url": ">=0.11.0"
   }
 }`;
   fs.writeFile('package.json', s, cb);
@@ -238,12 +238,13 @@ export default {
 }
 
 function serverFile (cb) {
-  let s = `const connect = require('connect')
-,   http = require('http')
-,   bodyParser = require('body-parser')
-,   stat = require('serve-static')
-,   queries = require('connect-query')
-,   morgan = require('morgan');
+  let s = `import connect from 'connect';
+import http from 'http';
+import bodyParser from 'body-parser';
+import stat from 'serve-static';
+import queries from 'connect-query';
+import morgan from 'morgan';
+import { basename } from 'path';
 
 const PORT = '3000';
 
@@ -262,16 +263,16 @@ function serve (port) {
   })
   
   .use('/status', function (req, res, next) {
-    res.write('Running on port ' + port + ' with root ' + __dirname + '/dist' + '\\n');
+    res.write('Running on port ' + port + ' with document root ' + process.cwd() + '/dist' + '\\n');
     res.end();
   })
 
   // Serving static content from the dist folder
-  .use(stat(__dirname +'/dist'));
+  .use(stat(process.cwd() +'/dist'));
 
   http.createServer(app).listen(port, "127.0.0.1");
 
-  console.log('\\nStarted', __filename.substring(__dirname.length + 1), 'in', process.cwd(), 'on port', port, '.\\n');
+  console.log('\\nStarted', basename(process.argv[1]), 'in', process.cwd(), 'on port', port, ', with PID', process.pid + '.\\n');
 
 }
 serve(PORT);`;

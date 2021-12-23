@@ -1,3 +1,8 @@
+**v1.8.0**;
+
+  - Changed from log to warn when for warnings.
+  - Moved to ECMAScript modules in server.js.
+  
 **v1.7.8**:
 
   - Rollup issue with old postcss.

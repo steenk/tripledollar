@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.7.8';
+    var VERSION = '1.8.0';
 
     var tripledollar = function (window) {
 
@@ -41,7 +41,6 @@
              * @method $$$ the DOM constructor
              */
             $$$ = function (ident) {
-                //console.log(1, performance.now());
                 /**
                  * Splitting up the ident parameter into element type, id, and class names. 
                  */
@@ -70,7 +69,7 @@
                     return;
                 }
                 if (ident && !re.test(ident)) {
-                    console.log('$$$: not a valid ident parameter "' + ident + '".');
+                    console.warn('$$$: not a valid ident parameter "' + ident + '".');
                     return;
                 }
                 identparts = ident.split(/([\.#])/);
@@ -367,12 +366,12 @@
                 if (typeof what === 'function') {
                     follow.push(what);
                 } else {
-                    console.log('$$$: Only functions can be passed to "then()"!');
+                    console.warn('$$$: Only functions can be passed to "then()"!');
                 }
                 return me;
             };
             me.catch = function (reason) {
-                console.log('$$$: Error occured.', reason);
+                console.warn('$$$: Error occured.', reason);
                 return me;
             };
             function append (resolve) {

@@ -1,3 +1,8 @@
+**v1.8.1**;
+
+  - Moved source files into "src" directory.
+  - Export entry in package.json for "require" and "import".
+
 **v1.8.0**;
 
   - Changed from log to warn when for warnings.

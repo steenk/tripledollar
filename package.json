@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Compact DOM scripting",
   "main": "index.js",
   "files": [
@@ -14,6 +14,10 @@
     "bin/td.js",
     "components"
   ],
+  "exports": {
+    "import": "./index.js",
+    "require": "./tripledollar.js"
+  },
   "homepage": "tripledollar.net",
   "repository": {
     "type": "git",

@@ -131,7 +131,10 @@ function mainJSFile (name, cb) {
   "   ['p', 'Just DOM scripting.']\n" +
   " )\n" +
   "})\n";
-  fs.writeFile('main.js', s, cb);
+  if (!fs.existsSync('src')) {
+    fs.mkdirSync('src');
+  }
+  fs.writeFile('src/main.js', s, cb);
 }
 
 function mainJSFileES6 (name, cb) {
@@ -148,7 +151,7 @@ $$$.appendToDoc(['div.center',
   demo.add('Build highly efficient web applications with just Javascript.');
 });
 `;
-  fs.writeFile('main.js', s, cb);;
+  fs.writeFile('src/main.js', s, cb);;
 }
 
 function lessFile (cb) {
@@ -180,7 +183,10 @@ body {
   margin-bottom: 26px;
   font-family: system-ui;
 }`;
-  fs.writeFile('main.css', s, cb);
+  if (!fs.existsSync('src')) {
+    fs.mkdirSync('src');
+  }
+  fs.writeFile('src/main.css', s, cb);
 }
 
 function packageFile (cb) {
@@ -221,7 +227,7 @@ function rollupConfig (cb) {
 import postcss from 'rollup-plugin-postcss';
  
 export default {
-  input: 'main.js',
+  input: 'src/main.js',
   output: {
     file: 'dist/bundle.js',
     format: 'iife'
@@ -305,9 +311,9 @@ function init (name) {
     if (occupied) {
       console.log('A file or directory exists already.')
     } else {
-      fs.mkdir('components/td-demo', {recursive: true}, function (err) {
-        copyFile(__dirname + '/../components/td-demo/index.js', 'components/td-demo/index.js');
-        copyFile(__dirname + '/../components/td-demo/style.less', 'components/td-demo/style.less');
+      fs.mkdir('src/components/td-demo', {recursive: true}, function (err) {
+        copyFile(__dirname + '/../components/td-demo/index.js', 'src/components/td-demo/index.js');
+        copyFile(__dirname + '/../components/td-demo/style.less', 'src/components/td-demo/style.less');
 
         serverFile(function (err) {
           cssFile(function (err) {

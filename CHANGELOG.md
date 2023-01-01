@@ -1,3 +1,7 @@
+**v1.9.0**;
+
+  - New methods __parse__ and __stringify__ for transform back and forth between a JSON string and a DOM element.
+
 **v1.8.1**;
 
   - Moved source files into "src" directory.

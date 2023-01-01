@@ -23,7 +23,7 @@
     /**
      * @version
      */   
-    var VERSION = '1.8.1';
+    var VERSION = '1.9.0';
 
     var tripledollar = function (window) {
 
@@ -69,7 +69,7 @@
                     return;
                 }
                 if (ident && !re.test(ident)) {
-                    console.warn('$$$: not a valid ident parameter "' + ident + '".');
+                    console.warn('$$$: not a valid ident parameter: "' + ident + '".');
                     return;
                 }
                 identparts = ident.split(/([\.#])/);
@@ -446,6 +446,30 @@
             }
             return ns[name];
         }
+
+        /**
+         * Parse a JSON to a DOM object.  
+         */
+        $$$.parse = function (json) {
+            try {
+                if (typeof(json) !== 'string') throw '$$$.parse: Not a JSON string';
+                return JSON.parse(json);
+            } catch (err) {
+                console.warn(err);
+            }
+        }
+
+        /*
+         * Create JSON from a DOM object.
+         */
+        $$$.stringify = function (dom) {
+            try {
+                if (!(dom instanceof Element)) throw '$$$.stringify: Not a DOM object';
+                return JSON.stringify($$$.structify(dom, true));
+            } catch (err) {
+                console.warn(err);
+            }
+        } 
 
         return $$$;
     }

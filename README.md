@@ -97,14 +97,16 @@ __Function__ $$$(identity, [attribute-object, content, DOM-Element, ...]) -> DOM
 
 ### Methods and Property
 
-__String__ $$$.version -> __String__  
-__Function__ $$$.structify(DOM-Element, [__Boolean__]) -> TDStruct  
-__Function__ $$$.onReady(__Function__) -> undefined  
-__Function__ $$$.setImmediate(__Function__) -> undefined  
-__Function__ $$$.appendToDoc(DOM-Element | TDStruct) -> self-reference  
-__Function__ $$$.appendToDoc().then(__Function__) -> __Promise__ | appendToDoc-reference  
-__Function__ $$$.appendToDoc().catch(__Function__) -> __Promise__ | appendToDoc-reference  
-__Function__ $$$.destroy(DOM-Element) -> undefined  
+__String__ \$\$\$.version -> __String__  
+__Function__ \$\$\$.structify(DOM-Element, [__Boolean__]) -> TDStruct  
+__Function__ \$\$\$.onReady(__Function__) -> undefined  
+__Function__ \$\$\$.setImmediate(__Function__) -> undefined  
+__Function__ \$\$\$.appendToDoc(DOM-Element | TDStruct) -> self-reference  
+__Function__ \$\$\$.appendToDoc().then(__Function__) -> __Promise__ | appendToDoc-reference  
+__Function__ \$\$\$.appendToDoc().catch(__Function__) -> __Promise__ | appendToDoc-reference  
+__Function__ \$\$\$.destroy(DOM-Element) -> undefined  
+__Function__ \$\$\$.parse(JSON) -> DOM-ELEMENT  
+__Function__ \$\$\$.stringify(DOM-Element) -> JSON  
 
 ### DOM-Element Extentions
 

@@ -64,6 +64,12 @@ npm run build
 npm run start
 ```
 
+### Typescript
+
+For Typescript users the type TDElement is exported, that is an extention of HTMLElement with the help methods described below (from version 1.10.0).
+
+### Node.js
+
 The tripledollar library can also be used in Node.js if there is a DOM library present.
 
 ```javascript

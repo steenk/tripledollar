@@ -208,7 +208,7 @@ function packageFile (cb) {
     "postcss": ">=8.4.5",
     "rollup": ">=2.0.6",
     "rollup-plugin-postcss": ">=4.0.2",
-    "tripledollar": ">=1.7.7"
+    "tripledollar": ">=1.9.0"
   },
   "dependencies": {
     "body-parser": ">=1.19.1",

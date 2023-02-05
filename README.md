@@ -2,7 +2,7 @@
 
 ![](images/logo.png)
 
-When you're going to create a lot of DOM elements from JavaScript, and you want a minimalistic approach; __tripledollar__ is it. It's not a framework, it's a small help library for creating DOM elements with JavaScript, and no more. It is actually __about 5kB!__ So this tutorial is bigger than the library itself.
+When you create a lot of DOM elements from JavaScript and want a minimalistic approach, __tripledollar__ is it. It's not a framework, it's a small helper library for creating DOM elements with JavaScript, and no more. It is actually __about 5kB!__ So this tutorial is larger than the library itself.
 
 What you want to do is something like this (just a silly example):
 ```html
@@ -66,11 +66,11 @@ npm run start
 
 ### Typescript
 
-For Typescript users the type TDElement is exported, that is an extention of HTMLElement with the help methods described below (from version 1.10.0).
+For Typescript users, the type TDElement is exported, which is an extension of HTMLElement with the help methods described below (from version 1.10.0).
 
 ### Node.js
 
-The tripledollar library can also be used in Node.js if there is a DOM library present.
+The tripledollar library can also be used in Node.js if a DOM library is present.
 
 ```javascript
 // Node.js code
@@ -168,11 +168,11 @@ And everything together:
     var h1 = $$$('h1.large.blueish#h0001');
 ```
 
-This first parameter in the $$$ function is the "identity" parameter, and it will always appear as the first paramenter. It starts with the tag name of the element, and immediately followed by class names and id. The class names are preceeded with a '.' and the id is preceeded with a '#'. The rest of the parameters in the $$$ function have no special order, so they can appear randomly.
+This first parameter in the \$ function is the "identity" parameter and will always appear as the first parameter. It starts with the element's tag name and is immediately followed by class names and id. The class names are preceded with a '.' and the id is preceded with a '#'. The rest of the parameters in the $$$ function have no special order so they can appear randomly.
 
 ### Attributes
 
-Adding attributes to the DOM is done by an object parameter with property names and values that will end up as attributes in the DOM element. Easiest is to add this object as a literal in the function call.
+Adding attributes to the DOM is done by an object parameter with property names and values that will end up as attributes in the DOM element. The easiest is to add this object as a literal in the function call.
 
 ```javascript
     var a = $$$('a', {href: 'http://www.google.com', target: '_blank'}, 'Google');
@@ -195,7 +195,7 @@ And it is the same as this HTML notation:
 
 ### Text
 
-Adding text inside a DOM element is just to add it as one of the parameters after the "identity" parameter:
+Adding text inside a DOM element is to add it as one of the parameters after the "identity" parameter:
 
 ```javascript
     var p = $$$('p', 'This is the text.');
@@ -234,7 +234,7 @@ The help functions are used to apply more advanced features to the DOM element, 
 
 ## css
 
-CSS can be applied directly to the DOM element with JavaScript. This is not always the preferred way, it's often better to put CSS in an CSS file, but sometimes it make sense to use one of the many features in CSS directly in JavaScript. CSS code has its own syntax, and it's when used in JavaScript some terms have to be translated into JavaScript names. One thing you can't do is having property names like 'background-color', because the dash is not allowed in property names. So in JavaScript the 'background-color' is used like this:
+CSS can be applied directly to the DOM element with JavaScript. This is not always the preferred way, it's often better to put CSS in an CSS file, but sometimes it makes sense to use one of the many features in CSS directly in JavaScript. CSS code has its own syntax, and it's when used in JavaScript, some terms have to be translated into JavaScript names. One thing you can't do is have property names like 'background-color', because the dash is not allowed in property names. So in JavaScript, the 'background-color' is used like this:
 
 ```javascript
     elem.style.backgroundColor = 'yellow';
@@ -244,7 +244,7 @@ The CSS name is translated to camel case, and the dash is removed. Tripledollar 
 
     var div = $$$('div').css({backgroundColor: 'red', fontSize: '16pt', border: 'solid black 2pt'});
 
-From version 0.9.2 the __css__ method is recursive, meaning that you can style sub elements with the same property object. If a property is an object instead of a string, number, or boolean, then the __css__ method will use the property key as a CSS selector, and applies style to the sub elements it finds. To clarify, here is an example.
+From version 0.9.2 the __css__ method is recursive, meaning that you can style sub-elements with the same property object. If a property is an object instead of a string, number, or boolean, then the __css__ method will use the property key as a CSS selector and applies the style to the sub-elements it finds. To clarify, here is an example.
 
 ```javascript
 var chess = $$$('div');
@@ -281,7 +281,7 @@ $$$.appendToDoc (chess);
 
 ## set
 
-DOM elements are JavaScript objects that can have any property applied to it, so setting properties with arbitrary names is useful for us. A property can be a string, an object, or a function.
+DOM elements are JavaScript objects that can have any property applied to them, so setting properties with arbitrary names is useful for us. A property can be a string, an object, or a function.
 
 ```javascript
     var div = $$$('div')
@@ -292,14 +292,14 @@ DOM elements are JavaScript objects that can have any property applied to it, so
 
 ## fun
 
-There are normally not so many functions that you can call on a DOM object during the creation phase, so this is an example where we first place a function with __set__ and then call it with __fun__.
+There are not so many functions that you can call on a DOM object during the creation phase, so this is an example where we first place a function with __set__ and then call it with __fun__.
 
 ```javascript
     var fun1 = function (delim) {this.textContent = this.textContent.split('').join(delim);};
     document.body.appendChild($$$('h2','tripledollar').set('dash',fun1).fun('dash', '-').css({color:'red'}));
 ```
 
-The fun function will be a function call within the chain of help functions, and that is the purpose of it. Arguments to the function can be added after the name of the function (from version 0.6.0).
+The fun function will be a function call within the chain of help functions, which is its purpose. Arguments to the function can be added after the function's name (from version 0.6.0).
 
 ## evt
 
@@ -311,7 +311,7 @@ An event listener can be applied to the DOM object. The name of the event, and a
     document.body.appendChild(butt);
 ```
 
-The function that recieves the event, always gets the event object as an argument. That can be used to find out which element the event came from. Sometimes you want to send more arguments with the event, and you can do that with the __evt__ function.
+The function that receives the event always gets the event object as an argument. That can be used to find out which element the event came from. Sometimes you want to send more arguments with the event, and you can do that with the __evt__ function.
 
 ```javascript
     var func = function (evt, msg) {
@@ -335,7 +335,7 @@ Sometimes you need to insert more things into an element that you created earlie
 
 # But what is it good for?
 
-The philosophy behind __tripledollar__ is __DON'T WRITE HTML!__ By doing everything programmatically, you can avoid the tag mess, and create modularized, and reusable code instead. By using __tripledollar__ this can be done very compact. To convince you, here is a simple example. Consider a HTML page with a table in it. Like this:
+The philosophy behind __tripledollar__ is __DON'T WRITE HTML!__ You can avoid the tag mess by doing everything programmatically and creating modularized and reusable code instead. By using __tripledollar,__ this can be done very compactly. To convince you, here is a simple example. Consider an HTML page with a table in it. Like this:
 
 ```html
     <!doctype html>
@@ -396,11 +396,11 @@ Compare it with this code, that does the same:
     </html>
 ```
 
-The second example may look a little more complicated, but it has several advantages over the first one. In the example made by pure HTML, data and layout is mixed together. It is also fixed in it's form. The second example is different. First it has the data separate, in the variable fruitData. Then the table is created with a table function that can handle every size, not just the two rows with three columns for this example. Finally the table will be added dynamically, by code, on the page. In this example everything is placed together on the same HTML page, but it is now possible to get the data from a web service instead, and to move the table function into a JavaScript library with other reusable pieces of code, and it is also possible to wait for some kind of event before the table is actually placed on the page. In a more complex project, it will become clear that HTML is not the the best tool for the developer.
+The second example may look a little more complicated, but it has several advantages over the first one. In the example of pure HTML, data, and layout are mixed together. It is also fixed in its form. The second example is different. First, it has the data separate in the variable fruitData. Then the table is created with a table function that can handle every size, not just the two rows with three columns for this example. Finally, the table will be added dynamically, by code, on the page. In this example, everything is placed together on the same HTML page, but it is now possible to get the data from a web service instead and to move the table function into a JavaScript library with other reusable pieces of code, and it is also possible to wait for some event before the table is actually placed on the page. In a more complex project, it will become clear that HTML is not the best tool for the developer.
 
 # Selector
 
-One thing that is nice to have when programming for the web, is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving build-in CSS searching. So as a little extra feature, tripledollar sets $$$.query() as an alias for `document.querySelector()`, and $$$.queryAll() as an alias for `document.querySelectorAll()`. (Earlier versions of tripledollar, < 0.7, used $ as an alias for querySelectorAll, but we want to stay away from what is used by other common libraries.)
+One thing that is nice to have when programming for the web is a selector function. In prototype.js the $() function is used to get elements by id out of a web page, and in jQuery you can use $() as a selector also. Now CSS selectors are used in modern browsers, with the functions `document.querySelector()` and `document.querySelectorAll()`, giving built-in CSS searching. So as a little extra feature, tripledollar sets $$$.query() as an alias for `document.querySelector()`, and $$$.queryAll() as an alias for `document.querySelectorAll()`. (Earlier versions of tripledollar, < 0.7, used $ as an alias for querySelectorAll, but we want to stay away from what is used by other common libraries.)
 
 ```javascript
     var body = $$$.query('body');
@@ -409,7 +409,7 @@ One thing that is nice to have when programming for the web, is a selector funct
     var div = $$$.queryAll('.a-class-name')[0];
 ```
 
-A CSS selection can also be done from an element, `element.querySelectorAll`, instead of searching the whole document, searching just a portion of the page, so the shortcuts `query` and `queryAll` can be used in this way also.
+A CSS selection can also be made from an element, `element.querySelectorAll`, instead of searching the whole document, searching just a portion of the page, so the shortcuts `query` and `queryAll` can also be used in this way.
 
 ```javascript
     var div = $$$('div', $$$('div#d1'), $$$('div#d2'));
@@ -419,7 +419,7 @@ A CSS selection can also be done from an element, `element.querySelectorAll`, in
 
 # The tdstruct
 
-A tdstruct is a plain JavaScript structure, consisting of nested arrays in a way that follows the structure that can be created with tripledollar. Since it is just JavaScript, it can be transformed to JSON, and be stored in CouchDB or MongoDB, and easily be fed to the $$$(), for generating the DOM structure. There are some rules for a tdstruct. First it is always an array. The elements in the array can be other arrays, strings, numbers, booleans, and of course the two special tripledollar types, the tag describing string "identity", and the object with attributes. The "identity" string has to always be placed first in an array.
+A tdstruct is a plain JavaScript structure consisting of nested arrays in a way that follows the structure that can be created with tripledollar. Since it is just JavaScript, it can be transformed to JSON, and be stored in CouchDB or MongoDB, and easily be fed to the $$$(), for generating the DOM structure. There are some rules for a tdstruct. First, it is always an array. The elements in the array can be other arrays, strings, numbers, booleans, and of course, the two special tripledollar types, the tag describing string "identity" and the object with attributes. The "identity" string must always be placed first in an array.
 
 ```javascript
     var tdstruct = ['table#t1', {border: 1},
@@ -484,7 +484,7 @@ Building your code in a modular structure is most desirable, and Tripledollar is
     })
 ```
 
-Since version 1.5.0 Tripledollar supports ECMA Script 6 modules. A separate library is used for this, and it is called "tripledollar.mjs". While the library "tripledollar.js" still exists for AMD modules (Require.js), the ES6 module style is used in the "td --init" command from version 1.5.0.
+Since version 1.5.0 Tripledollar has supported ECMA Script 6 modules, a separate library is used for this, called "tripledollar.mjs". While the library "tripledollar.js" still exists for AMD modules (Require.js), the ES6 module style is used in the "td --init" command from version 1.5.0.
 
 ```javascript
     import $$$ from  "./lib/tripledollar.mjs";
@@ -496,9 +496,9 @@ Since version 1.5.0 Tripledollar supports ECMA Script 6 modules. A separate libr
     );
 ```
 
-# The right order of events
+# The correct order of events
 
-When creating modules, and using an asychronous module loader as Require.js, then you have to start thinking about when things happen. What if you place something on the page, and want some other things to happen after that is completed? Like this:
+When creating modules and using an asynchronous module loader as Require.js, you must start thinking about when things happen. What if you place something on the page and want some other things to happen after that is completed? Like this:
 
 ```javascript
     $$$.appendToDoc(['div'], ['div'])
@@ -508,15 +508,15 @@ When creating modules, and using an asychronous module loader as Require.js, the
     });
 ```
 
-The "then" method on "appendToDoc" takes a function and executes it after it's done. Several "then" can be chained together to make a sequence of things to happen. If you have some experience of programming in Node.js, you know that it is all about managing asynchronous events, and use callbacks to place what should happen in the right order. This is a similar case. The function we pass to "then" is a callback, and it is not executed immediately, but later on.
+The "then" method on "appendToDoc" takes a function and executes it after it's done. Several "then" can be chained together to make a sequence of things happen. If you have some experience in programming in Node.js, you know that it is all about managing asynchronous events and using callbacks to place what should happen in the correct order. This is a similar case. The function we pass to "then" is a callback, and it is not executed immediately but later on.
 
-To implement the "then" method, we needed something that is commonly used in Node.js, but doesn't exists in most browsers today, the "setImmediate" function. This is a function that breaks sequential thread holding code, and places a callback in the event queue, to be executed immediately when the thread gets free. So now we have it in Tripledollar, "$$$.setImmediate", that takes a function and maybe some arguments, to be executed asynchronously. It is used internally by Tripledollar, and if you like, you can use it for your code also.
+To implement the "then" method, we needed something that is commonly used in Node.js but doesn't exist in most browsers today, the "setImmediate" function. This function breaks sequential thread holding code and places a callback in the event queue, to be executed immediately when the thread gets free. So now we have it in Tripledollar, "$$$.setImmediate", which takes a function and maybe some arguments to be executed asynchronously. It is used internally by Tripledollar, and if you like, you can also use it for your code.
 
-Since version 0.9.0 __appendToDoc__ delivers a Promise if that is implemented in the JavaScript environment. Most modern browsers have it. A promise library loaded before tripledollar will also work. In case there is no Promise class at all, the "then" method will work as a simple chaining method, and it will also work with "thenables", objects with their own "then" method, even if they are not fully Promise complient.
+Since version 0.9.0 __appendToDoc__ delivers a Promise if that is implemented in the JavaScript environment. Most modern browsers have it. A promise library loaded before tripledollar will also work. In case there is no Promise class at all, the "then" method will work as a simple chaining method, and it will also work with "thenables", objects with their own "then" method, even if they are not fully Promise compliant.
 
 # SVG
 
-SVG elements has their own namespace, so to create embedded SVG all SVG elements have to be written "svg:element", where "element" here is one of the allowed SVG elements, like "rect", "circle", "g", and so on. SVG has a lot of attributes, and they will be written with an object of properties, as usual. Some of these attributes need another namespace than SVG, like the "href" attribute in the "a" element. That is handled by using the attribute name "xlink:href" in quotes. 
+SVG elements have their own namespace, so to create embedded SVG, all SVG elements have to be written "svg:element", where "element" here is one of the allowed SVG elements, like "rect", "circle", "g", and so on. SVG has a lot of attributes, and they will be written with an object of properties, as usual. Some of these attributes need another namespace than SVG, like the "href" attribute in the "a" element. That is handled by using the attribute name "xlink:href" in quotes. 
 
 ```javascript
     var svg = $$$('svg', {width:300, height:250},
@@ -550,7 +550,7 @@ SVG elements has their own namespace, so to create embedded SVG all SVG elements
 
 # Namespaces
 
-The default namespace HTML, and the namespaces for SVG, and XLINK are built in, but there is also a way to add your own namespace. Use `$$$.namespace(name, [uri])` to handle namespaces. With just the name as parameter, the function returns the URI if the namespace exists. By passing both name and an URI a new namespace is added. Here is an example.
+The default namespace HTML and the namespaces for SVG and XLINK are built in, but there is also a way to add your own namespace. Use `$$$.namespace(name, [uri])` to handle namespaces. With just the name as a parameter, the function returns the URI if the namespace exists. By passing both name and a URI a new namespace is added. Here is an example.
 
 ```
 $$$.namespace('td', 'http://tripledollar.net');
@@ -560,7 +560,7 @@ $$$.appendToDoc(td);
 
 # Command Line Interface
 
-Installed with __npm__  tripledollar has a simple CLI. Tripledollar itself needs to run in a browser, but the Node.js environment can bring some convenience when developing. The __td__ command with option --init creates a structure where you directly can start develop in a modular fashion. Many client side libraries are published in __npm__, the module loader for Node.js, but adding a whole npm project to your web application is not what you want. In most cases it is enough with just one JavaScript file to add to your lib folder. The __td__ command has a --get option for doing this. From your lib folder you can type `td --get chart.js` and you get the chart.js file from the npm project chart.js. Convenient.
+Installed with __npm__ tripledollar has a simple CLI. Tripledollar itself needs to run in a browser, but the Node.js environment can be convenient when developing. The __td__ command with option --init creates a structure where you can directly start developing modularly. Many client-side libraries are published in __npm__, the module loader for Node.js, but adding a whole npm project to your web application is not what you want. It is often enough with just one JavaScript file to add to your lib folder. The __td__ command has a --get option for doing this. From your lib folder, you can type `td --get chart.js`, and you get the chart.js file from the npm project chart.js. Convenient.
 
 ```
 Tripledollar - a JavaScript library for DOM scripting.
@@ -578,11 +578,11 @@ Options:
   -h  --help    this help text
 ```
 
-Some browsers don't like when you open files and scripts directly from the file system. There can be "security" reasons, and caching stops your code changes to get through. Starting a local web server is better, then you just have to reload the page in the browser to se the changes you have done. Tripledollar comes with a simple HTTP server that you can use during development. Go to the root of your project (if you just did a `td --init`, that is the place) and type the command `td --start --open`. The start command will restart the server if one is already started. Stop it with a `td --kill`. The default network port is 3000, but it can be changed by the --port option, or by exporting the environment variable TD_PORT.
+Some browsers don't like when you open files and scripts directly from the file system. There can be "security" reasons, and caching stops your code changes from getting through. Starting a local web server is better, and you have to reload the page in the browser to see the changes you have made. Tripledollar comes with a simple HTTP server that you can use during development. Go to the root of your project (if you just did a `td --init`, that is the place) and type the command `td --start --open`. The start command will restart the server if one is already started. Stop it with a `td --kill`. The default network port is 3000, but it can be changed by the --port option or by exporting the environment variable TD_PORT.
 
 # Finally
 
-It was quite a bit of information for this rather small library. Here is a piece of code that you can use as a starting point, and try this for your self. Just copy it and save it as a HTML file.
+It was quite a bit of information for this relatively small library. Here is a code you can use as a starting point, and try this for yourself. Just copy it and save it as an HTML file.
 
 ```html
     <!doctype html>

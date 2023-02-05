@@ -1,6 +1,6 @@
 {
   "name": "tripledollar",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Compact DOM scripting",
   "main": "index.js",
   "files": [
@@ -41,7 +41,7 @@
     "nopt": ">=3.0.1",
     "serve-favicon": ">=2.2.0",
     "serve-static": ">=1.7.1",
-    "td-server": ">=1.0.0"
+    "td-server": ">=1.1.0"
   },
   "devDependencies": {
     "mocha": "^10.2.0",

@@ -10,7 +10,6 @@ var nopt = require('nopt'),
   known = {
     init: Boolean,
     name: String,
-    //get: String,
     version: Boolean,
     status: Boolean,
     start: Boolean,
@@ -23,7 +22,6 @@ var nopt = require('nopt'),
   shorts = {
     i: '--init',
     n: '--name',
-    //g: '--get',
     v: '--version',
     o: '--open',
     s: '--start',
@@ -36,7 +34,6 @@ var nopt = require('nopt'),
   descr = {
     i: 'create initial structure',
     n: 'optional name of the project',
-    //g: 'get any client library from npm',
     o: 'open browser [optionally provide a subpath]',
     s: 'start the server',
     q: 'use public ip addresses, not just the default 127.0.0.1',
@@ -203,20 +200,19 @@ function packageFile (cb) {
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": ">=7.1.1",
-    "less": ">=4.1.2",
-    "postcss": ">=8.4.5",
-    "rollup": ">=2.0.6",
+    "@rollup/plugin-node-resolve": ">=16.0.3",
+    "less": ">=4.5.1",
+    "postcss": ">=8.5.6",
+    "rollup": ">=4.57.1",
     "rollup-plugin-postcss": ">=4.0.2",
-    "tripledollar": ">=1.9.0"
-  },
-  "dependencies": {
-    "body-parser": ">=1.19.1",
-    "connect": ">=3.7.0",
-    "connect-query": "^1.0.0",
-    "morgan": ">=1.10.0",
-    "serve-static": ">=1.14.2",
-    "url": ">=0.11.0"
+    "tripledollar": ">=1.11.0",
+    "body-parser": "^2.2.2",
+    "connect": "^3.7.0",
+    "morgan": "^1.10.1",
+    "qs": "^6.14.1",
+    "serve-favicon": "^2.5.1",
+    "serve-static": "^2.2.1",
+    "url": ">=0.11.4"
   }
 }`;
   fs.writeFile('package.json', s, cb);
@@ -248,7 +244,7 @@ function serverFile (cb) {
 import http from 'http';
 import bodyParser from 'body-parser';
 import stat from 'serve-static';
-import queries from 'connect-query';
+import qs from 'qs';
 import morgan from 'morgan';
 import { basename } from 'path';
 
@@ -259,7 +255,10 @@ function serve (port) {
 
   let app = connect()
   .use(morgan(':date :method :url :status'))
-  .use(queries())
+  .use((req, res, next) => {
+    const queryString = req.url.split('?')[1];
+    req.query = qs.parse(queryString);
+    next();})
   .use(bodyParser.urlencoded({extended: true}))
   .use(bodyParser.json())
 

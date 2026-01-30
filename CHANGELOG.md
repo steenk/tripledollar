@@ -1,3 +1,11 @@
+**v1.11.0**;
+
+  - Removed connect-query and updated dependencies.
+
+**v1.10.2**;
+
+  - Updated dependencies.
+
 **v1.10.0**;
 
   - Declaration file for Typescript added.

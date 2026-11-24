@@ -15,7 +15,7 @@
 > - **Faster & cleaner DOM helpers**: hoisted, non-enumerable `.evt()`, `.css()`, `.ins()`, `.set()`, `.fun()` with idempotent `$$$(el)` wrapping
 > - **Modern Web Platform support**: native `Promise` in `appendToDoc()`, `AddEventListenerOptions` (`{ once, passive, signal }`) in `evt()`, CSS custom properties (`--var`) in `css()`, and `replaceChildren()` in `destroy()`
 > - **Better ergonomics & fixes**: proper boolean attributes, skipped falsy children, class merging, kebab-case `data-*`, accurate SVG/namespace round-tripping in `structify()`/`parse()`/`stringify()`, and SSR/Node safety via `createTripledollar(window)`
-> - **Dedicated CLI**: the old built-in `td` command has moved to a separate package, **[td-cli](https://github.com/steenk/td-cli)**
+> - **Dedicated CLI**: the old built-in `td` command has moved to a separate package, **[tripledollar-cli](https://github.com/steenk/td-cli)**
 
 Website: [tripledollar.net](https://tripledollar.net)
 
@@ -58,12 +58,12 @@ npm install tripledollar
 import $$$, { appendToDoc, destroy, namespace, parse, stringify, structify } from 'tripledollar';
 ```
 
-### Project Scaffolding & Dev Server (`td-cli`)
+### Project Scaffolding & Dev Server (`tripledollar-cli`)
 
-The old built-in `td` CLI has been replaced by a separate, zero-dependency companion package, **[td-cli](https://github.com/steenk/td-cli)**, which scaffolds Rollup + Tripledollar v2 projects and includes a lightweight built-in HTTP dev server:
+The old built-in `td` CLI has been replaced by a separate, zero-dependency companion package, **[tripledollar-cli](https://github.com/steenk/td-cli)**, which provides the `td` command for scaffolding Rollup + Tripledollar v2 projects and running a lightweight built-in HTTP dev server:
 
 ```sh
-npm install -g td-cli
+npm install -g tripledollar-cli
 mkdir my-app && cd my-app
 td --init --name "My App"
 npm install
@@ -296,7 +296,7 @@ await $$$.appendToDoc(['h1', 'SVG Lab'], svg);
 | `$$$.parse(json)` returned a `tdstruct` array | Now returns a DOM `Element` (use `JSON.parse(json)` if you want the raw array) |
 | `parse` / `stringify` warned and returned `undefined` | Now throw `TypeError` / `SyntaxError` on invalid input |
 | `require('tripledollar')(window)` | ESM `import { createTripledollar } from 'tripledollar'; const $$$ = createTripledollar(window);` |
-| `td` CLI (`td --init`, `td --start`) | Replaced by the separate **[td-cli](https://github.com/steenk/td-cli)** package so `tripledollar` has zero runtime dependencies |
+| `td` CLI (`td --init`, `td --start`) | Replaced by the separate **[tripledollar-cli](https://github.com/steenk/td-cli)** package so `tripledollar` has zero runtime dependencies |
 | AMD / RequireJS / Bower | Removed; use ESM or `dist/tripledollar.min.js` |
 
 ---

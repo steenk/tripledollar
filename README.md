@@ -2,6 +2,21 @@
 
 ![](images/logo.png)
 
+![v2.0](https://img.shields.io/badge/version-v2.0-goldenrod?style=flat-square)
+![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square)
+![license MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+
+> [!NOTE]
+> **New in v2.0** — Tripledollar v2.0 is a direct, modernized replacement for v1.x, keeping the familiar API with only a few intentional breaking changes (see [Migrating from v1 to v2](#migrating-from-v1-to-v2)).
+>
+> **Key improvements in v2.0:**
+> - **Modern ES Modules & zero runtime dependencies** (ships both ESM and a ~5 KB minified CDN `<script>` bundle)
+> - **First-class TypeScript declarations** generated directly from the source (`dist/index.d.ts`)
+> - **Faster & cleaner DOM helpers**: hoisted, non-enumerable `.evt()`, `.css()`, `.ins()`, `.set()`, `.fun()` with idempotent `$$$(el)` wrapping
+> - **Modern Web Platform support**: native `Promise` in `appendToDoc()`, `AddEventListenerOptions` (`{ once, passive, signal }`) in `evt()`, CSS custom properties (`--var`) in `css()`, and `replaceChildren()` in `destroy()`
+> - **Better ergonomics & fixes**: proper boolean attributes, skipped falsy children, class merging, kebab-case `data-*`, accurate SVG/namespace round-tripping in `structify()`/`parse()`/`stringify()`, and SSR/Node safety via `createTripledollar(window)`
+> - **Dedicated CLI**: the old built-in `td` command has moved to a separate package, **`td-cli`**
+
 When you create a lot of DOM elements from JavaScript and want a minimalistic approach, **tripledollar** is it. It is not a framework—it is a tiny (~5 KB minified), zero-dependency helper library for creating and manipulating DOM elements cleanly in modern JavaScript and TypeScript.
 
 Compare building this markup with plain DOM calls:
@@ -39,6 +54,19 @@ npm install tripledollar
 
 ```javascript
 import $$$, { appendToDoc, destroy, namespace, parse, stringify, structify } from 'tripledollar';
+```
+
+### Project Scaffolding & Dev Server (`td-cli`)
+
+The old built-in `td` CLI has been replaced by a separate, zero-dependency companion package, **`td-cli`**, which scaffolds Rollup + Tripledollar v2 projects and includes a lightweight built-in HTTP dev server:
+
+```sh
+npm install -g td-cli
+mkdir my-app && cd my-app
+td --init --name "My App"
+npm install
+npm run build
+npm run start
 ```
 
 ### Direct Browser / CDN Usage
@@ -266,7 +294,7 @@ await $$$.appendToDoc(['h1', 'SVG Lab'], svg);
 | `$$$.parse(json)` returned a `tdstruct` array | Now returns a DOM `Element` (use `JSON.parse(json)` if you want the raw array) |
 | `parse` / `stringify` warned and returned `undefined` | Now throw `TypeError` / `SyntaxError` on invalid input |
 | `require('tripledollar')(window)` | ESM `import { createTripledollar } from 'tripledollar'; const $$$ = createTripledollar(window);` |
-| `td` CLI (`td --init`, `td --start`) | Removed from core package so `tripledollar` has zero runtime dependencies |
+| `td` CLI (`td --init`, `td --start`) | Replaced by the separate **`td-cli`** package so `tripledollar` has zero runtime dependencies |
 | AMD / RequireJS / Bower | Removed; use ESM or `dist/tripledollar.min.js` |
 
 ---

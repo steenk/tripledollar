@@ -1,3 +1,7 @@
+**v1.11.1**;
+
+  - Fixed query bug.
+
 **v1.11.0**;
 
   - Removed connect-query and updated dependencies.

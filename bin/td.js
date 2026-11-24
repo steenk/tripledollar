@@ -257,6 +257,15 @@ function serve (port) {
   .use(morgan(':date :method :url :status'))
   .use((req, res, next) => {
     const queryString = req.url.split('?')[1];
+    Object.defineProperty(req, 'query', {
+      value: qs.parse(queryString),
+      writable: true,
+      enumerable: true,
+      configurable: true 
+    });
+    next();})
+  .use((req, res, next) => {
+    const queryString = req.url.split('?')[1];
     req.query = qs.parse(queryString);
     next();})
   .use(bodyParser.urlencoded({extended: true}))

@@ -1,3 +1,27 @@
+**v2.0.0**
+
+  - **Breaking changes**:
+    - Modern ES Module package (`"type": "module"`), zero runtime dependencies. Dropped AMD/RequireJS, CommonJS, and Bower (`bower.json`).
+    - Removed CLI (`bin/td.js`) and `td-server` from the core package (to be maintained separately).
+    - Removed legacy IE compatibility (`attachEvent`), fake `Promise`/`then`/`catch` fallback in `appendToDoc`, `$$$.setImmediate`, `$$$.query`, `$$$.queryAll`, `elem.query`, `elem.queryAll`, and `elem.prototype = elem`.
+    - `$$$.evt()` now follows standard `addEventListener(type, listener, options)` (supports `{ once, passive, capture, signal }`; extra trailing arguments removed).
+    - `$$$.parse(json)` now returns a constructed DOM element (true inverse of `$$$.stringify(dom)`). Both `parse` and `stringify` now throw `TypeError`/`SyntaxError` on invalid input instead of warning and returning `undefined`.
+    - `$$$.appendToDoc()` always returns a native `Promise<Node[]>` resolving to the appended nodes and properly rejecting on errors.
+    - Falsy children (`null`, `undefined`, `boolean`, `''`) are skipped instead of rendered as literal text (`0` still renders `"0"`).
+    - Boolean attributes (`{ disabled: true }`) render valueless attributes; `false`/`null`/`undefined` attributes are omitted.
+  - **Improvements & fixes**:
+    - Single modern ESM source (`src/`) with strict JSDoc type-checking (`tsc --checkJs`) and auto-generated TypeScript declarations (`dist/index.d.ts`).
+    - Rollup build producing ESM (`dist/tripledollar.js`) and minified CDN IIFE (`dist/tripledollar.min.js`).
+    - Hoisted, non-enumerable element helper methods (`css`, `set`, `fun`, `evt`, `ins`) with idempotent `$$$(elem)` wrapping (zero per-element closure allocations).
+    - Lazy `window`/`document` resolution (safe to import in Node/SSR) plus `createTripledollar(window)` factory.
+    - Consistent API across both default `$$$` properties and named ESM exports.
+    - `css()` supports kebab-case properties, CSS custom properties (`--var`), style removal via `null`/`undefined`, and `{ style: { ... } }` inside attribute objects.
+    - `destroy(el, removeSelf = false)` uses `replaceChildren()` and optionally removes the element itself.
+    - Merged classes when both `ident` and `{ class }` are provided; full camelCase-to-kebab-case `data-*` attributes; arrays of children supported directly in `$$$()` and `ins()`.
+    - Fixed `structify()` regex bug that stripped attributes containing `id`/`class` (such as `width`, `hidden`, `data-id`), preserved SVG/custom namespaces, and avoided mutating input DOM via `normalize()`.
+    - Fixed `ident` regex validation bug (`9-_` accidental ASCII range).
+    - Replaced manual browser test harness with automated Vitest + `happy-dom` test suite.
+
 **v1.11.1**;
 
   - Fixed query bug.
